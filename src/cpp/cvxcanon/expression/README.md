@@ -17,7 +17,7 @@ provided:
 
 - `ExpressionShape` computes the dimensions of functions represented by an expression
 - `ExpressionUtil` provides syntatic sugar and other utilities for constructing
-- and manipulating expression trees
+and manipulating expression trees
 - `LinearExpression` transforms expression trees representing linear
 functions to sparse matrices
 - `TextFormat` formats expression trees concisely for printing
