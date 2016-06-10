@@ -52,6 +52,7 @@ private:
 	
 	// Extra Attributes for Constraints
 	int num_equa_constrs_;
+	int num_leq_constrs_;
 	std::vector<Triplet> A_coeffs_;
 	std::vector<Triplet> G_coeffs_;
 
