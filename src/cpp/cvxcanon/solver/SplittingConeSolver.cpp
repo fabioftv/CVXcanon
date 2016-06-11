@@ -47,17 +47,27 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 
 		build_scs_constraint(A, b, constr_map[ConeConstraint::ZERO], &cone_.f, nullptr);
 		build_scs_constraint(A, b, constr_map[ConeConstraint::NON_NEGATIVE], &cone_.l, nullptr);
-		cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size();
+		cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size_eq();
 		if (cone_.qsize != 0) {
 			q_.reset(new int[cone_.qsize]);
 			build_scs_constraint(A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
 			cone_.q = q_.get();
 		}
-		cone_.ssize = 0;
-		cone_.ep = 0;
-		cone_.ed = 0;
-		cone_.psize = 0;
 
+		// (fabioftv): Added for Future Transformations
+		cone_.ssize = constr_map[ConeConstraint::SYM_POS_SEMI].size_eq();
+		if (cone_.ssize != 0) {
+			sd.reset(new int [cone_.ssize]);
+			build_scs_constraint(A, b, constr_map[ConeConstraint::SYM_POS_SEMI], nullptr, sd_.get());
+			cone_.s = sd_.get();
+		}
+		build_scs_constraint(A, b, constr_map[ConeConstraint::PRIMAL_EXPO], &cone_.ep, nullptr);
+		build_scs_constraint(A, b, constr_map[ConeConstraint::DUAL_EXPO], &cone_.ed, nullptr);
+		
+// TODO(fabioftv): Should we add Primal and Dual Power Cone?
+
+		cone_.psize = 0;
+		
 		A_ = sparse_matrix(m, n, A_coeffs_);
 	}
 

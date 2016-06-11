@@ -11,6 +11,7 @@ namespace ecos {
 }
 // TODO (fabioftv)
 //		Can I include <ecos/src/ecos.c>? Reason: checkExitConditions(pwork_, mode)
+//		Include Mixed-Integer SOCP Module in the Future
 
 void EmbeddedConicSolver::build_ecos_eq_constraint(
 	const Eigen::SparseMatrix<double, Eigen::RowMajor>&A,

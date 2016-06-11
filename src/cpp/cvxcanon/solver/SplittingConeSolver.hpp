@@ -43,6 +43,7 @@ private:
 // SCS Supporting Data Structures
 	scs::AMatrix A_matrix_;
 	std::unique_ptr<int[]> q_;
+	std::unique_ptr<int[]> sd_;
 	DenseVector s_;
 
 // Constraints Ordered the way SCS needs them
