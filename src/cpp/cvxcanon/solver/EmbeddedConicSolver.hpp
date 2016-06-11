@@ -30,6 +30,7 @@ private:
 	void build_ecos_leq_constraint(
 		const Eigen::SparseMatrix<double, Eigen::RowMajor>&G,
 		const DenseVector& h,
+		const std::vector<ConeConstraint>& constraints,
 		int* total_size_leq,
 		int* sizes_leq);
 	
