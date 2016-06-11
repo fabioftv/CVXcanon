@@ -5,17 +5,26 @@
 
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/solver/SplittingConeSolver.hpp"
+#include "cvxcanon/solver/EmbeddedConicSolver.hpp"
 #include "cvxcanon/solver/SymbolicConeSolver.hpp"
 #include "cvxcanon/transform/LinearConeTransform.hpp"
 
 Solution solve(const Problem& problem, const SolverOptions& solver_options) {
-  // TODO(mwytock): Allow for different transforms/solvers as per SolveOptions
 
-  VLOG(1) << "input problem:\n" << format_problem(problem);
-  LinearConeTransform transform;
-  Problem cone_problem = transform.transform(problem);
+// TODO(mwytock): Allow for different transforms/solvers as per SolveOptions
 
-  VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
-  SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
-  return solver.solve(cone_problem);
+	VLOG(1) << "input problem:\n" << format_problem(problem);
+	LinearConeTransform transform;
+	Problem cone_problem = transform.transform(problem);
+
+	VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
+
+// (fabioftv): Added Different Solvers
+	switch(solver_options){
+		case SCS : SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
+		case ECOS : SymbolicConeSolver solver(std::make_unique<EmbeddedConicSolver>());
+	}
+
+	return solver.solve(cone_problem);
+
 }
