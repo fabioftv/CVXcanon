@@ -12,6 +12,7 @@
 #include "cvxcanon/util/MatrixUtil.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
+// TODO(fabioftv) Add Other Cones
 const std::unordered_map<int, ConeConstraint::Cone> kConeMap = {
   {Expression::EQ,  ConeConstraint::ZERO},
   {Expression::LEQ, ConeConstraint::NON_NEGATIVE},
