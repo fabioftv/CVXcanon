@@ -99,11 +99,17 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 	sol_.s = const_cast<double*>(s_.data());
 }
 
-//TODO(fabioftv): Consider Infeasible, Unbounded, and User Limit
+// TODO(fabioftv): Check Right String for each Output
 SolverStatus SplittingConeSolver::get_scs_status() {
 	if (strcmp(info_.status, "Solved") == 0) {
 		return OPTIMAL;
-	} else {
+	} else if (strcmp(info_.status, "Infeasible") == 0) {
+		return INFEASIBLE;
+	} else if (strcmp(info_.status, "Unbounded") == 0) {
+		return UNBOUNDED;
+	} else if (strcmp(info_.status, "User Limit") == 0) {
+		return USER_LIMIT;
+	else {
 		return ERROR;
 	}
 }
