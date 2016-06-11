@@ -9,7 +9,7 @@
 
 #include "cvxcanon/solver/ConeSolver.hpp"
 
-// ECOS Environment
+// ECOS Environment 
 namespace ecos {
 	typedef double pfloat;
 	typedef int idxint;
