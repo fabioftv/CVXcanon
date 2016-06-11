@@ -1,16 +1,23 @@
-// Interface for all solvers
+// Interface for All Solvers
 
 #ifndef SOLVER_H
 #define SOLVER_H
 
 #include <map>
 
-#include <Eigen/Core>
+#include <Eigen/Sparse>
 
 #include "cvxcanon/expression/Expression.hpp"
 #include "cvxcanon/solver/SolverStatus.hpp"
 
+//TODO(fabioftv): List All Solvers Here in the Future
+
 class SolverOptions {
+public:
+	enum SolverOptions {
+	ECOS,
+	SCS,
+	};
 };
 
 class Solution {
@@ -18,7 +25,6 @@ class Solution {
   SolverStatus status;
   std::map<int, DenseVector> variable_values;
   double objective_value;
-
 };
 
 class Solver {
