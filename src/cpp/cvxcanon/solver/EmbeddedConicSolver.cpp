@@ -66,7 +66,7 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 //		std::unordered_map<int, std::vector<ConeConstraint>> constr_eq_map;
 //		build_ecos_eq_constraint(A, b, constraints_eq, &pwork.p, nullptr);		
 
-		std::unordered_map<int, std::vector<ConeConstraint>> constr_leq_map;
+			std::unordered_map<int, std::vector<ConeConstraint>> constr_leq_map;
 		for (const ConeConstraint& constr : problem.constraints_leq){
 			constr_leq_map[constr.cone].push_back(constr);
 		}
@@ -76,14 +76,14 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 		A_ = sparse_matrix(m_eq, n_eq, A_coeffs_);
 		G_ = sparse_matrix(m_leq, n_leq, G_coeffs_);
 	}
-	
+
 // Dimension
 	pwork_.n = std::max(n_eq, n_leq); // Can n_eq and n_leq be different?
 	pwork_.m = m_leq;
 	pwork_.p = m_eq;
 
 // Variables
-	solution->x = DenseVector(A.cols()); //Or DenseVector(G.cols()) => If n_eq and n_leq cannot differe, then I think it doesn't really matter
+	solution->x = DenseVector(A.cols()); // Or DenseVector(G.cols()) => If n_eq and n_leq cannot differe, then I think it doesn't really matter
 	pwork_.x = const_cast<double*>(solution->x.data());
 	s_ = DenseVector(G.rows());
 
@@ -116,7 +116,7 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 
 }
 
-//TODO(fabioftv): Consider Infeasible, Unbounded, and User Limit
+// TODO(fabioftv): Consider Infeasible, Unbounded, and User Limit
 SolverStatus EmbeddedConicSolver::get_ecos_status() {
 	if (ecos::idxint checkExitConditions(pwork_, mode) == 0) {
 		return OPTIMAL;
@@ -128,6 +128,7 @@ SolverStatus EmbeddedConicSolver::get_ecos_status() {
 ConeSolution EmbeddedConicSolver::solve(const ConeProblem& problem) {
 	ConeSolution solution;
 	build_ecos_problem(problem, &solution);
+// TODO(fabioftv): Check if ecos::ECOS_solve(&pwork_) is correct
 	ecos::ECOS_solve(&pwork_);
 	solution.objective_value = pwork_.cx;
 	solution.x = pwork_.x;
