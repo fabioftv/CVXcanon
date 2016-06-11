@@ -117,11 +117,17 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 
 }
 
-// TODO(fabioftv): Consider Infeasible, Unbounded, and User Limit
+// TODO(fabioftv): Check Description of the Function
 SolverStatus EmbeddedConicSolver::get_ecos_status() {
 	if (ecos::idxint checkExitConditions(pwork_, mode) == 0) {
 		return OPTIMAL;
-	} else {
+	} else if (ecos::idxint checkExitConditions(pwork_, mode) == 1) {
+		return INFEASIBLE;
+	} else if (ecos::idxint checkExitConditions(pwork_, mode) == 2) {	// Dual Infeasibility => Primal Infeasibility
+		return UNBOUNDED;
+	} else if (ecos::idxint checkExitConditions(pwork_, mode) == -1) {
+		return USER_LIMIT;
+	else {
 		return ERROR;
 	}
 }
