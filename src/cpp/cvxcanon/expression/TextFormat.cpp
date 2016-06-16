@@ -2,6 +2,7 @@
 #include "TextFormat.hpp"
 
 #include <unordered_map>
+#include <string>
 
 #include "cvxcanon/expression/Expression.hpp"
 #include "cvxcanon/util/Utils.hpp"
@@ -56,6 +57,7 @@ std::unordered_map<int, std::string> kExpressionNames = {
   {Expression::EQ, "eq"},
   {Expression::LEQ, "leq"},
   {Expression::SOC, "soc"},
+  {Expression::EXP_CONE, "exp_cone"},
 
   // Leaf nodes
   {Expression::CONST, "const"},

@@ -1,6 +1,9 @@
 
 #include "cvxcanon/util/MatrixUtil.hpp"
 
+#include <string>
+#include <vector>
+
 void append_block_triplets(
     const SparseMatrix& A, int i, int j,
     std::vector<Triplet>* coeffs) {
@@ -18,7 +21,7 @@ SparseMatrix sparse_matrix(int m, int n, const std::vector<Triplet>& coeffs) {
 }
 
 SparseMatrix scalar_matrix(double alpha, int n) {
-  return (alpha*DenseMatrix::Identity(n,n)).sparseView();
+  return (alpha*DenseMatrix::Identity(n, n)).sparseView();
 }
 
 SparseMatrix ones_matrix(int m, int n) {
@@ -26,7 +29,7 @@ SparseMatrix ones_matrix(int m, int n) {
 }
 
 SparseMatrix identity(int n) {
-  return DenseMatrix::Identity(n,n).sparseView();
+  return DenseMatrix::Identity(n, n).sparseView();
 }
 
 SparseMatrix reshape(const SparseMatrix& A, int m, int n) {
@@ -43,7 +46,7 @@ DenseVector to_vector(const DenseMatrix& A) {
 std::string vector_debug_string(const DenseVector& x) {
   std::string retval("[");
 
-  const int max_elems = 10;
+  const int max_elems = 20;
   if (x.size() > max_elems) {
     for (int i = 0; i < max_elems/2; i++) {
       retval += string_printf("%.4f ", x[i]);
@@ -64,27 +67,6 @@ std::string vector_debug_string(const DenseVector& x) {
     retval = retval.substr(0, retval.size()-1) + "]";
   } else {
     retval += "]";
-  }
-
-  return retval;
-}
-
-std::string matrix_debug_string(const SparseMatrix& A) {
-  std::string retval;
-
-  const int max_rows = 10;
-  if (A.rows() > max_rows) {
-    for (int i = 0; i < max_rows/2; i++) {
-      retval += vector_debug_string(A.row(i)) + "\n";
-    }
-    retval += "...\n";
-    for (int i = A.rows()-max_rows/2-1; i < A.rows(); i++) {
-      retval += vector_debug_string(A.row(i)) + "\n";
-    }
-  } else {
-    for (int i = 0; i < A.rows(); i++) {
-      retval += vector_debug_string(A.row(i)) + "\n";
-    }
   }
 
   return retval;

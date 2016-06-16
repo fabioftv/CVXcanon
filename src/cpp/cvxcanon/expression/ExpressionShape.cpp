@@ -1,12 +1,13 @@
 
 #include <unordered_map>
+#include <vector>
 
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/TextFormat.hpp"
 
 Size get_add_shape(const Expression& expr) {
-  Size expr_size = {{1,1}};
+  Size expr_size = {{1, 1}};
   for (const Expression& arg : expr.args()) {
     if (dim(arg) != 1) {
       // Assume sizes are compatible
@@ -18,12 +19,16 @@ Size get_add_shape(const Expression& expr) {
 
 Size get_sum_entries_shape(const Expression& expr) {
   // TODO(mwytock): axis parameter
-  return {{1,1}};
+  return {{1, 1}};
 }
 
 Size get_p_norm_shape(const Expression& expr) {
   // TODO(mwytock): axis parameter
-  return {{1,1}};
+  return {{1, 1}};
+}
+
+Size get_quad_over_lin_shape(const Expression& expr) {
+  return {{1, 1}};
 }
 
 Size get_mul_shape(const Expression& expr) {
@@ -85,12 +90,12 @@ Size get_index_shape(const Expression& expr) {
 
 Size get_diag_mat_shape(const Expression& expr) {
   const int n = size(expr.arg(0)).dims[0];
-  return {{n,1}};
+  return {{n, 1}};
 }
 
 Size get_diag_vec_shape(const Expression& expr) {
   const int n = size(expr.arg(0)).dims[0];
-  return {{n,n}};
+  return {{n, n}};
 }
 
 typedef Size(*ShapeFunction)(const Expression& expr);
@@ -121,6 +126,7 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
 
   // Non linear functions
   {Expression::P_NORM, &get_p_norm_shape},
+  {Expression::QUAD_OVER_LIN, &get_quad_over_lin_shape},
   {Expression::SUM_ENTRIES, &get_sum_entries_shape},
 
   // Leaf nodes

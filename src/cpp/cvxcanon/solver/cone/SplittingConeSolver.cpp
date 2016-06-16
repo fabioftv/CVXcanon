@@ -1,13 +1,14 @@
 
-#include "SplittingConeSolver.hpp"
+#include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
 
 #include <unordered_map>
+#include <vector>
 
 #include "cvxcanon/util/MatrixUtil.hpp"
 
 // SCS Environment
 namespace scs {
-#include <scs/include/util.h>
+#include "scs/include/util.h"
 }
 
 void SplittingConeSolver::build_scs_constraint(
@@ -53,7 +54,6 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 			build_scs_constraint(A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
 			cone_.q = q_.get();
 		}
-
 		// (fabioftv): Added for Future Transformations
 		cone_.ssize = constr_map[ConeConstraint::SYM_POS_SEMI].size_eq();
 		if (cone_.ssize != 0) {
@@ -61,9 +61,14 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 			build_scs_constraint(A, b, constr_map[ConeConstraint::SYM_POS_SEMI], nullptr, sd_.get());
 			cone_.s = sd_.get();
 		}
+
 		build_scs_constraint(A, b, constr_map[ConeConstraint::PRIMAL_EXPO], &cone_.ep, nullptr);
+		CHECK_EQ(cone_.ep % 3, 0);
+		cone_.ep /= 3;
 		build_scs_constraint(A, b, constr_map[ConeConstraint::DUAL_EXPO], &cone_.ed, nullptr);
-		
+		// TODO(fabioftv) Check Parameters for DUAL_EXPO
+		cone_.ed = 0;
+
 // TODO(fabioftv): Should we add Primal and Dual Power Cone?
 
 		cone_.psize = 0;
@@ -71,9 +76,9 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 		A_ = sparse_matrix(m, n, A_coeffs_);
 	}
 
-// printf("SCS constraints:\n");
-// printf("A:\n%s", matrix_debug_string(A_).c_str());
-// printf("b: %s\n", vector_debug_string(b_).c_str());
+ VLOG(2) << "SCS constraints:\n"
+          << "A:\n" << matrix_debug_string(A_)
+          << "b: " << vector_debug_string(b_);
 
 // Build SCS Data Structures
 	A_matrix_.m = m;

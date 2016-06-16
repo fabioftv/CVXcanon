@@ -1,18 +1,23 @@
 // Interface to the Splitting Conic Solver (SCS)
 //
 // See: https://github.com/cvxgrp/scs
+//
+// TODO(mwytock): It is expected that this interface will be implemented
+// directly in the SCS code base at some point and called via a plugin
+// architecture, see comment about pure C interface in README.md.
 
-#ifndef SPLITTING_CONIC_SOLVER_H
-#define SPLITTING_CONIC_SOLVER_H
+#ifndef CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
+#define CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
 
 #include <memory>
+#include <vector>
 
-#include "cvxcanon/solver/ConeSolver.hpp"
+#include "cvxcanon/solver/cone/ConeSolver.hpp"
 
 // SCS Environment
 namespace scs {
-	typedef double scs_float;
-	typedef int scs_int;
+typedef double scs_float;
+typedef int scs_int;
 #include <scs/linsys/amatrix.h>
 #include <scs/include/scs.h>
 }
@@ -53,7 +58,6 @@ private:
 // Used for Building Constraints
 	int num_constrs_;
 	std::vector<Triplet> A_coeffs_;
-
 };
 
-#endif  // SPLITTING_CONIC_SOLVER_H
+#endif  // CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/cpp/cvxcanon/solver/ConeSolver.hpp
 // Interface for Cone Solvers
 //
 // TODO(mwytock): This should likely be a pure C interface to ease
@@ -5,15 +6,18 @@
 
 // See: http://mathprogbasejl.readthedocs.io/en/latest/conic.html
 
-#ifndef CONE_SOLVER_H
-#define CONE_SOLVER_H
+// Specifical of cone problems and interface for cone solvers.
+
+#ifndef CVXCANON_SOLVER_CONE_CONE_SOLVER_H
+#define CVXCANON_SOLVER_CONE_CONE_SOLVER_H
 
 #include <Eigen/Sparse>
-
+#include <vector>
 #include "cvxcanon/solver/SolverStatus.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
 // TODO(fabioftv): Need another version of SymbolicConeSolver to account for other Cones
+// A cone constraint
 class ConeConstraint {
 public:
 	enum Cone {
@@ -52,17 +56,23 @@ public:
 	std::vector<ConeConstraint> constraints_leq;
 };
 
+// The solution to a cone problem
 class ConeSolution {
-public:
-	SolverStatus status;
-	DenseVector x, y;
-	double objective_value;
+ public:
+  SolverStatus status;
+
+  // Primal and dual variables
+  DenseVector x, y;
+
+  // Primal objective value
+  double objective_value;
 };
 
+// The cone solver interface.
 class ConeSolver {
 public:
 	virtual ConeSolution solve(const ConeProblem& problem) = 0;
 	virtual ~ConeSolver() {}
 };
 
-#endif  // CONE_SOLVER_H
+#endif  // CVXCANON_SOLVER_CONE_CONE_SOLVER_H

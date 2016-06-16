@@ -1,13 +1,19 @@
 
 #include "cvxcanon/expression/ExpressionUtil.hpp"
+
+#include <stdlib.h>
+
+#include <string>
+#include <vector>
+
 #include "cvxcanon/expression/ExpressionShape.hpp"
 
 Expression add(Expression x, Expression y) {
-  return {Expression::ADD, {x,y}};
+  return {Expression::ADD, {x, y}};
 }
 
 Expression mul(Expression x, Expression y) {
-  return {Expression::MUL, {x,y}};
+  return {Expression::MUL, {x, y}};
 }
 
 Expression neg(Expression x) {
@@ -26,17 +32,29 @@ Expression var(int m, int n, int var_id) {
 }
 
 Expression constant(double value) {
+  return constant(DenseMatrix::Constant(1, 1, value));
+}
+
+Expression constant(DenseMatrix value) {
   auto attr = std::make_shared<ConstAttributes>();
-  attr->dense_data = DenseMatrix::Constant(1, 1, value);
+  attr->dense_data = value;
   return {Expression::CONST, {}, attr};
 }
 
 Expression quad_over_lin(Expression x, Expression y) {
-  return {Expression::QUAD_OVER_LIN, {x,y}};
+  return {Expression::QUAD_OVER_LIN, {x, y}};
 }
 
 Expression p_norm(Expression x, double p) {
-  return {Expression::P_NORM, {x}};
+  auto attr = std::make_shared<PNormAttributes>();
+  attr->p = p;
+  return {Expression::P_NORM, {x}, attr};
+}
+
+Expression power(Expression x, double p) {
+  auto attr = std::make_shared<PowerAttributes>();
+  attr->p = p;
+  return {Expression::POWER, {x}, attr};
 }
 
 Expression hstack(std::vector<Expression> args) {
@@ -57,42 +75,28 @@ Expression sum_entries(Expression x) {
   return {Expression::SUM_ENTRIES, {x}};
 }
 
-// x <= y
-Expression leq(Expression x, Expression y) {
-  return {Expression::LEQ, {x,y}};
+Expression eq(Expression x, Expression y) {
+  return {Expression::EQ, {x, y}};
 }
 
-// ||x||_2 <= y
+Expression leq(Expression x, Expression y) {
+  return {Expression::LEQ, {x, y}};
+}
+
 Expression soc(Expression x, Expression y) {
-  return {Expression::SOC, {x,y}};
+  return {Expression::SOC, {x, y}};
+}
+
+Expression exp_cone(Expression x, Expression y, Expression z) {
+  return {Expression::EXP_CONE, {x, y, z}};
 }
 
 Expression epi_var(const Expression& x, const std::string& name) {
   Size size_x = size(x);
-  int var_id = rand();
+  int var_id = rand();  // NOLINT(runtime/threadsafe_fn)
   VLOG(2) << "epi_var " << var_id << ", "
           << size_x.dims[0] << " x " << size_x.dims[1];
   return var(size_x.dims[0], size_x.dims[1], var_id);
-}
-
-Expression scalar_epi_var(const Expression& x, const std::string& name) {
-  return var(1, 1, rand());
-}
-
-int count_nodes(const Expression& x) {
-  int retval = 1;
-  for (const Expression& arg : x.args()) {
-    retval += count_nodes(arg);
-  }
-  return retval;
-}
-
-int count_nodes(const Problem& problem) {
-  int retval = count_nodes(problem.objective);
-  for (const Expression& constr : problem.constraints) {
-    retval += count_nodes(constr);
-  }
-  return retval;
 }
 
 bool is_scalar(const Size& size) {
