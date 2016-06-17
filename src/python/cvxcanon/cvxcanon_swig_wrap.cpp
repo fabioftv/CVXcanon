@@ -3010,59 +3010,67 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 /* -------- TYPES TABLE (BEGIN) -------- */
 
 #define SWIGTYPE_p_ConstAttributes swig_types[0]
-#define SWIGTYPE_p_DenseMatrix swig_types[1]
-#define SWIGTYPE_p_Eigen__MatrixXd swig_types[2]
-#define SWIGTYPE_p_Expression swig_types[3]
-#define SWIGTYPE_p_ExpressionAttributes swig_types[4]
-#define SWIGTYPE_p_IndexAttributes swig_types[5]
-#define SWIGTYPE_p_LinOp swig_types[6]
-#define SWIGTYPE_p_Matrix swig_types[7]
-#define SWIGTYPE_p_PNormAttributes swig_types[8]
-#define SWIGTYPE_p_PowerAttributes swig_types[9]
-#define SWIGTYPE_p_Problem swig_types[10]
-#define SWIGTYPE_p_ProblemData swig_types[11]
-#define SWIGTYPE_p_ReshapeAttributes swig_types[12]
-#define SWIGTYPE_p_Size swig_types[13]
-#define SWIGTYPE_p_Slice swig_types[14]
-#define SWIGTYPE_p_Solution swig_types[15]
-#define SWIGTYPE_p_Solver swig_types[16]
-#define SWIGTYPE_p_SolverOptions swig_types[17]
-#define SWIGTYPE_p_VarAttributes swig_types[18]
-#define SWIGTYPE_p_allocator_type swig_types[19]
-#define SWIGTYPE_p_char swig_types[20]
-#define SWIGTYPE_p_const_reference swig_types[21]
-#define SWIGTYPE_p_difference_type swig_types[22]
-#define SWIGTYPE_p_double swig_types[23]
-#define SWIGTYPE_p_key_type swig_types[24]
-#define SWIGTYPE_p_mapped_type swig_types[25]
-#define SWIGTYPE_p_operatortype swig_types[26]
-#define SWIGTYPE_p_p_PyObject swig_types[27]
-#define SWIGTYPE_p_reference swig_types[28]
-#define SWIGTYPE_p_size_type swig_types[29]
-#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[30]
-#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[32]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[33]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[34]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[35]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[36]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[37]
-#define SWIGTYPE_p_std__invalid_argument swig_types[38]
-#define SWIGTYPE_p_std__lessT_int_t swig_types[39]
-#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[40]
-#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[41]
-#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[46]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[47]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[48]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[49]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[50]
-#define SWIGTYPE_p_value_type swig_types[51]
-static swig_type_info *swig_types[53];
-static swig_module_info swig_module = {swig_types, 52, 0, 0, 0, 0};
+#define SWIGTYPE_p_Constant swig_types[1]
+#define SWIGTYPE_p_DenseMatrix swig_types[2]
+#define SWIGTYPE_p_Eigen__MatrixXd swig_types[3]
+#define SWIGTYPE_p_Expression swig_types[4]
+#define SWIGTYPE_p_ExpressionAttributes swig_types[5]
+#define SWIGTYPE_p_HuberAttributes swig_types[6]
+#define SWIGTYPE_p_IndexAttributes swig_types[7]
+#define SWIGTYPE_p_LinOp swig_types[8]
+#define SWIGTYPE_p_LogSumExpAttributes swig_types[9]
+#define SWIGTYPE_p_Matrix swig_types[10]
+#define SWIGTYPE_p_MaxEntriesAttributes swig_types[11]
+#define SWIGTYPE_p_PNormAttributes swig_types[12]
+#define SWIGTYPE_p_ParamAttributes swig_types[13]
+#define SWIGTYPE_p_PowerAttributes swig_types[14]
+#define SWIGTYPE_p_Problem swig_types[15]
+#define SWIGTYPE_p_ProblemData swig_types[16]
+#define SWIGTYPE_p_ReshapeAttributes swig_types[17]
+#define SWIGTYPE_p_Size swig_types[18]
+#define SWIGTYPE_p_Slice swig_types[19]
+#define SWIGTYPE_p_Solution swig_types[20]
+#define SWIGTYPE_p_Solver swig_types[21]
+#define SWIGTYPE_p_SolverOptions swig_types[22]
+#define SWIGTYPE_p_SparseMatrix swig_types[23]
+#define SWIGTYPE_p_SumEntriesAttributes swig_types[24]
+#define SWIGTYPE_p_SumLargestAttributes swig_types[25]
+#define SWIGTYPE_p_VarAttributes swig_types[26]
+#define SWIGTYPE_p_allocator_type swig_types[27]
+#define SWIGTYPE_p_char swig_types[28]
+#define SWIGTYPE_p_const_reference swig_types[29]
+#define SWIGTYPE_p_difference_type swig_types[30]
+#define SWIGTYPE_p_double swig_types[31]
+#define SWIGTYPE_p_key_type swig_types[32]
+#define SWIGTYPE_p_mapped_type swig_types[33]
+#define SWIGTYPE_p_operatortype swig_types[34]
+#define SWIGTYPE_p_p_PyObject swig_types[35]
+#define SWIGTYPE_p_reference swig_types[36]
+#define SWIGTYPE_p_size_type swig_types[37]
+#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[38]
+#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[39]
+#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[40]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[41]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[42]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[43]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[44]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[45]
+#define SWIGTYPE_p_std__invalid_argument swig_types[46]
+#define SWIGTYPE_p_std__lessT_int_t swig_types[47]
+#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[48]
+#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[49]
+#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[50]
+#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[51]
+#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[52]
+#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[53]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[54]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[55]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[56]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[57]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[58]
+#define SWIGTYPE_p_value_type swig_types[59]
+static swig_type_info *swig_types[61];
+static swig_module_info swig_module = {swig_types, 60, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -21956,6 +21964,20 @@ SWIGINTERN PyObject *ExpressionAttributes_swigregister(PyObject *SWIGUNUSEDPARM(
   return SWIG_Py_Void();
 }
 
+SWIGINTERN int Swig_var_kNoAxis_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable kNoAxis is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_kNoAxis_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_int(static_cast< int >(kNoAxis));
+  return pyobj;
+}
+
+
 SWIGINTERN PyObject *_wrap_Expression_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Expression *arg1 = (Expression *) 0 ;
@@ -22680,9 +22702,9 @@ SWIGINTERN PyObject *Size_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject 
   return SWIG_Py_Void();
 }
 
-SWIGINTERN PyObject *_wrap_ConstAttributes_set_dense_data(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Constant_set_dense_data(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  Constant *arg1 = (Constant *) 0 ;
   double *arg2 = (double *) 0 ;
   int arg3 ;
   int arg4 ;
@@ -22693,12 +22715,12 @@ SWIGINTERN PyObject *_wrap_ConstAttributes_set_dense_data(PyObject *SWIGUNUSEDPA
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:ConstAttributes_set_dense_data",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:Constant_set_dense_data",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_set_dense_data" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_set_dense_data" "', argument " "1"" of type '" "Constant *""'"); 
   }
-  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  arg1 = reinterpret_cast< Constant * >(argp1);
   {
     npy_intp size[2] = {
       -1, -1 
@@ -22731,21 +22753,99 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ConstAttributes_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Constant_set_sparse_data(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  Constant *arg1 = (Constant *) 0 ;
+  double *arg2 = (double *) 0 ;
+  int arg3 ;
+  double *arg4 = (double *) 0 ;
+  int arg5 ;
+  double *arg6 = (double *) 0 ;
+  int arg7 ;
+  int arg8 ;
+  int arg9 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyArrayObject *array2 = NULL ;
+  int i2 = 1 ;
+  PyArrayObject *array4 = NULL ;
+  int i4 = 1 ;
+  PyArrayObject *array6 = NULL ;
+  int i6 = 1 ;
+  int val8 ;
+  int ecode8 = 0 ;
+  int val9 ;
+  int ecode9 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:Constant_set_sparse_data",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_set_sparse_data" "', argument " "1"" of type '" "Constant *""'"); 
+  }
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  {
+    array2 = obj_to_array_no_conversion(obj1, NPY_DOUBLE);
+    if (!array2 || !require_dimensions(array2,1) || !require_contiguous(array2)
+      || !require_native(array2)) SWIG_fail;
+    arg2 = (double*) array_data(array2);
+    arg3 = 1;
+    for (i2=0; i2 < array_numdims(array2); ++i2) arg3 *= array_size(array2,i2);
+  }
+  {
+    array4 = obj_to_array_no_conversion(obj2, NPY_DOUBLE);
+    if (!array4 || !require_dimensions(array4,1) || !require_contiguous(array4)
+      || !require_native(array4)) SWIG_fail;
+    arg4 = (double*) array_data(array4);
+    arg5 = 1;
+    for (i4=0; i4 < array_numdims(array4); ++i4) arg5 *= array_size(array4,i4);
+  }
+  {
+    array6 = obj_to_array_no_conversion(obj3, NPY_DOUBLE);
+    if (!array6 || !require_dimensions(array6,1) || !require_contiguous(array6)
+      || !require_native(array6)) SWIG_fail;
+    arg6 = (double*) array_data(array6);
+    arg7 = 1;
+    for (i6=0; i6 < array_numdims(array6); ++i6) arg7 *= array_size(array6,i6);
+  }
+  ecode8 = SWIG_AsVal_int(obj4, &val8);
+  if (!SWIG_IsOK(ecode8)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode8), "in method '" "Constant_set_sparse_data" "', argument " "8"" of type '" "int""'");
+  } 
+  arg8 = static_cast< int >(val8);
+  ecode9 = SWIG_AsVal_int(obj5, &val9);
+  if (!SWIG_IsOK(ecode9)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode9), "in method '" "Constant_set_sparse_data" "', argument " "9"" of type '" "int""'");
+  } 
+  arg9 = static_cast< int >(val9);
+  (arg1)->set_sparse_data(arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Constant_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *arg1 = (Constant *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   Size result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:ConstAttributes_size",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:Constant_size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_size" "', argument " "1"" of type '" "ConstAttributes const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_size" "', argument " "1"" of type '" "Constant const *""'"); 
   }
-  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
-  result = ((ConstAttributes const *)arg1)->size();
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  result = ((Constant const *)arg1)->size();
   resultobj = SWIG_NewPointerObj((new Size(static_cast< const Size& >(result))), SWIGTYPE_p_Size, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -22753,9 +22853,61 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ConstAttributes_dense_data_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Constant_sparse_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  Constant *arg1 = (Constant *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Constant_sparse_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_sparse_set" "', argument " "1"" of type '" "Constant *""'"); 
+  }
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  ecode2 = SWIG_AsVal_bool(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Constant_sparse_set" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  if (arg1) (arg1)->sparse = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Constant_sparse_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *arg1 = (Constant *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Constant_sparse_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_sparse_get" "', argument " "1"" of type '" "Constant *""'"); 
+  }
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  result = (bool) ((arg1)->sparse);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Constant_dense_data_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *arg1 = (Constant *) 0 ;
   DenseMatrix arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -22764,19 +22916,19 @@ SWIGINTERN PyObject *_wrap_ConstAttributes_dense_data_set(PyObject *SWIGUNUSEDPA
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:ConstAttributes_dense_data_set",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"OO:Constant_dense_data_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_dense_data_set" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_dense_data_set" "', argument " "1"" of type '" "Constant *""'"); 
   }
-  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  arg1 = reinterpret_cast< Constant * >(argp1);
   {
     res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_DenseMatrix,  0  | 0);
     if (!SWIG_IsOK(res2)) {
-      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ConstAttributes_dense_data_set" "', argument " "2"" of type '" "DenseMatrix""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Constant_dense_data_set" "', argument " "2"" of type '" "DenseMatrix""'"); 
     }  
     if (!argp2) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ConstAttributes_dense_data_set" "', argument " "2"" of type '" "DenseMatrix""'");
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Constant_dense_data_set" "', argument " "2"" of type '" "DenseMatrix""'");
     } else {
       DenseMatrix * temp = reinterpret_cast< DenseMatrix * >(argp2);
       arg2 = *temp;
@@ -22791,22 +22943,175 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ConstAttributes_dense_data_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_Constant_dense_data_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  Constant *arg1 = (Constant *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   DenseMatrix result;
   
-  if (!PyArg_ParseTuple(args,(char *)"O:ConstAttributes_dense_data_get",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!PyArg_ParseTuple(args,(char *)"O:Constant_dense_data_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_dense_data_get" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_dense_data_get" "', argument " "1"" of type '" "Constant *""'"); 
   }
-  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  arg1 = reinterpret_cast< Constant * >(argp1);
   result =  ((arg1)->dense_data);
   resultobj = SWIG_NewPointerObj((new DenseMatrix(static_cast< const DenseMatrix& >(result))), SWIGTYPE_p_DenseMatrix, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Constant_sparse_data_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *arg1 = (Constant *) 0 ;
+  SparseMatrix arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Constant_sparse_data_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_sparse_data_set" "', argument " "1"" of type '" "Constant *""'"); 
+  }
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_SparseMatrix,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Constant_sparse_data_set" "', argument " "2"" of type '" "SparseMatrix""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Constant_sparse_data_set" "', argument " "2"" of type '" "SparseMatrix""'");
+    } else {
+      SparseMatrix * temp = reinterpret_cast< SparseMatrix * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  if (arg1) (arg1)->sparse_data = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Constant_sparse_data_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *arg1 = (Constant *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SparseMatrix result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Constant_sparse_data_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Constant_sparse_data_get" "', argument " "1"" of type '" "Constant *""'"); 
+  }
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  result =  ((arg1)->sparse_data);
+  resultobj = SWIG_NewPointerObj((new SparseMatrix(static_cast< const SparseMatrix& >(result))), SWIGTYPE_p_SparseMatrix, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Constant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_Constant")) SWIG_fail;
+  result = (Constant *)new Constant();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Constant, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Constant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Constant *arg1 = (Constant *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_Constant",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Constant, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Constant" "', argument " "1"" of type '" "Constant *""'"); 
+  }
+  arg1 = reinterpret_cast< Constant * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Constant_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Constant, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_ConstAttributes_constant_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  Constant *arg2 = (Constant *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:ConstAttributes_constant_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_constant_set" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ConstAttributes_constant_set" "', argument " "2"" of type '" "Constant *""'"); 
+  }
+  arg2 = reinterpret_cast< Constant * >(argp2);
+  if (arg1) (arg1)->constant = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ConstAttributes_constant_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Constant *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:ConstAttributes_constant_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_constant_get" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  result = (Constant *)& ((arg1)->constant);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Constant, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -22853,6 +23158,205 @@ SWIGINTERN PyObject *ConstAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self)
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_ConstAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_ParamAttributes_id_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:ParamAttributes_id_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParamAttributes_id_set" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ParamAttributes_id_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->id = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParamAttributes_id_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:ParamAttributes_id_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParamAttributes_id_get" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  result = (int) ((arg1)->id);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParamAttributes_size_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  Size *arg2 = (Size *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:ParamAttributes_size_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParamAttributes_size_set" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Size, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ParamAttributes_size_set" "', argument " "2"" of type '" "Size *""'"); 
+  }
+  arg2 = reinterpret_cast< Size * >(argp2);
+  if (arg1) (arg1)->size = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParamAttributes_size_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Size *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:ParamAttributes_size_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParamAttributes_size_get" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  result = (Size *)& ((arg1)->size);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParamAttributes_constant_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  Constant *arg2 = (Constant *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:ParamAttributes_constant_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParamAttributes_constant_set" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Constant, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ParamAttributes_constant_set" "', argument " "2"" of type '" "Constant *""'"); 
+  }
+  arg2 = reinterpret_cast< Constant * >(argp2);
+  if (arg1) (arg1)->constant = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ParamAttributes_constant_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Constant *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:ParamAttributes_constant_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ParamAttributes_constant_get" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  result = (Constant *)& ((arg1)->constant);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Constant, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_ParamAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_ParamAttributes")) SWIG_fail;
+  result = (ParamAttributes *)new ParamAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParamAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_ParamAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ParamAttributes *arg1 = (ParamAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_ParamAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ParamAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ParamAttributes" "', argument " "1"" of type '" "ParamAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ParamAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *ParamAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_ParamAttributes, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -23055,6 +23559,58 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_PNormAttributes_axis_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PNormAttributes *arg1 = (PNormAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:PNormAttributes_axis_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PNormAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PNormAttributes_axis_set" "', argument " "1"" of type '" "PNormAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PNormAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "PNormAttributes_axis_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->axis = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PNormAttributes_axis_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PNormAttributes *arg1 = (PNormAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:PNormAttributes_axis_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PNormAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PNormAttributes_axis_get" "', argument " "1"" of type '" "PNormAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PNormAttributes * >(argp1);
+  result = (int) ((arg1)->axis);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_new_PNormAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   PNormAttributes *result = 0 ;
@@ -23156,7 +23712,9 @@ SWIGINTERN PyObject *_wrap_new_PowerAttributes(PyObject *SWIGUNUSEDPARM(self), P
   
   if (!PyArg_ParseTuple(args,(char *)":new_PowerAttributes")) SWIG_fail;
   result = (PowerAttributes *)new PowerAttributes();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PowerAttributes, SWIG_POINTER_NEW |  0 );
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PowerAttributes, 0 );
+  }
   return resultobj;
 fail:
   return NULL;
@@ -23575,6 +24133,481 @@ SWIGINTERN PyObject *IndexAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self)
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_IndexAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_HuberAttributes_M_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HuberAttributes *arg1 = (HuberAttributes *) 0 ;
+  Expression *arg2 = (Expression *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:HuberAttributes_M_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HuberAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HuberAttributes_M_set" "', argument " "1"" of type '" "HuberAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< HuberAttributes * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Expression, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "HuberAttributes_M_set" "', argument " "2"" of type '" "Expression *""'"); 
+  }
+  arg2 = reinterpret_cast< Expression * >(argp2);
+  if (arg1) (arg1)->M = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_HuberAttributes_M_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HuberAttributes *arg1 = (HuberAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Expression *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:HuberAttributes_M_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HuberAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "HuberAttributes_M_get" "', argument " "1"" of type '" "HuberAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< HuberAttributes * >(argp1);
+  result = (Expression *)& ((arg1)->M);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_HuberAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HuberAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_HuberAttributes")) SWIG_fail;
+  result = (HuberAttributes *)new HuberAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_HuberAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_HuberAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  HuberAttributes *arg1 = (HuberAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_HuberAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_HuberAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_HuberAttributes" "', argument " "1"" of type '" "HuberAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< HuberAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *HuberAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_HuberAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_SumEntriesAttributes_axis_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *arg1 = (SumEntriesAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:SumEntriesAttributes_axis_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumEntriesAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SumEntriesAttributes_axis_set" "', argument " "1"" of type '" "SumEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumEntriesAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SumEntriesAttributes_axis_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->axis = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SumEntriesAttributes_axis_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *arg1 = (SumEntriesAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:SumEntriesAttributes_axis_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumEntriesAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SumEntriesAttributes_axis_get" "', argument " "1"" of type '" "SumEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumEntriesAttributes * >(argp1);
+  result = (int) ((arg1)->axis);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SumEntriesAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_SumEntriesAttributes")) SWIG_fail;
+  result = (SumEntriesAttributes *)new SumEntriesAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SumEntriesAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_SumEntriesAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *arg1 = (SumEntriesAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_SumEntriesAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumEntriesAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_SumEntriesAttributes" "', argument " "1"" of type '" "SumEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumEntriesAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *SumEntriesAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_SumEntriesAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_MaxEntriesAttributes_axis_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MaxEntriesAttributes *arg1 = (MaxEntriesAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:MaxEntriesAttributes_axis_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MaxEntriesAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MaxEntriesAttributes_axis_set" "', argument " "1"" of type '" "MaxEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< MaxEntriesAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "MaxEntriesAttributes_axis_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->axis = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_MaxEntriesAttributes_axis_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MaxEntriesAttributes *arg1 = (MaxEntriesAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:MaxEntriesAttributes_axis_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MaxEntriesAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "MaxEntriesAttributes_axis_get" "', argument " "1"" of type '" "MaxEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< MaxEntriesAttributes * >(argp1);
+  result = (int) ((arg1)->axis);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_MaxEntriesAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MaxEntriesAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_MaxEntriesAttributes")) SWIG_fail;
+  result = (MaxEntriesAttributes *)new MaxEntriesAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_MaxEntriesAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_MaxEntriesAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  MaxEntriesAttributes *arg1 = (MaxEntriesAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_MaxEntriesAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_MaxEntriesAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_MaxEntriesAttributes" "', argument " "1"" of type '" "MaxEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< MaxEntriesAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *MaxEntriesAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_MaxEntriesAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_SumLargestAttributes_k_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumLargestAttributes *arg1 = (SumLargestAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:SumLargestAttributes_k_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumLargestAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SumLargestAttributes_k_set" "', argument " "1"" of type '" "SumLargestAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumLargestAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SumLargestAttributes_k_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->k = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SumLargestAttributes_k_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumLargestAttributes *arg1 = (SumLargestAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:SumLargestAttributes_k_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumLargestAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SumLargestAttributes_k_get" "', argument " "1"" of type '" "SumLargestAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumLargestAttributes * >(argp1);
+  result = (int) ((arg1)->k);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SumLargestAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumLargestAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_SumLargestAttributes")) SWIG_fail;
+  result = (SumLargestAttributes *)new SumLargestAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SumLargestAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_SumLargestAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumLargestAttributes *arg1 = (SumLargestAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_SumLargestAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumLargestAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_SumLargestAttributes" "', argument " "1"" of type '" "SumLargestAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumLargestAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *SumLargestAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_SumLargestAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_LogSumExpAttributes_axis_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LogSumExpAttributes *arg1 = (LogSumExpAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:LogSumExpAttributes_axis_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_LogSumExpAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LogSumExpAttributes_axis_set" "', argument " "1"" of type '" "LogSumExpAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< LogSumExpAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "LogSumExpAttributes_axis_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->axis = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_LogSumExpAttributes_axis_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LogSumExpAttributes *arg1 = (LogSumExpAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:LogSumExpAttributes_axis_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_LogSumExpAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "LogSumExpAttributes_axis_get" "', argument " "1"" of type '" "LogSumExpAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< LogSumExpAttributes * >(argp1);
+  result = (int) ((arg1)->axis);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_LogSumExpAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LogSumExpAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_LogSumExpAttributes")) SWIG_fail;
+  result = (LogSumExpAttributes *)new LogSumExpAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_LogSumExpAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_LogSumExpAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  LogSumExpAttributes *arg1 = (LogSumExpAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_LogSumExpAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_LogSumExpAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_LogSumExpAttributes" "', argument " "1"" of type '" "LogSumExpAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< LogSumExpAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *LogSumExpAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_LogSumExpAttributes, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -25294,6 +26327,43 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_validate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Problem *arg1 = 0 ;
+  SolverOptions *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:validate",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_Problem,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "validate" "', argument " "1"" of type '" "Problem const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "validate" "', argument " "1"" of type '" "Problem const &""'"); 
+  }
+  arg1 = reinterpret_cast< Problem * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_SolverOptions,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "validate" "', argument " "2"" of type '" "SolverOptions const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "validate" "', argument " "2"" of type '" "SolverOptions const &""'"); 
+  }
+  arg2 = reinterpret_cast< SolverOptions * >(argp2);
+  result = (bool)validate((Problem const &)*arg1,(SolverOptions const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *OPTIMAL_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *module;
   PyObject *d;
@@ -25664,13 +26734,32 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_Size", _wrap_new_Size, METH_VARARGS, NULL},
 	 { (char *)"delete_Size", _wrap_delete_Size, METH_VARARGS, NULL},
 	 { (char *)"Size_swigregister", Size_swigregister, METH_VARARGS, NULL},
-	 { (char *)"ConstAttributes_set_dense_data", _wrap_ConstAttributes_set_dense_data, METH_VARARGS, NULL},
-	 { (char *)"ConstAttributes_size", _wrap_ConstAttributes_size, METH_VARARGS, NULL},
-	 { (char *)"ConstAttributes_dense_data_set", _wrap_ConstAttributes_dense_data_set, METH_VARARGS, NULL},
-	 { (char *)"ConstAttributes_dense_data_get", _wrap_ConstAttributes_dense_data_get, METH_VARARGS, NULL},
+	 { (char *)"Constant_set_dense_data", _wrap_Constant_set_dense_data, METH_VARARGS, NULL},
+	 { (char *)"Constant_set_sparse_data", _wrap_Constant_set_sparse_data, METH_VARARGS, NULL},
+	 { (char *)"Constant_size", _wrap_Constant_size, METH_VARARGS, NULL},
+	 { (char *)"Constant_sparse_set", _wrap_Constant_sparse_set, METH_VARARGS, NULL},
+	 { (char *)"Constant_sparse_get", _wrap_Constant_sparse_get, METH_VARARGS, NULL},
+	 { (char *)"Constant_dense_data_set", _wrap_Constant_dense_data_set, METH_VARARGS, NULL},
+	 { (char *)"Constant_dense_data_get", _wrap_Constant_dense_data_get, METH_VARARGS, NULL},
+	 { (char *)"Constant_sparse_data_set", _wrap_Constant_sparse_data_set, METH_VARARGS, NULL},
+	 { (char *)"Constant_sparse_data_get", _wrap_Constant_sparse_data_get, METH_VARARGS, NULL},
+	 { (char *)"new_Constant", _wrap_new_Constant, METH_VARARGS, NULL},
+	 { (char *)"delete_Constant", _wrap_delete_Constant, METH_VARARGS, NULL},
+	 { (char *)"Constant_swigregister", Constant_swigregister, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_constant_set", _wrap_ConstAttributes_constant_set, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_constant_get", _wrap_ConstAttributes_constant_get, METH_VARARGS, NULL},
 	 { (char *)"new_ConstAttributes", _wrap_new_ConstAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_ConstAttributes", _wrap_delete_ConstAttributes, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_swigregister", ConstAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_id_set", _wrap_ParamAttributes_id_set, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_id_get", _wrap_ParamAttributes_id_get, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_size_set", _wrap_ParamAttributes_size_set, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_size_get", _wrap_ParamAttributes_size_get, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_constant_set", _wrap_ParamAttributes_constant_set, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_constant_get", _wrap_ParamAttributes_constant_get, METH_VARARGS, NULL},
+	 { (char *)"new_ParamAttributes", _wrap_new_ParamAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_ParamAttributes", _wrap_delete_ParamAttributes, METH_VARARGS, NULL},
+	 { (char *)"ParamAttributes_swigregister", ParamAttributes_swigregister, METH_VARARGS, NULL},
 	 { (char *)"VarAttributes_id_set", _wrap_VarAttributes_id_set, METH_VARARGS, NULL},
 	 { (char *)"VarAttributes_id_get", _wrap_VarAttributes_id_get, METH_VARARGS, NULL},
 	 { (char *)"VarAttributes_size_set", _wrap_VarAttributes_size_set, METH_VARARGS, NULL},
@@ -25680,6 +26769,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"VarAttributes_swigregister", VarAttributes_swigregister, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_p_set", _wrap_PNormAttributes_p_set, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_p_get", _wrap_PNormAttributes_p_get, METH_VARARGS, NULL},
+	 { (char *)"PNormAttributes_axis_set", _wrap_PNormAttributes_axis_set, METH_VARARGS, NULL},
+	 { (char *)"PNormAttributes_axis_get", _wrap_PNormAttributes_axis_get, METH_VARARGS, NULL},
 	 { (char *)"new_PNormAttributes", _wrap_new_PNormAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_PNormAttributes", _wrap_delete_PNormAttributes, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_swigregister", PNormAttributes_swigregister, METH_VARARGS, NULL},
@@ -25707,6 +26798,31 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_IndexAttributes", _wrap_new_IndexAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_IndexAttributes", _wrap_delete_IndexAttributes, METH_VARARGS, NULL},
 	 { (char *)"IndexAttributes_swigregister", IndexAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"HuberAttributes_M_set", _wrap_HuberAttributes_M_set, METH_VARARGS, NULL},
+	 { (char *)"HuberAttributes_M_get", _wrap_HuberAttributes_M_get, METH_VARARGS, NULL},
+	 { (char *)"new_HuberAttributes", _wrap_new_HuberAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_HuberAttributes", _wrap_delete_HuberAttributes, METH_VARARGS, NULL},
+	 { (char *)"HuberAttributes_swigregister", HuberAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"SumEntriesAttributes_axis_set", _wrap_SumEntriesAttributes_axis_set, METH_VARARGS, NULL},
+	 { (char *)"SumEntriesAttributes_axis_get", _wrap_SumEntriesAttributes_axis_get, METH_VARARGS, NULL},
+	 { (char *)"new_SumEntriesAttributes", _wrap_new_SumEntriesAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_SumEntriesAttributes", _wrap_delete_SumEntriesAttributes, METH_VARARGS, NULL},
+	 { (char *)"SumEntriesAttributes_swigregister", SumEntriesAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"MaxEntriesAttributes_axis_set", _wrap_MaxEntriesAttributes_axis_set, METH_VARARGS, NULL},
+	 { (char *)"MaxEntriesAttributes_axis_get", _wrap_MaxEntriesAttributes_axis_get, METH_VARARGS, NULL},
+	 { (char *)"new_MaxEntriesAttributes", _wrap_new_MaxEntriesAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_MaxEntriesAttributes", _wrap_delete_MaxEntriesAttributes, METH_VARARGS, NULL},
+	 { (char *)"MaxEntriesAttributes_swigregister", MaxEntriesAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"SumLargestAttributes_k_set", _wrap_SumLargestAttributes_k_set, METH_VARARGS, NULL},
+	 { (char *)"SumLargestAttributes_k_get", _wrap_SumLargestAttributes_k_get, METH_VARARGS, NULL},
+	 { (char *)"new_SumLargestAttributes", _wrap_new_SumLargestAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_SumLargestAttributes", _wrap_delete_SumLargestAttributes, METH_VARARGS, NULL},
+	 { (char *)"SumLargestAttributes_swigregister", SumLargestAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"LogSumExpAttributes_axis_set", _wrap_LogSumExpAttributes_axis_set, METH_VARARGS, NULL},
+	 { (char *)"LogSumExpAttributes_axis_get", _wrap_LogSumExpAttributes_axis_get, METH_VARARGS, NULL},
+	 { (char *)"new_LogSumExpAttributes", _wrap_new_LogSumExpAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_LogSumExpAttributes", _wrap_delete_LogSumExpAttributes, METH_VARARGS, NULL},
+	 { (char *)"LogSumExpAttributes_swigregister", LogSumExpAttributes_swigregister, METH_VARARGS, NULL},
 	 { (char *)"VARIABLE_swigconstant", VARIABLE_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"PROMOTE_swigconstant", PROMOTE_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"MUL_swigconstant", MUL_swigconstant, METH_VARARGS, NULL},
@@ -25786,6 +26902,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Solver_solve", _wrap_Solver_solve, METH_VARARGS, NULL},
 	 { (char *)"Solver_swigregister", Solver_swigregister, METH_VARARGS, NULL},
 	 { (char *)"solve", _wrap_solve, METH_VARARGS, NULL},
+	 { (char *)"validate", _wrap_validate, METH_VARARGS, NULL},
 	 { (char *)"OPTIMAL_swigconstant", OPTIMAL_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"INFEASIBLE_swigconstant", INFEASIBLE_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"UNBOUNDED_swigconstant", UNBOUNDED_swigconstant, METH_VARARGS, NULL},
@@ -25799,6 +26916,9 @@ static PyMethodDef SwigMethods[] = {
 
 static void *_p_ConstAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ExpressionAttributes *)  ((ConstAttributes *) x));
+}
+static void *_p_ParamAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((ParamAttributes *) x));
 }
 static void *_p_VarAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ExpressionAttributes *)  ((VarAttributes *) x));
@@ -25815,15 +26935,35 @@ static void *_p_ReshapeAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNU
 static void *_p_IndexAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ExpressionAttributes *)  ((IndexAttributes *) x));
 }
+static void *_p_HuberAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((HuberAttributes *) x));
+}
+static void *_p_SumEntriesAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((SumEntriesAttributes *) x));
+}
+static void *_p_MaxEntriesAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((MaxEntriesAttributes *) x));
+}
+static void *_p_SumLargestAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((SumLargestAttributes *) x));
+}
+static void *_p_LogSumExpAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((LogSumExpAttributes *) x));
+}
 static swig_type_info _swigt__p_ConstAttributes = {"_p_ConstAttributes", "ConstAttributes *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Constant = {"_p_Constant", "Constant *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DenseMatrix = {"_p_DenseMatrix", "DenseMatrix *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Eigen__MatrixXd = {"_p_Eigen__MatrixXd", "Eigen::MatrixXd *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Expression = {"_p_Expression", "Expression *|std::vector< Expression >::value_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ExpressionAttributes = {"_p_ExpressionAttributes", "ExpressionAttributes *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_HuberAttributes = {"_p_HuberAttributes", "HuberAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_IndexAttributes = {"_p_IndexAttributes", "IndexAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_LinOp = {"_p_LinOp", "LinOp *|std::vector< LinOp * >::value_type", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_LogSumExpAttributes = {"_p_LogSumExpAttributes", "LogSumExpAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Matrix = {"_p_Matrix", "Matrix *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_MaxEntriesAttributes = {"_p_MaxEntriesAttributes", "MaxEntriesAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PNormAttributes = {"_p_PNormAttributes", "PNormAttributes *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_ParamAttributes = {"_p_ParamAttributes", "ParamAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PowerAttributes = {"_p_PowerAttributes", "PowerAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Problem = {"_p_Problem", "Problem *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ProblemData = {"_p_ProblemData", "ProblemData *", 0, 0, (void*)0, 0};
@@ -25833,6 +26973,9 @@ static swig_type_info _swigt__p_Slice = {"_p_Slice", "std::vector< Slice >::valu
 static swig_type_info _swigt__p_Solution = {"_p_Solution", "Solution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Solver = {"_p_Solver", "Solver *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SolverOptions = {"_p_SolverOptions", "SolverOptions *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SparseMatrix = {"_p_SparseMatrix", "SparseMatrix *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SumEntriesAttributes = {"_p_SumEntriesAttributes", "SumEntriesAttributes *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SumLargestAttributes = {"_p_SumLargestAttributes", "SumLargestAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_VarAttributes = {"_p_VarAttributes", "VarAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -25870,14 +27013,19 @@ static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_ConstAttributes,
+  &_swigt__p_Constant,
   &_swigt__p_DenseMatrix,
   &_swigt__p_Eigen__MatrixXd,
   &_swigt__p_Expression,
   &_swigt__p_ExpressionAttributes,
+  &_swigt__p_HuberAttributes,
   &_swigt__p_IndexAttributes,
   &_swigt__p_LinOp,
+  &_swigt__p_LogSumExpAttributes,
   &_swigt__p_Matrix,
+  &_swigt__p_MaxEntriesAttributes,
   &_swigt__p_PNormAttributes,
+  &_swigt__p_ParamAttributes,
   &_swigt__p_PowerAttributes,
   &_swigt__p_Problem,
   &_swigt__p_ProblemData,
@@ -25887,6 +27035,9 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Solution,
   &_swigt__p_Solver,
   &_swigt__p_SolverOptions,
+  &_swigt__p_SparseMatrix,
+  &_swigt__p_SumEntriesAttributes,
+  &_swigt__p_SumLargestAttributes,
   &_swigt__p_VarAttributes,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -25924,14 +27075,19 @@ static swig_type_info *swig_type_initial[] = {
 };
 
 static swig_cast_info _swigc__p_ConstAttributes[] = {  {&_swigt__p_ConstAttributes, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Constant[] = {  {&_swigt__p_Constant, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_DenseMatrix[] = {  {&_swigt__p_DenseMatrix, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Eigen__MatrixXd[] = {  {&_swigt__p_Eigen__MatrixXd, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Expression[] = {  {&_swigt__p_Expression, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ExpressionAttributes[] = {  {&_swigt__p_ExpressionAttributes, 0, 0, 0},  {&_swigt__p_ConstAttributes, _p_ConstAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_VarAttributes, _p_VarAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PNormAttributes, _p_PNormAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PowerAttributes, _p_PowerAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ReshapeAttributes, _p_ReshapeAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_IndexAttributes, _p_IndexAttributesTo_p_ExpressionAttributes, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExpressionAttributes[] = {  {&_swigt__p_ExpressionAttributes, 0, 0, 0},  {&_swigt__p_ConstAttributes, _p_ConstAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ParamAttributes, _p_ParamAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_VarAttributes, _p_VarAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PNormAttributes, _p_PNormAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PowerAttributes, _p_PowerAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ReshapeAttributes, _p_ReshapeAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_IndexAttributes, _p_IndexAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_HuberAttributes, _p_HuberAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_SumEntriesAttributes, _p_SumEntriesAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_MaxEntriesAttributes, _p_MaxEntriesAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_SumLargestAttributes, _p_SumLargestAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_LogSumExpAttributes, _p_LogSumExpAttributesTo_p_ExpressionAttributes, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_HuberAttributes[] = {  {&_swigt__p_HuberAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IndexAttributes[] = {  {&_swigt__p_IndexAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LinOp[] = {  {&_swigt__p_LinOp, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_LogSumExpAttributes[] = {  {&_swigt__p_LogSumExpAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Matrix[] = {  {&_swigt__p_Matrix, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_MaxEntriesAttributes[] = {  {&_swigt__p_MaxEntriesAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PNormAttributes[] = {  {&_swigt__p_PNormAttributes, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ParamAttributes[] = {  {&_swigt__p_ParamAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PowerAttributes[] = {  {&_swigt__p_PowerAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Problem[] = {  {&_swigt__p_Problem, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ProblemData[] = {  {&_swigt__p_ProblemData, 0, 0, 0},{0, 0, 0, 0}};
@@ -25941,6 +27097,9 @@ static swig_cast_info _swigc__p_Slice[] = {  {&_swigt__p_Slice, 0, 0, 0},{0, 0, 
 static swig_cast_info _swigc__p_Solution[] = {  {&_swigt__p_Solution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Solver[] = {  {&_swigt__p_Solver, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SolverOptions[] = {  {&_swigt__p_SolverOptions, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SparseMatrix[] = {  {&_swigt__p_SparseMatrix, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SumEntriesAttributes[] = {  {&_swigt__p_SumEntriesAttributes, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SumLargestAttributes[] = {  {&_swigt__p_SumLargestAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_VarAttributes[] = {  {&_swigt__p_VarAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -25978,14 +27137,19 @@ static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_ConstAttributes,
+  _swigc__p_Constant,
   _swigc__p_DenseMatrix,
   _swigc__p_Eigen__MatrixXd,
   _swigc__p_Expression,
   _swigc__p_ExpressionAttributes,
+  _swigc__p_HuberAttributes,
   _swigc__p_IndexAttributes,
   _swigc__p_LinOp,
+  _swigc__p_LogSumExpAttributes,
   _swigc__p_Matrix,
+  _swigc__p_MaxEntriesAttributes,
   _swigc__p_PNormAttributes,
+  _swigc__p_ParamAttributes,
   _swigc__p_PowerAttributes,
   _swigc__p_Problem,
   _swigc__p_ProblemData,
@@ -25995,6 +27159,9 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Solution,
   _swigc__p_Solver,
   _swigc__p_SolverOptions,
+  _swigc__p_SparseMatrix,
+  _swigc__p_SumEntriesAttributes,
+  _swigc__p_SumLargestAttributes,
   _swigc__p_VarAttributes,
   _swigc__p_allocator_type,
   _swigc__p_char,
@@ -26727,6 +27894,8 @@ SWIG_init(void) {
   import_array();
   init();
   
+  PyDict_SetItemString(md,(char*)"cvar", SWIG_globals());
+  SWIG_addvarlink(SWIG_globals(),(char*)"kNoAxis",Swig_var_kNoAxis_get, Swig_var_kNoAxis_set);
   SWIG_Python_SetConstant(d, "Expression_ADD",SWIG_From_int(static_cast< int >(Expression::ADD)));
   SWIG_Python_SetConstant(d, "Expression_DIAG_MAT",SWIG_From_int(static_cast< int >(Expression::DIAG_MAT)));
   SWIG_Python_SetConstant(d, "Expression_DIAG_VEC",SWIG_From_int(static_cast< int >(Expression::DIAG_VEC)));
@@ -26738,6 +27907,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_RESHAPE",SWIG_From_int(static_cast< int >(Expression::RESHAPE)));
   SWIG_Python_SetConstant(d, "Expression_SUM_ENTRIES",SWIG_From_int(static_cast< int >(Expression::SUM_ENTRIES)));
   SWIG_Python_SetConstant(d, "Expression_TRACE",SWIG_From_int(static_cast< int >(Expression::TRACE)));
+  SWIG_Python_SetConstant(d, "Expression_TRANSPOSE",SWIG_From_int(static_cast< int >(Expression::TRANSPOSE)));
   SWIG_Python_SetConstant(d, "Expression_UPPER_TRI",SWIG_From_int(static_cast< int >(Expression::UPPER_TRI)));
   SWIG_Python_SetConstant(d, "Expression_VSTACK",SWIG_From_int(static_cast< int >(Expression::VSTACK)));
   SWIG_Python_SetConstant(d, "Expression_ABS",SWIG_From_int(static_cast< int >(Expression::ABS)));
@@ -26762,15 +27932,16 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_SIGMA_MAX",SWIG_From_int(static_cast< int >(Expression::SIGMA_MAX)));
   SWIG_Python_SetConstant(d, "Expression_SUM_LARGEST",SWIG_From_int(static_cast< int >(Expression::SUM_LARGEST)));
   SWIG_Python_SetConstant(d, "Expression_EQ",SWIG_From_int(static_cast< int >(Expression::EQ)));
-  SWIG_Python_SetConstant(d, "Expression_LEQ",SWIG_From_int(static_cast< int >(Expression::LEQ)));
-  SWIG_Python_SetConstant(d, "Expression_SOC",SWIG_From_int(static_cast< int >(Expression::SOC)));
   SWIG_Python_SetConstant(d, "Expression_EXP_CONE",SWIG_From_int(static_cast< int >(Expression::EXP_CONE)));
+  SWIG_Python_SetConstant(d, "Expression_LEQ",SWIG_From_int(static_cast< int >(Expression::LEQ)));
+  SWIG_Python_SetConstant(d, "Expression_SDP",SWIG_From_int(static_cast< int >(Expression::SDP)));
+  SWIG_Python_SetConstant(d, "Expression_SDP_VEC",SWIG_From_int(static_cast< int >(Expression::SDP_VEC)));
+  SWIG_Python_SetConstant(d, "Expression_SOC",SWIG_From_int(static_cast< int >(Expression::SOC)));
   SWIG_Python_SetConstant(d, "Expression_CONST",SWIG_From_int(static_cast< int >(Expression::CONST)));
   SWIG_Python_SetConstant(d, "Expression_PARAM",SWIG_From_int(static_cast< int >(Expression::PARAM)));
   SWIG_Python_SetConstant(d, "Expression_VAR",SWIG_From_int(static_cast< int >(Expression::VAR)));
   SWIG_Python_SetConstant(d, "Problem_MAXIMIZE",SWIG_From_int(static_cast< int >(Problem::MAXIMIZE)));
   SWIG_Python_SetConstant(d, "Problem_MINIMIZE",SWIG_From_int(static_cast< int >(Problem::MINIMIZE)));
-  PyDict_SetItemString(md,(char*)"cvar", SWIG_globals());
   SWIG_addvarlink(SWIG_globals(),(char*)"CONSTANT_ID",Swig_var_CONSTANT_ID_get, Swig_var_CONSTANT_ID_set);
 #if PY_VERSION_HEX >= 0x03000000
   return m;

@@ -8,6 +8,7 @@
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/LinearExpression.hpp"
+#include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/util/MatrixUtil.hpp"
 #include "cvxcanon/util/Utils.hpp"
 #include "glog/logging.h"
@@ -18,23 +19,27 @@ class ConeProblemBuilder {
  public:
   explicit ConeProblemBuilder(VariableOffsetMap* var_offsets)
       : var_offsets_(var_offsets),
-        m_(0) {}
+        num_constrs_(0), cone_offset_(0) {}
 
   void add_objective(const Expression& expr);
   void add_constraint(const Expression& expr);
 
   // Specializations of add_constraint for each type of constraint expression
   void add_eq_constraint(const Expression& expr);
-  void add_leq_constraint(const Expression& expr);
-  void add_soc_constraint(const Expression& expr);
   void add_exp_cone_constraint(const Expression& expr);
+  void add_leq_constraint(const Expression& expr);
+  void add_sdp_constraint(const Expression& expr);
+  void add_sdp_vec_constraint(const Expression& expr);
+  void add_soc_constraint(const Expression& expr);
 
-  // Helper function that adds the coefficients for a constraint expression to
-  // A, b matrices.
-  int add_constraint_coefficients(const Expression& expr);
+  // Helper functions for building cone constraints, add the coefficients for
+  // rows i, ... i+m to A, b matrices
+  void add_constraint_coefficients(const CoeffMap& coeff_map, int i, int m);
+  void add_constraint_cone(const ConeConstraint::Cone& cone, int n);
 
   const ConeProblem& build() {
-    const int m = m_;
+    CHECK_EQ(num_constrs_, cone_offset_);
+    const int m = num_constrs_;
     const int n = var_offsets_->n();
 
     // negative by convention: b - Ax in K
@@ -61,7 +66,8 @@ private:
   // Not owned
   VariableOffsetMap* var_offsets_;
 
-  int m_;
+  int num_constrs_;
+  int cone_offset_;
   std::vector<Triplet> A_coeffs_, b_coeffs_, c_coeffs_;
   ConeProblem cone_problem_;
 };
@@ -79,90 +85,164 @@ void ConeProblemBuilder::add_objective(const Expression& expr) {
   }
 }
 
+// eq(x,y) -> y - x in K_0
 void ConeProblemBuilder::add_eq_constraint(const Expression& expr) {
-  // x == y becomes y - x in K_0
-  const int offset = m_;
-  const int size = add_constraint_coefficients(
-      add(neg(expr.arg(0)), expr.arg(1)));
-  cone_problem_.constraints.push_back({ConeConstraint::ZERO, offset, size});
+  const Expression& x = expr.arg(0);
+  const Expression& y = expr.arg(1);
+
+  Expression y_minus_x = add(y, neg(x));
+  const int n = dim(y_minus_x);
+  CoeffMap coeff_map = get_coefficients(y_minus_x);
+  add_constraint_cone(ConeConstraint::ZERO, n);
+  add_constraint_coefficients(coeff_map, 0, n);
 }
 
+// leq(x,y) -> y - x in K_+
 void ConeProblemBuilder::add_leq_constraint(const Expression& expr) {
-  // x <= y becomes y - x in K_+
-  const int offset = m_;
-  const int size = add_constraint_coefficients(
-      add(neg(expr.arg(0)), expr.arg(1)));
-  cone_problem_.constraints.push_back(
-      {ConeConstraint::NON_NEGATIVE, offset, size});
+  const Expression& x = expr.arg(0);
+  const Expression& y = expr.arg(1);
+
+  Expression y_minus_x = add(y, neg(x));
+  const int n = dim(y_minus_x);
+  CoeffMap coeff_map = get_coefficients(y_minus_x);
+  add_constraint_cone(ConeConstraint::NON_NEGATIVE, n);
+  add_constraint_coefficients(coeff_map, 0, n);
 }
 
+// soc(X,y) -> (y_i, x_i) in K_soc for each row of X and element of y
 void ConeProblemBuilder::add_soc_constraint(const Expression& expr) {
-  // ||x||_2 <= y becomes (y,x) in K_soc
-  const int offset = m_;
-  int size = 0;
-  size += add_constraint_coefficients(expr.arg(1));
-  size += add_constraint_coefficients(expr.arg(0));
-  cone_problem_.constraints.push_back(
-      {ConeConstraint::SECOND_ORDER, offset, size});
+  const Expression& X = expr.arg(0);
+  const Expression& y = expr.arg(1);
+
+  const int m = size(X).dims[0];
+  const int n = size(X).dims[1];
+  CHECK_EQ(m, size(y).dims[0]);
+  CHECK_EQ(1, size(y).dims[1]);
+
+  CoeffMap XT_coeff_map = get_coefficients(transpose(X));
+  CoeffMap y_coeff_map = get_coefficients(y);
+  for (int i = 0; i < m; i++) {
+    add_constraint_cone(ConeConstraint::SECOND_ORDER, n + 1);
+    add_constraint_coefficients(y_coeff_map, i, 1);
+    add_constraint_coefficients(XT_coeff_map, n*i, n);
+  }
 }
 
+// exp_cone(x,y,z) -> (x_i, y_i, z_i) in K_exp for each element of x, y, z
 void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
-  // Elementwise exponential cone is encoded as 3-tuples of (x,y,z)
-  CHECK_EQ(expr.args().size(), 3);
-  std::vector<CoeffMap> coeff_maps;
-  for (const Expression& arg : expr.args())
-    coeff_maps.push_back(get_coefficients(arg));
+  const Expression& x = expr.arg(0);
+  const Expression& y = expr.arg(1);
+  const Expression& z = expr.arg(2);
 
-  for (int i = 0; i < dim(expr.arg(0)); i++) {
-    cone_problem_.constraints.push_back({ConeConstraint::EXPONENTIAL, m_, 3});
-    for (const CoeffMap& coeff_map : coeff_maps) {
-      for (const auto& iter : coeff_map) {
-        const int var_id = iter.first;
-        const SparseMatrix& A = iter.second;
-        if (var_id == kConstCoefficientId) {
-          append_block_triplets(A.row(i), m_, 0, &b_coeffs_);
-        } else {
-          const int j = var_offsets_->insert(var_id, A.cols());
-          append_block_triplets(A.row(i), m_, j, &A_coeffs_);
-        }
-      }
-      m_++;
+  const int n = dim(x);
+  CHECK_EQ(n, dim(y));
+  CHECK_EQ(n, dim(z));
+
+  CoeffMap x_coeff_map = get_coefficients(x);
+  CoeffMap y_coeff_map = get_coefficients(y);
+  CoeffMap z_coeff_map = get_coefficients(z);
+  for (int i = 0; i < n; i++) {
+    add_constraint_cone(ConeConstraint::EXPONENTIAL, 3);
+    add_constraint_coefficients(x_coeff_map, i, 1);
+    add_constraint_coefficients(y_coeff_map, i, 1);
+    add_constraint_coefficients(z_coeff_map, i, 1);
+  }
+}
+
+// Linear transform that extracts lower tri + diagonal elements and scales the
+// off-diagonal elements by sqrt(2)
+SparseMatrix sdp_scaling_matrix(int n) {
+  std::vector<Triplet> coeffs;
+  int k = 0;
+  for (int j = 0; j < n; j++) {
+    for (int i = j; i < n; i++) {
+      coeffs.push_back(Triplet(k++, n*j+i, i == j ? 1 : sqrt(2)));
     }
   }
+  return sparse_matrix(n*(n+1)/2, n*n, coeffs);
+}
+
+// Scales the off diagonal elements in a vector representing a symmetric matrix
+SparseMatrix sdp_vec_scaling_matrix(int n) {
+  std::vector<Triplet> coeffs;
+  int k = 0;
+  for (int j = 0; j < n; j++) {
+    for (int i = j; i < n; i++) {
+      coeffs.push_back(Triplet(k, k, i == j ? 1 : sqrt(2)));
+      k++;
+    }
+  }
+
+  const int y = n*(n+1)/2;
+  return sparse_matrix(y, y, coeffs);
+}
+
+// sdp(X) -> X in K_sdp
+void ConeProblemBuilder::add_sdp_constraint(const Expression& expr) {
+  const Expression& X = expr.arg(0);
+  const int n = size(X).dims[0];
+
+  SparseMatrix F = sdp_scaling_matrix(n);
+  CoeffMap coeff_map = get_coefficients(mul(constant(F), reshape(X, n*n, 1)));
+  add_constraint_cone(ConeConstraint::SEMIDEFINITE, n*(n+1)/2);
+  add_constraint_coefficients(coeff_map, 0, n*(n+1)/2);
+
+  // Also add equality constraint to enforce symmetry
+  add_constraint(eq(upper_tri(X), upper_tri(transpose(X))));
+}
+
+// sdp_vec(x) -> full(x) in K_sdp
+void ConeProblemBuilder::add_sdp_vec_constraint(const Expression& expr) {
+  const Expression& x = expr.arg(0);
+  const int y = size(x).dims[0];
+
+  SparseMatrix F = sdp_vec_scaling_matrix(symmetric_single_dim(y));
+  CoeffMap coeff_map = get_coefficients(mul(constant(F), x));
+  add_constraint_cone(ConeConstraint::SEMIDEFINITE, y);
+  add_constraint_coefficients(coeff_map, 0, y);
 }
 
 typedef void(ConeProblemBuilder::*ConstraintHandler)(const Expression& expr);
 const std::unordered_map<int, ConstraintHandler> kConstraintHandlers = {
   {Expression::EQ,  &ConeProblemBuilder::add_eq_constraint},
-  {Expression::LEQ, &ConeProblemBuilder::add_leq_constraint},
-  {Expression::SOC, &ConeProblemBuilder::add_soc_constraint},
   {Expression::EXP_CONE, &ConeProblemBuilder::add_exp_cone_constraint},
+  {Expression::LEQ, &ConeProblemBuilder::add_leq_constraint},
+  {Expression::SDP, &ConeProblemBuilder::add_sdp_constraint},
+  {Expression::SDP_VEC, &ConeProblemBuilder::add_sdp_vec_constraint},
+  {Expression::SOC, &ConeProblemBuilder::add_soc_constraint},
 };
 
 void ConeProblemBuilder::add_constraint(const Expression& expr) {
+  VLOG(2) << "add_constraint " << format_expression(expr);
   auto iter = kConstraintHandlers.find(expr.type());
-  CHECK(iter != kConstraintHandlers.end());
+  CHECK(iter != kConstraintHandlers.end())
+      << "no handler for " << format_expression(expr);
   (this->*iter->second)(expr);
 }
 
-int ConeProblemBuilder::add_constraint_coefficients(const Expression& expr) {
-  CoeffMap coeff_map = get_coefficients(expr);
-  const int m = dim(expr);
+void ConeProblemBuilder::add_constraint_coefficients(
+    const CoeffMap& coeff_map, int i, int m) {
 
   for (const auto& iter : coeff_map) {
     const int var_id = iter.first;
     const SparseMatrix& A = iter.second;
     if (var_id == kConstCoefficientId) {
-      append_block_triplets(A, m_, 0, &b_coeffs_);
+      append_block_triplets(A.middleRows(i, m), num_constrs_, 0, &b_coeffs_);
     } else {
       const int j = var_offsets_->insert(var_id, A.cols());
-      append_block_triplets(A, m_, j, &A_coeffs_);
+      append_block_triplets(A.middleRows(i, m), num_constrs_, j, &A_coeffs_);
     }
   }
 
-  m_ += m;
-  return m;
+  num_constrs_ += m;
 }
+
+void ConeProblemBuilder::add_constraint_cone(
+    const ConeConstraint::Cone& cone, int n) {
+  cone_problem_.constraints.push_back({cone, cone_offset_, n});
+  cone_offset_ += n;
+}
+
 
 // Translate ConeSolution to Solution using VariableOffsetMap.
 Solution get_solution(
@@ -187,9 +267,18 @@ SymbolicConeSolver::SymbolicConeSolver(
 Solution SymbolicConeSolver::solve(const Problem& problem) {
   VariableOffsetMap var_offsets;
   ConeProblemBuilder builder(&var_offsets);
-  builder.add_objective(problem.objective);
+
+  Expression objective = problem.objective;
+  if (problem.sense == Problem::MAXIMIZE)
+    objective = neg(objective);
+
+  builder.add_objective(objective);
   for (const Expression& constr : problem.constraints)
     builder.add_constraint(constr);
 
-  return get_solution(cone_solver_->solve(builder.build()), var_offsets);
+  Solution solution = get_solution(
+      cone_solver_->solve(builder.build()), var_offsets);
+  if (problem.sense == Problem::MAXIMIZE)
+    solution.objective_value = -solution.objective_value;
+  return solution;
 }

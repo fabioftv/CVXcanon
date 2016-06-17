@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/cpp/cvxcanon/solver/ConeSolver.hpp
 // Interface for Cone Solvers
 //
 // TODO(mwytock): This should likely be a pure C interface to ease

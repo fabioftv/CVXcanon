@@ -13,6 +13,8 @@ struct ExpressionAttributes {
   virtual ~ExpressionAttributes() {}
 };
 
+const int kNoAxis = -1;
+
 // A single node in the abstract syntax tree which includes a type, children and
 // an optional pointer to additional attributes.
 //
@@ -34,10 +36,11 @@ class Expression {
     RESHAPE,
     SUM_ENTRIES,
     TRACE,
+    TRANSPOSE,
     UPPER_TRI,
     VSTACK,
 
-    // Elementwise functions
+    // Elementwise nonlinear functions
     ABS,
     ENTR,
     EXP,
@@ -64,9 +67,11 @@ class Expression {
 
     // Constraints
     EQ,
-    LEQ,
-    SOC,
     EXP_CONE,
+    LEQ,
+    SDP,
+    SDP_VEC,
+    SOC,
 
     // Leaf nodes
     CONST,
@@ -152,17 +157,34 @@ class Size {
   std::vector<int> dims;
 };
 
+// Represents a dense or sparse constant
+class Constant {
+ public:
+  void set_dense_data(double* matrix, int rows, int cols);
+  void set_sparse_data(double* data, int data_len,
+                       double* row_idxs, int rows_len,
+                       double* col_idxs, int cols_len,
+                       int rows, int cols);
+  Size size() const;
+
+  bool sparse;
+  DenseMatrix dense_data;
+  SparseMatrix sparse_data;
+};
+
 // Expression attributes: in the remainder of the file we define type-specific
 // attributes for each Expression that requires them. Note that there is a 1:1
 // mapping between an expression type (e.g. CONST) and a subclass of
 // ExpressionAttributes (e.g. ConstAttributes).
 
-class ConstAttributes : public ExpressionAttributes {
- public:
-  // TODO(mwytock): Allow for sparse constants as well
-  void set_dense_data(double* matrix, int rows, int cols);
-  Size size() const;
-  DenseMatrix dense_data;
+struct ConstAttributes : public ExpressionAttributes {
+  Constant constant;
+};
+
+struct ParamAttributes : public ExpressionAttributes {
+  int id;
+  Size size;
+  Constant constant;
 };
 
 struct VarAttributes : public ExpressionAttributes {
@@ -172,6 +194,7 @@ struct VarAttributes : public ExpressionAttributes {
 
 struct PNormAttributes : public ExpressionAttributes {
   double p;
+  int axis;
 };
 
 struct PowerAttributes : public ExpressionAttributes {
@@ -189,5 +212,26 @@ struct Slice {
 struct IndexAttributes : public ExpressionAttributes {
   std::vector<Slice> keys;
 };
+
+struct HuberAttributes : public ExpressionAttributes {
+  Expression M;
+};
+
+struct SumEntriesAttributes : public ExpressionAttributes {
+  int axis;
+};
+
+struct MaxEntriesAttributes : public ExpressionAttributes {
+  int axis;
+};
+
+struct SumLargestAttributes : public ExpressionAttributes {
+  int k;
+};
+
+struct LogSumExpAttributes : public ExpressionAttributes {
+  int axis;
+};
+
 
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H

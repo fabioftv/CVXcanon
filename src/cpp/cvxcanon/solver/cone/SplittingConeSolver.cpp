@@ -31,8 +31,14 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 	const int m = problem.A.rows();
 	const int n = problem.A.cols();
 
-// Inputs: problem.A, problem.b -  original constraints
-// Outputs: A_, b_ - with shuffled rows, will build incrementally
+// SCS expects the contraints to be specified in a certain order based on cone
+// type, whereas the ConeProblem interface is more flexible. In this block, we
+// shuffle the constraints so that they are in the order required by SCS and
+// at the same time build the SCS cone data structure which contains the sizes
+// of each constraint.
+//
+// Inputs: problem.A, problem.b, wwith  original constraints
+// Outputs: A_, b_, with shuffled rows
 	{
 		Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
 		const DenseVector& b = problem.b;
@@ -54,7 +60,6 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 			build_scs_constraint(A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
 			cone_.q = q_.get();
 		}
-		// (fabioftv): Added for Future Transformations
 		cone_.ssize = constr_map[ConeConstraint::SYM_POS_SEMI].size_eq();
 		if (cone_.ssize != 0) {
 			sd.reset(new int [cone_.ssize]);
@@ -62,9 +67,15 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 			cone_.s = sd_.get();
 		}
 
+		// SCS expects the matrix dimension for each SDP constraint, so we invert
+		// n*(n+1)/2 to get the matrix dimension from the number of constraints.
+		for (int i = 0; i < cone_.ssize; i++)
+			cone_s_[i] = symmetric_single_dim(cone_s_[i]);
+		}
+
 		build_scs_constraint(A, b, constr_map[ConeConstraint::PRIMAL_EXPO], &cone_.ep, nullptr);
 		CHECK_EQ(cone_.ep % 3, 0);
-		cone_.ep /= 3;
+		cone_.ep /= 3; // SCS expects the total number of 3-tuples
 		build_scs_constraint(A, b, constr_map[ConeConstraint::DUAL_EXPO], &cone_.ed, nullptr);
 		// TODO(fabioftv) Check Parameters for DUAL_EXPO
 		cone_.ed = 0;
