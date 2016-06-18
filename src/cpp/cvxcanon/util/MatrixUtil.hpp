@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-
 #include "cvxcanon/util/Utils.hpp"
 
 void append_block_triplets(

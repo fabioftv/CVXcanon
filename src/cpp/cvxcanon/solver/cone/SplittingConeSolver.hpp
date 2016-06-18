@@ -11,7 +11,6 @@
 
 #include <memory>
 #include <vector>
-
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
 // SCS Environment

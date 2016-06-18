@@ -5,7 +5,6 @@
 
 #include <map>
 #include <utility>
-
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 #include "cvxcanon/solver/Solver.hpp"
 

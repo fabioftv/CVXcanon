@@ -2,12 +2,17 @@
 //
 // See: https://github.com/embotech/ecos
 
-#ifndef EMBEDDED_CONIC_SOLVER_H
-#define EMBEDDED_CONIC_SOLVER_H
+//(fabioftv) Copy from TODO(mwytock) in SCS: 
+// It is expected that this interface will be implemented
+// directly in the SCS code base at some point and called via a plugin
+// architecture, see comment about pure C interface in README.md.
+
+#ifndef CVXCANON_SOLVER_CONE_EMBEDDED_CONIC_SOLVER_H
+#define CVXCANON_SOLVER_CONE_EMBEDDED_CONIC_SOLVER_H
 
 #include <memory>
-
-#include "cvxcanon/solver/ConeSolver.hpp"
+#include <vector>
+#include "cvxcanon/solver/cone/ConeSolver.hpp"
 
 // ECOS Environment 
 namespace ecos {
@@ -60,4 +65,4 @@ private:
 // Cone
 	ecos::cone cone_;
 
-#endif  // EMBEDDED_CONIC_SOLVER_H
+#endif  // CVXCANON_SOLVER_CONE_EMBEDDED_CONIC_SOLVER_H

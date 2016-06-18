@@ -1,10 +1,8 @@
 
-#include "SymbolicConeSolver.hpp"
-
 #include <memory>
 #include <unordered_map>
 #include <vector>
-
+#include "cvxcanon/solver/SymbolicConeSolver.hpp"
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/LinearExpression.hpp"

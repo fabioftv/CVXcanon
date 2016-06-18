@@ -1,16 +1,15 @@
 
-#include "EmbeddedConicSolver.hpp"
-
-#include <unordered_map>
-
+#include "cvxcanon/solver/cone/EmbeddedConicSolver.hpp"
 #include "cvxcanon/util/MatrixUtil.hpp"
+#include <unordered_map>
+#include <vector>
 
 // ECOS Environment
 namespace ecos {
-#include <ecos/src/ecos.c>
+#include "ecos/include/ecos.h"
 }
-// TODO (fabioftv)
-//		Can I include <ecos/src/ecos.c>? Reason: checkExitConditions(pwork_, mode)
+
+// TODO(fabioftv):
 //		Include Mixed-Integer SOCP Module in the Future
 
 void EmbeddedConicSolver::build_ecos_eq_constraint(
@@ -62,12 +61,10 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 		h_ = DenseVector(m_leq);
 		num_eq_constrs = num_leq_constrs = 0;.
 
-// TODO (fabioftv)
-// Equality Constraint Assignment
-//		std::unordered_map<int, std::vector<ConeConstraint>> constr_eq_map;
-//		build_ecos_eq_constraint(A, b, constraints_eq, &pwork.p, nullptr);		
+// TODO(fabioftv): Check Equality Constraints
+		build_ecos_eq_constraint(A, b, constraints_eq, &pwork.p, nullptr);		
 
-			std::unordered_map<int, std::vector<ConeConstraint>> constr_leq_map;
+		std::unordered_map<int, std::vector<ConeConstraint>> constr_leq_map;
 		for (const ConeConstraint& constr : problem.constraints_leq){
 			constr_leq_map[constr.cone].push_back(constr);
 		}
@@ -84,7 +81,7 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 	pwork_.p = m_eq;
 
 // Variables
-	solution->x = DenseVector(A.cols()); // Or DenseVector(G.cols()) => If n_eq and n_leq cannot differe, then I think it doesn't really matter
+	solution->x = DenseVector(A.cols()); // Or DenseVector(G.cols()) => If n_eq and n_leq cannot differ, then I think it doesn't really matter
 	pwork_.x = const_cast<double*>(solution->x.data());
 	s_ = DenseVector(G.rows());
 
@@ -105,27 +102,21 @@ void EmbeddedConicSolver::build_ecos_problem(const ConeProblem& problem, ConeSol
 	pwork_.stgs = &settings_;
 
 // TODO (fabioftv)
-// 1) Set Parameters from <ecos/include/ecos.h>
+// 1) Check:
 //		pwork_.D => degree of the cone
 //		pwork_.y => multipliers for equality constaints
 //		pwork_.z => multipliers for conic inequalities
-//		pwork_.lambda => scaled variable
-//		pwork_.kap => kappa (homogeneous embedding)
-//		pwork_.tau => tau (homogeneous embedding)
-// 2) Check Parameters from "best iterate seen so far" and "temporary stuff holding search direction"
-// 3) Check Othee Parameters: "indices that map entries of A and G to the KKT matrix", "equilibration vector", "scalings of problem data", "residuals", "norm iterates", and "KKT System"
-
 }
 
 // TODO(fabioftv): Check Description of the Function
 SolverStatus EmbeddedConicSolver::get_ecos_status() {
-	if (ecos::idxint checkExitConditions(pwork_, mode) == 0) {
+	if (strcmp(stats_.info, "Solved") == 0) {
 		return OPTIMAL;
-	} else if (ecos::idxint checkExitConditions(pwork_, mode) == 1) {
+	} else if (strcmp(stats_.info, "Infeasible") == 0) {
 		return INFEASIBLE;
-	} else if (ecos::idxint checkExitConditions(pwork_, mode) == 2) {	// Dual Infeasibility => Primal Infeasibility
+	} else if (strcmp(stats_.info, "Unbounded") == 0) {	
 		return UNBOUNDED;
-	} else if (ecos::idxint checkExitConditions(pwork_, mode) == -1) {
+	} else if (strcmp(stats_.info, "User Limit") == 0) {
 		return USER_LIMIT;
 	else {
 		return ERROR;

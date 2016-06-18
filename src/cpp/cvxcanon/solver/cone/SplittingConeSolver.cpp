@@ -1,10 +1,8 @@
 
 #include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
-
+#include "cvxcanon/util/MatrixUtil.hpp"
 #include <unordered_map>
 #include <vector>
-
-#include "cvxcanon/util/MatrixUtil.hpp"
 
 // SCS Environment
 namespace scs {
@@ -52,43 +50,51 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 			constr_map[constr.cone].push_back(constr);
 		}
 
+// ZERO Cone
 		build_scs_constraint(A, b, constr_map[ConeConstraint::ZERO], &cone_.f, nullptr);
+
+// NON_NEGATIVE Cone
 		build_scs_constraint(A, b, constr_map[ConeConstraint::NON_NEGATIVE], &cone_.l, nullptr);
+		
+//SECOND_ORDER Cone		
 		cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size_eq();
 		if (cone_.qsize != 0) {
 			q_.reset(new int[cone_.qsize]);
 			build_scs_constraint(A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
 			cone_.q = q_.get();
 		}
+
+// SYM_POS_SEMI CONE
 		cone_.ssize = constr_map[ConeConstraint::SYM_POS_SEMI].size_eq();
 		if (cone_.ssize != 0) {
 			sd.reset(new int [cone_.ssize]);
 			build_scs_constraint(A, b, constr_map[ConeConstraint::SYM_POS_SEMI], nullptr, sd_.get());
 			cone_.s = sd_.get();
 		}
-
 		// SCS expects the matrix dimension for each SDP constraint, so we invert
 		// n*(n+1)/2 to get the matrix dimension from the number of constraints.
 		for (int i = 0; i < cone_.ssize; i++)
 			cone_s_[i] = symmetric_single_dim(cone_s_[i]);
 		}
 
+// PRIMAL_EXPO Cone
 		build_scs_constraint(A, b, constr_map[ConeConstraint::PRIMAL_EXPO], &cone_.ep, nullptr);
 		CHECK_EQ(cone_.ep % 3, 0);
 		cone_.ep /= 3; // SCS expects the total number of 3-tuples
+		
+// DUAL_EXPO Cone
 		build_scs_constraint(A, b, constr_map[ConeConstraint::DUAL_EXPO], &cone_.ed, nullptr);
-		// TODO(fabioftv) Check Parameters for DUAL_EXPO
-		cone_.ed = 0;
+		CHECK_EQ(cone_.ed % 3, 0);
+		cone_.ed /= 3; // SCS expects the total number of 3-tuples
 
 // TODO(fabioftv): Should we add Primal and Dual Power Cone?
-
 		cone_.psize = 0;
 		
 		A_ = sparse_matrix(m, n, A_coeffs_);
 	}
 
- VLOG(2) << "SCS constraints:\n"
-          << "A:\n" << matrix_debug_string(A_)
+ VLOG(1)  << "SCS constraints:\n"
+          << "A:\n" << matrix_debug_string(A_);
           << "b: " << vector_debug_string(b_);
 
 // Build SCS Data Structures
@@ -115,7 +121,6 @@ void SplittingConeSolver::build_scs_problem(const ConeProblem& problem,	ConeSolu
 	sol_.s = const_cast<double*>(s_.data());
 }
 
-// TODO(fabioftv): Check Right String for each Output
 SolverStatus SplittingConeSolver::get_scs_status() {
 	if (strcmp(info_.status, "Solved") == 0) {
 		return OPTIMAL;
