@@ -52,12 +52,12 @@ common_cc = \
 	cvxcanon/expression/LinearExpression.cpp \
 	cvxcanon/expression/TextFormat.cpp \
 	cvxcanon/linop/LinOpOperations.cpp \
-	cvxcanon/solver/Solver.cpp \
 	cvxcanon/solver/SymbolicConeSolver.cpp \
 	cvxcanon/transform/LinearConeTransform.cpp \
 	cvxcanon/util/Init.cpp \
 	cvxcanon/util/MatrixUtil.cpp \
 	cvxcanon/util/Utils.cpp
+	cvxcanon/solver/SolverStatus.hpp \
 
 common_test_cc = \
 	cvxcanon/util/TestMain.cpp
