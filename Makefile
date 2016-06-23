@@ -52,7 +52,6 @@ common_cc = \
 	cvxcanon/expression/LinearExpression.cpp \
 	cvxcanon/expression/TextFormat.cpp \
 	cvxcanon/linop/LinOpOperations.cpp \
-	cvxcanon/solver/SymbolicConeSolver.cpp \
 	cvxcanon/transform/LinearConeTransform.cpp \
 	cvxcanon/util/Init.cpp \
 	cvxcanon/util/MatrixUtil.cpp \
