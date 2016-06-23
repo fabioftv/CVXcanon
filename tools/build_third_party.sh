@@ -34,3 +34,12 @@ scs_flags="USE_LAPACK=1"
 scs_targets=$build/scs/libscsdir.a
 make -C $third_party/scs OUT=$build/scs "$scs_flags" "$scs_targets"
 cp $build/scs/*.a $build/lib
+
+# ECOS
+mkdir -p $build/ecos
+cd $build/ecos
+ecos_flags="USE_LAPACK=1"
+ecos_targets=$build/ecos/libecosdir.a
+make -C $third_party/ecos OUT=$build/ecos "$ecos_flags" "$ecos_targets"
+cp $build/ecos/*.a $build/lib
+
