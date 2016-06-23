@@ -52,9 +52,9 @@ class ConeProblemBuilder {
 
     if (VLOG_IS_ON(1)) {
       VLOG(1) << "cones:";
-      for (const ConeConstraint& constr : cone_problem_.constraints) {
+      for (const ConeConstraint& constr : cone_problem_.constraints_eq) {
         VLOG(1) << "cone " << constr.cone
-                << ": (" << constr.offset << ", " << constr.size << ")";
+                << ": (" << constr.offset_eq << ", " << constr.size_eq << ")";
       }
     }
     return cone_problem_;
@@ -140,7 +140,7 @@ void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
   CoeffMap y_coeff_map = get_coefficients(y);
   CoeffMap z_coeff_map = get_coefficients(z);
   for (int i = 0; i < n; i++) {
-    add_constraint_cone(ConeConstraint::EXPONENTIAL, 3);
+    add_constraint_cone(ConeConstraint::PRIMAL_EXPO, 3);
     add_constraint_coefficients(x_coeff_map, i, 1);
     add_constraint_coefficients(y_coeff_map, i, 1);
     add_constraint_coefficients(z_coeff_map, i, 1);
@@ -237,7 +237,7 @@ void ConeProblemBuilder::add_constraint_coefficients(
 
 void ConeProblemBuilder::add_constraint_cone(
     const ConeConstraint::Cone& cone, int n) {
-  cone_problem_.constraints.push_back({cone, cone_offset_, n});
+  cone_problem_.constraints_eq.push_back({cone, cone_offset_, n});
   cone_offset_ += n;
 }
 
