@@ -45,17 +45,10 @@ LDLIBS += -lpthread -lblas -llapack
 endif
 
 common_cc = \
-	cvxcanon/CVXcanon.cpp \
 	cvxcanon/expression/Expression.cpp \
 	cvxcanon/expression/ExpressionShape.cpp \
-	cvxcanon/expression/ExpressionUtil.cpp \
-	cvxcanon/expression/LinearExpression.cpp \
 	cvxcanon/expression/TextFormat.cpp \
 	cvxcanon/linop/LinOpOperations.cpp \
-	cvxcanon/solver/SymbolicConeSolver.cpp \
-	cvxcanon/transform/LinearConeTransform.cpp \
-	cvxcanon/util/Init.cpp \
-	cvxcanon/util/MatrixUtil.cpp \
 	cvxcanon/util/Utils.cpp
 
 common_test_cc = \
