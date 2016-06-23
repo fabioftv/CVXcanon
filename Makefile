@@ -18,6 +18,8 @@ build_dir = build-cc
 tools_dir = tools
 gtest_dir = third_party/googletest/googletest
 eigen_dir = third_party
+scs_dir = third_party
+ecos_dir = third_party
 deps_dir = build-deps
 
 # Optimization flags, use OPTFLAGS=-g when debugging
@@ -25,7 +27,7 @@ OPTFLAGS = -DNDEBUG -O3
 
 CFLAGS += $(OPTFLAGS)
 CXXFLAGS += $(OPTFLAGS) -std=c++14
-CXXFLAGS += -I$(src_dir) -I$(eigen_dir) -I$(deps_dir)/include
+CXXFLAGS += -I$(src_dir) -I$(eigen_dir) -I$(scs_dir) - I$(ecos_dir) -I$(deps_dir)/include
 CXXFLAGS += -I$(gtest_dir)/include
 
 # TODO(mwytock): Add these compiler flags
