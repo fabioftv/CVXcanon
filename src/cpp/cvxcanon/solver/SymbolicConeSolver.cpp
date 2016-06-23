@@ -182,7 +182,7 @@ void ConeProblemBuilder::add_sdp_constraint(const Expression& expr) {
 
   SparseMatrix F = sdp_scaling_matrix(n);
   CoeffMap coeff_map = get_coefficients(mul(constant(F), reshape(X, n*n, 1)));
-  add_constraint_cone(ConeConstraint::SEMIDEFINITE, n*(n+1)/2);
+  add_constraint_cone(ConeConstraint::SYM_POS_SEMI, n*(n+1)/2);
   add_constraint_coefficients(coeff_map, 0, n*(n+1)/2);
 
   // Also add equality constraint to enforce symmetry
@@ -196,7 +196,7 @@ void ConeProblemBuilder::add_sdp_vec_constraint(const Expression& expr) {
 
   SparseMatrix F = sdp_vec_scaling_matrix(symmetric_single_dim(y));
   CoeffMap coeff_map = get_coefficients(mul(constant(F), x));
-  add_constraint_cone(ConeConstraint::SEMIDEFINITE, y);
+  add_constraint_cone(ConeConstraint::SYM_POS_SEMI, y);
   add_constraint_coefficients(coeff_map, 0, y);
 }
 
