@@ -57,7 +57,6 @@ common_cc = \
 	cvxcanon/util/Init.cpp \
 	cvxcanon/util/MatrixUtil.cpp \
 	cvxcanon/util/Utils.cpp
-	cvxcanon/solver/SolverStatus.hpp \
 
 common_test_cc = \
 	cvxcanon/util/TestMain.cpp
