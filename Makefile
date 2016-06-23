@@ -48,7 +48,6 @@ common_cc = \
 	cvxcanon/expression/Expression.cpp \
 	cvxcanon/expression/ExpressionShape.cpp \
 	cvxcanon/expression/TextFormat.cpp \
-	cvxcanon/linop/LinOpOperations.cpp \
 	cvxcanon/util/Utils.cpp
 
 common_test_cc = \
