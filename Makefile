@@ -64,10 +64,12 @@ common_cc = \
 	cvxcanon/util/Utils.cpp
 
 common_test_cc = \
-	cvxcanon/util/TestMain.cpp
+	cvxcanon/TestMain.cpp
 
 tests = \
 	cvxcanon/expression/TextFormatTest
+	cvxcanon/transform/LinearConeTransformTest
+	cvxcanon/solver/SolverTest
 
 deps = \
 	glog \
