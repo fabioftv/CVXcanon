@@ -67,8 +67,8 @@ common_test_cc = \
 	cvxcanon/TestMain.cpp
 
 tests = \
-	cvxcanon/expression/TextFormatTest
-	cvxcanon/transform/LinearConeTransformTest
+	cvxcanon/expression/TextFormatTest \
+	cvxcanon/transform/LinearConeTransformTest \
 	cvxcanon/solver/SolverTest
 
 deps = \
