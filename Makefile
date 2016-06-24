@@ -73,7 +73,8 @@ tests = \
 
 deps = \
 	glog \
-	scsdir
+	scsdir \
+	ecos
 
 # Stop make from deleting intermediate files
 .SECONDARY:

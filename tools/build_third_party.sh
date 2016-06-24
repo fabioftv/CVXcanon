@@ -38,8 +38,7 @@ cp $build/scs/*.a $build/lib
 # ECOS
 mkdir -p $build/ecos
 cd $build/ecos
-ecos_flags="USE_LAPACK=1"
-ecos_targets=$build/ecos/libecosdir.a
-make -C $third_party/ecos OUT=$build/ecos "$ecos_flags" "$ecos_targets"
-cp $build/ecos/*.a $build/lib
-
+ecos_targets=$build/ecos/libecos.a
+make -C $third_party/ecos shared
+cp $third_party/ecos/*.a $build/lib
+cp $third_party/ecos/*.a $build/ecos
