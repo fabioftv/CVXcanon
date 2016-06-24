@@ -5,8 +5,8 @@
 
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/solver/SymbolicConeSolver.hpp"
-#include "cvxcanon/solver/cone/EmbeddedConicSolver.hpp"
-#include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
+#include "cvxcanon/solver/cone/EcosConeSolver.hpp"
+#include "cvxcanon/solver/cone/ScsConeSolver.hpp"
 #include "cvxcanon/transform/LinearConeTransform.hpp"
 
 bool validate(const Problem& problem, const SolverOptions& solver_options) {

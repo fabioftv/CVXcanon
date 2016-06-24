@@ -17,6 +17,7 @@
 // ECOS Environment 
 namespace ecos {
 	typedef double pfloat;
+#include <ecos/external/SuiteSparse_config/SuiteSparse_config.h>
 #include <ecos/include/ecos.h>
 }
 

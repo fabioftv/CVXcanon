@@ -9,4 +9,4 @@
 	url = https://github.com/google/googletest
 [submodule "third_party/ecos"]
 	path = third_party/ecos
-	url = https://github.com/embotech/ecos.git
+	url = https://github.com/embotech/ecos

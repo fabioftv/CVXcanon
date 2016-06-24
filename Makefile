@@ -2,9 +2,7 @@
 #
 # NOTE(mwytock): You must run tools/build_third_party.sh first
 #
-# TODO(mwytock): This is just a skeleton with basic support for running C++
-# tests using googletest.  Theres a bunch of things we want to add, for example:
-# - build libcvxcanon.a
+# TODO(mwytock): A bunch of things to add, for example:
 # - execute tools/build_third_party.sh (if necessary)
 # - automatic dependency generation (e.g. for header file changes)
 #
@@ -18,9 +16,7 @@ build_dir = build-cc
 tools_dir = tools
 gtest_dir = third_party/googletest/googletest
 eigen_dir = third_party
-scs_dir = third_party
-ecos_dir = third_party
-ecos_external = third_party/ecos/external/SuiteSparse_config
+ecos_dir = third_party/ecos
 deps_dir = build-deps
 
 # Optimization flags, use OPTFLAGS=-g when debugging
@@ -28,7 +24,7 @@ OPTFLAGS = -DNDEBUG -O3
 
 CFLAGS += $(OPTFLAGS)
 CXXFLAGS += $(OPTFLAGS) -std=c++14
-CXXFLAGS += -I$(src_dir) -I$(eigen_dir) -I$(scs_dir) -I$(ecos_dir) -I$(ecos_external) -I$(deps_dir)/include
+CXXFLAGS += -I$(src_dir) -I$(eigen_dir) -I$(deps_dir)/include
 CXXFLAGS += -I$(gtest_dir)/include
 
 # TODO(mwytock): Add these compiler flags
@@ -38,13 +34,12 @@ CXXFLAGS += -I$(gtest_dir)/include
 # System-specific configuration
 SYSTEM = $(shell uname -s)
 
-# BLAS
-ifeq ($(SYSTEM),Darwin)
-LDLIBS += -framework Accelerate
-endif
+LDLIBS = -L$(deps_dir)/lib -lecos -lglog -lscsdir
 
 ifeq ($(SYSTEM),Linux)
-LDLIBS += -lpthread -lblas -llapack
+CFLAGS += -fPIC
+CXXFLAGS += -fPIC
+LDLIBS += -lpthread -lblas
 endif
 
 common_cc = \
@@ -57,8 +52,8 @@ common_cc = \
 	cvxcanon/linop/LinOpOperations.cpp \
 	cvxcanon/solver/Solver.cpp \
 	cvxcanon/solver/SymbolicConeSolver.cpp \
-	cvxcanon/solver/cone/EmbeddedConicSolver.cpp \
-	cvxcanon/solver/cone/SplittingConeSolver.cpp \
+	cvxcanon/solver/cone/EcosConeSolver.cpp \
+	cvxcanon/solver/cone/ScsConeSolver.cpp \
 	cvxcanon/transform/LinearConeTransform.cpp \
 	cvxcanon/util/Init.cpp \
 	cvxcanon/util/MatrixUtil.cpp \
@@ -71,30 +66,37 @@ tests = \
 	cvxcanon/expression/TextFormatTest \
 	cvxcanon/solver/SolverTest
 
-deps = \
-	glog \
-	scsdir \
-	ecos
+libs = cvxcanon
 
 # Stop make from deleting intermediate files
 .SECONDARY:
 
+build_libs = $(libs:%=$(build_dir)/lib%.a)
 build_tests = $(tests:%=$(build_dir)/%)
 
-test: $(build_tests)
-	@$(tools_dir)/run_tests.sh $(build_tests)
+# Targets
+
+all: $(build_libs)
 
 clean:
 	rm -rf $(build_dir)
 
-build_sub_dirs = $(addprefix $(build_dir)/, $(dir $(common_cc)))
+test: $(build_tests)
+	@$(tools_dir)/run_tests.sh $(build_tests)
 
+
+# Compilation rules
+
+build_sub_dirs = $(addprefix $(build_dir)/, $(dir $(common_cc)))
 $(build_dir):
 	mkdir -p $(build_sub_dirs)
 
 
 $(build_dir)/%.o: $(src_dir)/%.cpp | $(build_dir)
 	$(COMPILE.cc) $(OUTPUT_OPTION) $<
+
+$(build_dir)/cvxcanon/solver/cone/EcosConeSolver.o: $(src_dir)/cvxcanon/solver/cone/EcosConeSolver.cpp | $(build_dir)
+	$(COMPILE.cc) $(OUTPUT_OPTION) -I$(ecos_dir)/external/SuiteSparse_config $<
 
 gtest_srcs = $(gtest_dir)/src/*.cc $(gtest_dir)/src/*.h
 
@@ -103,7 +105,13 @@ $(build_dir)/gtest-all.o: $(gtest_srcs)
 	$(COMPILE.cc) -I$(gtest_dir) -Wno-missing-field-initializers -c $(gtest_dir)/src/gtest-all.cc -o $@
 
 common_obj = $(common_cc:%.cpp=$(build_dir)/%.o)
-common_obj += $(deps:%=$(deps_dir)/lib/lib%.a)
+
+$(build_dir)/libcvxcanon.a: $(common_obj)
+	$(AR) rcs $@ $^
+ifeq ($(SYSTEM),Darwin)
+	ranlib $@
+endif
+
 common_test_obj = $(common_test_cc:%.cpp=$(build_dir)/%.o)
 common_test_obj += $(common_obj)
 common_test_obj += $(build_dir)/gtest-all.o
