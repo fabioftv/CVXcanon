@@ -26,13 +26,13 @@ public:
 		NON_POSITIVE,				// Nonpositive Orthant
 		SECOND_ORDER,				// Second Order Cone
 		ROTATED_SECOND_ORDER,		// Rotated Second Order Cone
-		SYM_POS_SEMI,				// Symmetric Positive Semidefinite Matrices
+		SEMIDEFINITE,				// Symmetric Positive Semidefinite Matrices
 		PRIMAL_EXPO,				// Primal Exponential Cone
 		DUAL_EXPO					// Dual Exponential Cone
 	};
 
 	Cone cone;
-	int offset_eq, offset_leq, size_eq, size_leq;
+	int offset, size;
 };
 
 class ConeProblem {
@@ -42,17 +42,11 @@ class ConeProblem {
 // Subject to:	Ax + s = b
 //				s in K
 
-// ECOS
-// Minimize		c'x
-// Subject to:	Ax = b
-//				h - Gx in K
 
 public:
 	SparseMatrix A;
-	SparseMatrix G;
 	DenseVector b, h, c;
-	std::vector<ConeConstraint> constraints_eq;
-	std::vector<ConeConstraint> constraints_leq;
+	std::vector<ConeConstraint> constraints;
 };
 
 // The solution to a cone problem

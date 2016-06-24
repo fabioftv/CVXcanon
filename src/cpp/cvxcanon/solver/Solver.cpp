@@ -27,10 +27,10 @@ Solution solve(const Problem& problem, const SolverOptions& solver_options) {
   std::unique_ptr<ConeSolver> cone_solver;
 // (fabioftv): Added Different Solvers
   if (solver_options.name == SCS) {
-    SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
+    SymbolicConeSolver solver(std::make_unique<ScsConeSolver>());
     return solver.solve(cone_problem);
   } else if (solver_options.name == ECOS) {
-    SymbolicConeSolver solver(std::make_unique<EmbeddedConicSolver>());
+    SymbolicConeSolver solver(std::make_unique<EcosConeSolver>());
     return solver.solve(cone_problem);
   }
 }

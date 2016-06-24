@@ -1,6 +1,6 @@
 
 #include "cvxcanon/solver/cone/ScsConeSolver.hpp"
-
+#include "cvxcanon/util/MatrixUtil.hpp"
 #include <unordered_map>
 #include <vector>
 
@@ -100,7 +100,7 @@ void ScsConeSolver::build_scs_problem(
         cone_s_[i] = symmetric_single_dim(cone_s_[i]);
     }
     build_scs_constraint(
-        A, b, constr_map[ConeConstraint::EXPONENTIAL], &scs_data_->cone_.ep,
+        A, b, constr_map[ConeConstraint::PRIMAL_EXPO], &scs_data_->cone_.ep,
         nullptr);
     CHECK_EQ(scs_data_->cone_.ep % 3, 0);
     scs_data_->cone_.ep /= 3;  // SCS expects the total number of 3-tuples
@@ -162,5 +162,4 @@ ConeSolution ScsConeSolver::solve(const ConeProblem& problem) {
   solution.objective_value = scs_data_->info_.pobj;
   solution.status = get_scs_status();
   return solution;
->>>>>>> upstream/solvers:src/cpp/cvxcanon/solver/cone/ScsConeSolver.cpp
 }
