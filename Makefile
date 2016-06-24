@@ -27,7 +27,7 @@ OPTFLAGS = -DNDEBUG -O3
 
 CFLAGS += $(OPTFLAGS)
 CXXFLAGS += $(OPTFLAGS) -std=c++14
-CXXFLAGS += -I$(src_dir) -I$(eigen_dir) -I$(scs_dir) - I$(ecos_dir) -I$(deps_dir)/include
+CXXFLAGS += -I$(src_dir) -I$(eigen_dir) -I$(scs_dir) -I$(ecos_dir) -I$(deps_dir)/include
 CXXFLAGS += -I$(gtest_dir)/include
 
 # TODO(mwytock): Add these compiler flags
