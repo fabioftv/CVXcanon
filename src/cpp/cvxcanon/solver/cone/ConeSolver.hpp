@@ -15,53 +15,50 @@
 #include "cvxcanon/solver/SolverStatus.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
-// TODO(fabioftv): Need another version of SymbolicConeSolver to account for other Cones
-// A cone constraint
+// Cone Constraint
 class ConeConstraint {
 public:
 	enum Cone {
-		FREE,						// No Restrictions
-		ZERO,						// All Components = 0
-		NON_NEGATIVE,				// Nonnegative Orthant
-		NON_POSITIVE,				// Nonpositive Orthant
-		SECOND_ORDER,				// Second Order Cone
-		ROTATED_SECOND_ORDER,		// Rotated Second Order Cone
-		SEMIDEFINITE,				// Symmetric Positive Semidefinite Matrices
-		PRIMAL_EXPO,				// Primal Exponential Cone
-		DUAL_EXPO					// Dual Exponential Cone
+		FREE,			// No Restrictions
+		ZERO,			// All Components = 0
+		NON_NEGATIVE,		// Nonnegative Orthant
+		NON_POSITIVE,		// Nonpositive Orthant
+		SECOND_ORDER,		// Second Order Cone
+		ROTATED_SECOND_ORDER,	// Rotated Second Order Cone
+		SEMIDEFINITE,		// Semidefinite Matrices
+		PRIMAL_EXPO,		// Primal Exponential Cone
+		DUAL_EXPO		// Dual Exponential Cone
 	};
 
 	Cone cone;
 	int offset, size;
 };
 
+// Standard Form Problem (Primal)
+// Minimize	c'x
+// Subject to:	b - Ax in K1
+//		x in K2
+
 class ConeProblem {
-
-// SCS
-// Minimize		c'x
-// Subject to:	Ax + s = b
-//				s in K
-
-
 public:
 	SparseMatrix A;
 	DenseVector b, c;
 	std::vector<ConeConstraint> constraints;
 };
 
-// The solution to a cone problem
+// Solution to Cone Problem
 class ConeSolution {
  public:
   SolverStatus status;
 
-  // Primal and dual variables
+  // Primal and Dual Variables
   DenseVector x, y;
 
-  // Primal objective value
+  // Primal/Dual Objective Value
   double objective_value;
 };
 
-// The cone solver interface.
+// Cone Solver Interface
 class ConeSolver {
 public:
 	virtual ConeSolution solve(const ConeProblem& problem) = 0;

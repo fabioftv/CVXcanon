@@ -13,13 +13,6 @@
 #include <vector>
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
-// ECOS Environment 
-namespace ecos {
-	typedef double pfloat;
-#include <ecos/external/SuiteSparse_config/SuiteSparse_config.h>
-#include <ecos/include/ecos.h>
-}
-
 class EcosConeSolver : public ConeSolver {
 public:
    EcosConeSolver();
@@ -45,10 +38,6 @@ private:
    // ECOS Data Structures
    std::unique_ptr<EcosData> ecos_data_;
 
-   // ECOS Supporting Data Structures
-   // ecos::spmat A_matrix_;
-   // ecos::spmat G_matrix_;
-
    // Constraints Ordered
    SparseMatrix A_;
    SparseMatrix G_;
@@ -58,7 +47,6 @@ private:
    // Extra Attributes for Constraints
    int num_constrs_;
    std::vector<Triplet> A_coeffs_;
-   std::vector<Triplet> G_coeffs_;
 
    // Cone
    // ecos::cone cone_;
