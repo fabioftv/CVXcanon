@@ -45,7 +45,7 @@ class ConeProblem {
 
 public:
 	SparseMatrix A;
-	DenseVector b, h, c;
+	DenseVector b, c;
 	std::vector<ConeConstraint> constraints;
 };
 
