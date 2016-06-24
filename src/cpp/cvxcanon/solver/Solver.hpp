@@ -11,13 +11,15 @@
 
 //TODO(fabioftv): List All Solvers Here in the Future
 
+enum SolverName {
+	ECOS,
+	SCS,
+};
+
 class SolverOptions {
 // TODO(mwytock): Add either a generic set of options for solvers and/or a way for solver-specific options to be passed.
 public:
-	enum SolverOptions {
-	ECOS,
-	SCS,
-	};
+  SolverName name;
 };
 
 // A solution

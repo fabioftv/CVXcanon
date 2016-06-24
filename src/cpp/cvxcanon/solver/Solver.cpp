@@ -20,16 +20,17 @@ Solution solve(const Problem& problem, const SolverOptions& solver_options) {
 
 	VLOG(1) << "input problem:\n" << format_problem(problem);
 	LinearConeTransform transform;
-	Problem cone_problem = transform.transform(problem);
+	Problem cone_problem = transform.apply(problem);
 
 	VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
 
+  std::unique_ptr<ConeSolver> cone_solver;
 // (fabioftv): Added Different Solvers
-	switch(solver_options){
-		case SCS : SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
-		case ECOS : SymbolicConeSolver solver(std::make_unique<EmbeddedConicSolver>());
-	}
-
-	return solver.solve(cone_problem);
-
+  if (solver_options.name == SCS) {
+    SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
+    return solver.solve(cone_problem);
+  } else if (solver_options.name == ECOS) {
+    SymbolicConeSolver solver(std::make_unique<EmbeddedConicSolver>());
+    return solver.solve(cone_problem);
+  }
 }

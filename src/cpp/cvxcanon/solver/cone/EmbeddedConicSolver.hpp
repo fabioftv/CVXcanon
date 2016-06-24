@@ -17,7 +17,6 @@
 // ECOS Environment 
 namespace ecos {
 	typedef double pfloat;
-	typedef int idxint;
 #include <ecos/include/ecos.h>
 }
 
@@ -64,5 +63,5 @@ private:
 
 // Cone
 	ecos::cone cone_;
-
+};
 #endif  // CVXCANON_SOLVER_CONE_EMBEDDED_CONIC_SOLVER_H
