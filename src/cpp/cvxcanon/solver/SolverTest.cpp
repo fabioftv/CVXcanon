@@ -1,6 +1,6 @@
 
 #include "gtest/gtest.h"
-#include "solver"
+#include "cvxcanon/solver/Solver.hpp"
 
 TEST(SolverTest, Names) {
 
