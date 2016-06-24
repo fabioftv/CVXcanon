@@ -54,7 +54,7 @@ common_cc = \
 	cvxcanon/expression/LinearExpression.cpp \
 	cvxcanon/expression/TextFormat.cpp \
 	cvxcanon/linop/LinOpOperations.cpp \
-	cvxcanon/solver/Solver.cpp \	
+	cvxcanon/solver/Solver.cpp \
 	cvxcanon/solver/SymbolicConeSolver.cpp \
 	cvxcanon/solver/cone/EmbeddedConicSolver.cpp \
 	cvxcanon/solver/cone/SplittingConeSolver.cpp \
