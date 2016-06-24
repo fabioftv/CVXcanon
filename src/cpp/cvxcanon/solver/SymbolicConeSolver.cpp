@@ -237,7 +237,7 @@ void ConeProblemBuilder::add_constraint_coefficients(
 
 void ConeProblemBuilder::add_constraint_cone(
     const ConeConstraint::Cone& cone, int n) {
-  cone_problem_.constraints_eq.push_back({cone, cone_offset_, n});
+  cone_problem_.constraints.push_back({cone, cone_offset_, n});
   cone_offset_ += n;
 }
 
