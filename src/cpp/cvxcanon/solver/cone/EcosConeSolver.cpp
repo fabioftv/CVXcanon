@@ -45,7 +45,7 @@ void EcosConeSolver::build_ecos_constraint(
   }
 }
 
-
+/*
 void EmbeddedConicSolver::build_ecos_eq_constraint(
 	const Eigen::SparseMatrix<double, Eigen::RowMajor>&A,
 	const DenseVector& b,
@@ -61,7 +61,7 @@ void EmbeddedConicSolver::build_ecos_eq_constraint(
 			num_eq_constrs_ += constr.size_eq;
 		}
 }
-
+*/
 
 
 
