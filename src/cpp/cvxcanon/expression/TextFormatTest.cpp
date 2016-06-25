@@ -22,7 +22,7 @@ TEST(TextFormatTest, FormatExpression) {
   int n = 5;
   int i = 15;
   int j = 20;
-  string t = "test";
+  std::string t = "test";
 
   EXPECT_EQ("var", format_expression(x));
 
