@@ -98,7 +98,7 @@ TEST(TextFormatTest, FormatExpression) {
   EXPECT_EQ("const", format_expression(const_var));
 
   Expression hstack_var = hstack(v);
-  EXPECT_EQ("v", format_expression(hstack_var));
+  EXPECT_EQ("hstack", format_expression(hstack_var));
 
 
 /*
