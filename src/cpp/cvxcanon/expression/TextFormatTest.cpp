@@ -18,6 +18,8 @@ TEST(TextFormatTest, FormatExpression) {
   Expression y = var(20, 10, 0);
   Expression z = var(30, 15, 0);
   double d = 10.0;
+  int m = 10;
+  int n = 5;
 
   Expression add_vars = add(x, y);
   EXPECT_EQ("add(var, var)", format_expression(add_vars));
@@ -73,6 +75,8 @@ TEST(TextFormatTest, FormatExpression) {
   Expression sdp_var = sdp(x);
   EXPECT_EQ("sdp(var)", format_expression(sdp_var));
 
+  Expression reshape_vars = reshape(x, m, n);
+  EXPECT_EQ("reshape(var)", format_expression(reshape_vars));
 
 
 
@@ -86,11 +90,7 @@ Expression power(Expression x, double p) {
   return {Expression::POWER, {x}, attr};
 }
 
-Expression reshape(Expression x, int m, int n) {
-  auto attr = std::make_shared<ReshapeAttributes>();
-  attr->size = {{m, n}};
-  return {Expression::RESHAPE, {x}, attr};
-}
+
 
 Expression sum_entries(Expression x, int axis) {
   auto attr = std::make_shared<SumEntriesAttributes>();
@@ -160,7 +160,6 @@ Expression vstack(std::vector<Expression> args) {
   {Expression::HSTACK, "hstack"},
   {Expression::INDEX, "index"},
   {Expression::KRON, "kron"},
-  {Expression::RESHAPE, "reshape"},
   {Expression::SUM_ENTRIES, "sum_entries"},
   {Expression::VSTACK, "vstack"},
 
