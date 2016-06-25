@@ -17,14 +17,14 @@ TEST(TextFormatTest, FormatExpression) {
   Expression x = var(10, 5, 0);
   Expression y = var(20, 10, 0);
 
-  Expression z = add(x, y);
-  EXPECT_EQ("add(var, var)", format_expression(z));
+  Expression add_vars = add(x, y);
+  EXPECT_EQ("add(var, var)", format_expression(add_vars));
  
-  Expression z = mul(x, y);
-  EXPECT_EQ("mul(var, var)", format_expression(z));
+  Expression mult_vars = mul(x, y);
+  EXPECT_EQ("mul(var, var)", format_expression(mul_vars));
 
-  Expression z = neg(x);
-  EXPECT_EQ("neg(var)", format_expression(z));
+  Expression neg_var = neg(x);
+  EXPECT_EQ("neg(var)", format_expression(neg_var));
 
 
 //  EXPECT_EQ("var", format_expression(x));
