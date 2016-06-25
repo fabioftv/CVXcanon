@@ -15,12 +15,12 @@ TEST(TextFormatTest, Names) {
 
 TEST(TextFormatTest, Basic) {
   Expression x = var(10, 5, 0);
+  Expression y = var(20, 10, 1);
   EXPECT_EQ("var", format_expression(x));
-  EXPECT_EQ(10, expression_size(x));
+  EXPECT_EQ("add", format_expression(add(x,y)));
 }
 
 TEST(TextFormatTest2, Second) {
   Expression x = constant(10.0);
   EXPECT_EQ("const", format_expression(x));
 }
-
