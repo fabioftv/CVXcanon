@@ -43,11 +43,11 @@ TEST(TextFormatTest, FormatExpression) {
 
   Expression diag_var = diag_vec(x);
   EXPECT_EQ("diag_vec(var)", format_expression(diag_var));
-/*
+
   Expression diagm_var = diag_mat(x);
-  EXPECT_EQ("upper_tri(var)", format_expression(upper_var));
+  EXPECT_EQ("diag_mat(var)", format_expression(diagm_var));
 
-
+/*
 
 
 
