@@ -16,7 +16,7 @@ TEST(TextFormatTest, Names) {
 TEST(TextFormatTest, FormatExpression) {
   Expression x = var(10, 5, 0);
   Expression y = var(20, 10, 0);
-  Expression A = DenseMatrix(1, 1, 5);
+  Expression A = DenseMatrix::Constant(1, 1, 5);
 
   Expression add_vars = add(x, y);
   EXPECT_EQ("add(var, var)", format_expression(add_vars));
