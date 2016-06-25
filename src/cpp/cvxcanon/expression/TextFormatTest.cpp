@@ -22,7 +22,7 @@ TEST(TextFormatTest, FormatExpression) {
   int n = 5;
   int i = 15;
   int j = 20;
-  std::string t = "test";
+  Eigen::DenseMatrix A;
 
   EXPECT_EQ("var", format_expression(x));
 
@@ -92,14 +92,9 @@ TEST(TextFormatTest, FormatExpression) {
   Expression index_vars = index(x, m, n, i, j);
   EXPECT_EQ("index(var)", format_expression(index_vars));
 
-  Expression epi = epi_var(x, t);
-  EXPECT_EQ("epi_var_size(var, test, 10)", format_expression(epi));
+
 
 /*
-
-Expression epi_var(const Expression& x, const std::string& name) {
-  return epi_var_size(x, name, size(x));
-}
 
 
 
