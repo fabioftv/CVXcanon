@@ -30,7 +30,7 @@ TEST(TextFormatTest, FormatExpression) {
   EXPECT_EQ("abs(var)", format_expression(abs_var));
 
   Expression trans = transpose(x);
-  EXPECT_EQ("transpose(var)", format_expression(trans);
+  EXPECT_EQ("transpose(var)", format_expression(trans));
 
 
 //  EXPECT_EQ("var", format_expression(x));
