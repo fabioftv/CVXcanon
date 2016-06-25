@@ -1,5 +1,6 @@
 
 #include <string>
+#include <vector>
 
 #include "gtest/gtest.h"
 
@@ -23,6 +24,7 @@ TEST(TextFormatTest, FormatExpression) {
   int i = 15;
   int j = 20;
   DenseMatrix A;
+  std::vector v;
 
   EXPECT_EQ("var", format_expression(x));
 
@@ -93,44 +95,13 @@ TEST(TextFormatTest, FormatExpression) {
   EXPECT_EQ("index(var)", format_expression(index_vars));
 
   Expression const_var = constant(A);
-  EXPECT_EQ("const(var)", format_expression(const_var));
+  EXPECT_EQ("const", format_expression(const_var));
+
+  Expression hstack_var = hstack(v);
+  EXPECT_EQ("v", format_expression(hstack_var));
 
 
 /*
-
-
-
-
-
-
-
-
-Expression constant(double value) {
-  return constant(DenseMatrix::Constant(1, 1, value));
-}
-
-Expression constant(DenseMatrix value) {
-  auto attr = std::make_shared<ConstAttributes>();
-  attr->constant.dense_data = value;
-  attr->constant.sparse = false;
-  return {Expression::CONST, {}, attr};
-}
-
-
-
-
-
-Expression epi_var_size(
-    const Expression& x, const std::string& name, Size size) {
-  int var_id = rand();  // NOLINT(runtime/threadsafe_fn)
-  VLOG(2) << "epi_var " << var_id << ", "
-          << size.dims[0] << " x " << size.dims[1];
-  return var(size.dims[0], size.dims[1], var_id);
-}
-
-bool is_scalar(const Size& size) {
-  return size.dims[0] == 1 && size.dims[1] == 1;
-}
 
 */
 
@@ -176,7 +147,6 @@ Expression vstack(std::vector<Expression> args) {
   {Expression::SDP_VEC, "sdp_vec"},
 
   // Leaf nodes
-  {Expression::CONST, "const"},
   {Expression::PARAM, "param"},
 
 
