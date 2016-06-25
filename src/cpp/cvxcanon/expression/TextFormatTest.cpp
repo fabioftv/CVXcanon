@@ -29,9 +29,36 @@ TEST(TextFormatTest, FormatExpression) {
   Expression abs_var = abs(x);
   EXPECT_EQ("abs(var)", format_expression(abs_var));
 
-  Expression trans = transpose(x);
-  EXPECT_EQ("transpose(var)", format_expression(trans));
+  Expression trans_var = transpose(x);
+  EXPECT_EQ("transpose(var)", format_expression(trans_var));
 
+  Expression log_var = log(x);
+  EXPECT_EQ("log(var)", format_expression(log_var));
+
+  Expression exp_var = exp(x);
+  EXPECT_EQ("exp(var)", format_expression(exp_var));
+
+  Expression upper_var = upper_tri(x);
+  EXPECT_EQ("upper_tri(var)", format_expression(upper_var));
+
+  Expression diag_var = diag_vec(x);
+  EXPECT_EQ("diag_vec(var)", format_expression(diag_var));
+/*
+  Expression diagm_var = diag_mat(x);
+  EXPECT_EQ("upper_tri(var)", format_expression(upper_var));
+
+
+
+
+
+Expression diag_mat(Expression A) {
+  return {Expression::DIAG_MAT, {A}};
+}
+
+Expression trace(Expression A) {
+  return {Expression::TRACE, {A}};
+}
+*/
 
 //  EXPECT_EQ("var", format_expression(x));
 }
