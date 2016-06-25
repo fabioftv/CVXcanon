@@ -186,7 +186,7 @@ ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
 
   // TODO(mwytock): solve using ecos, e.g. ECOS_setup()...
 
-  ECOS_solve(&pwork);
+  ECOS_solve(ecos_data_.pwork);
 
   return solution;
 }
