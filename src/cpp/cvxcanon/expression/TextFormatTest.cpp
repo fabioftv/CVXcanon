@@ -24,7 +24,7 @@ TEST(TextFormatTest, FormatExpression) {
   int i = 15;
   int j = 20;
   DenseMatrix A;
-  std::vector v;
+  std::vector<Expression> v;
 
   EXPECT_EQ("var", format_expression(x));
 
