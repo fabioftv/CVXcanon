@@ -95,7 +95,7 @@ void EcosConeSolver::build_ecos_problem(
               << "A:\n" << matrix_debug_string(A_)
               << "b:\n" << vector_debug_string(b_)
               << "G:\n" << matrix_debug_string(G_)
-              << "h:\n" << vector_debug_string(h_)
+              << "h:\n" << vector_debug_string(h_);
    }
 }
 /*
@@ -186,7 +186,7 @@ ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
 
   // TODO(mwytock): solve using ecos, e.g. ECOS_setup()...
 
-  ECOS_solve(ecos_data_.pwork);
+  ECOS_solve(&ecos_data_->pwork_);
 
   return solution;
 }
