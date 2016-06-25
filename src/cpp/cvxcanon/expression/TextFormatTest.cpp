@@ -26,6 +26,12 @@ TEST(TextFormatTest, FormatExpression) {
   Expression neg_var = neg(x);
   EXPECT_EQ("neg(var)", format_expression(neg_var));
 
+  Expression abs_var = abs(x);
+  EXPECT_EQ("abs(var)", format_expression(abs_var));
+
+  Expression trans = transpose(x);
+  EXPECT_EQ("transpose(var)", format_expression(trans);
+
 
 //  EXPECT_EQ("var", format_expression(x));
 }
