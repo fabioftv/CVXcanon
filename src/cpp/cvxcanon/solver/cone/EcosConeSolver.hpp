@@ -25,13 +25,11 @@ private:
    void build_ecos_problem(const ConeProblem& problem, ConeSolution* solution);
 
    void build_ecos_constraint(
-		const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
-		const Eigen::SparseMatrix<double, Eigen::RowMajor>& G,
-		const DenseVector& b,
-		const DenseVector& h,
-		const std::vector<ConeConstraint>& constraints,
-		int* total_size,
-		int* sizes);
+      const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
+      const DenseVector& b,
+      const std::vector<ConeConstraint>& constraints,
+      int* total_size,
+      int* sizes);
 
    SolverStatus get_ecos_status();
 
@@ -47,9 +45,7 @@ private:
    // Extra Attributes for Constraints
    int num_constrs_;
    std::vector<Triplet> A_coeffs_;
-
-   // Cone
-   // ecos::cone cone_;
+   std::vector<Triplet> G_coeffs_;
 };
 
 #endif  // CVXCANON_SOLVER_CONE_ECOS_CONE_SOLVER_H
