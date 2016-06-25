@@ -8,18 +8,25 @@
 #include "cvxcanon/expression/TextFormat.hpp"
 
 extern std::unordered_map<int, std::string> kExpressionNames;
-extern std::unordered_map<int, std::string> kSenseNames;
-
 TEST(TextFormatTest, Sense) {
   for (int i = 0; i <= Problem::MINIMIZE; i++) {
      EXPECT_TRUE(kSenseNames.find(i) != kSenseNames.end());
   }
 }
 
+extern std::unordered_map<int, std::string> kSenseNames;
 TEST(TextFormatTest, Names) {
   for (int i = 0; i < Expression::NUM_TYPES; i++) {
     EXPECT_TRUE(kExpressionNames.find(i) != kExpressionNames.end());
   }
+}
+
+TEST(TextFormatTest, ExpressionName) {
+//TODO (fabioftv)
+}
+
+TEST(TextFormatTest, ExpressionSize) {
+//TODO (fabioftv)
 }
 
 TEST(TextFormatTest, FormatExpression) {
@@ -112,4 +119,16 @@ TEST(TextFormatTest, FormatExpression) {
   EXPECT_EQ("vstack", format_expression(vstack_var));
 
 //TODO (fabioftv): Missing "kron", "entr", "huber", "kl_div", "log1p", "logistic", "max_elemwise", "geo_mean", "lambda_max", "log_det", "log_sum_exp", "matrix_frac", "max_entries", "norm_nuc", "sigma_max", "sum_largest", "sdp_vec", "param"
+}
+
+TEST(TextFormatTest, FormatProblem) {
+//TODO (fabioftv)
+}
+
+TEST(TextFormatTest, TreeFormatNode) {
+//TODO (fabioftv)
+}
+
+TEST(TextFormatTest, TreeFormatExpression) {
+//TODO (fabioftv)
 }
