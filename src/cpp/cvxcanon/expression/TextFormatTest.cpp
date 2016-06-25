@@ -16,7 +16,6 @@ TEST(TextFormatTest, Names) {
 TEST(TextFormatTest, FormatExpression) {
   Expression x = var(10, 5, 0);
   Expression y = var(20, 10, 0);
-  Expression A = DenseMatrix::Constant(1, 1, 5);
 
   Expression add_vars = add(x, y);
   EXPECT_EQ("add(var, var)", format_expression(add_vars));
@@ -48,18 +47,10 @@ TEST(TextFormatTest, FormatExpression) {
   Expression diagm_var = diag_mat(x);
   EXPECT_EQ("diag_mat(var)", format_expression(diagm_var));
 
-/*
+  Expression trace_var = diag_mat(x);
+  EXPECT_EQ("trace(var)", format_expression(trace_var));
 
 
-
-Expression diag_mat(Expression A) {
-  return {Expression::DIAG_MAT, {A}};
-}
-
-Expression trace(Expression A) {
-  return {Expression::TRACE, {A}};
-}
-*/
 
 //  EXPECT_EQ("var", format_expression(x));
 }
