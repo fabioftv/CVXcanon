@@ -24,7 +24,7 @@ struct EcosConeSolver::EcosData {
 
 EcosConeSolver::EcosConeSolver() : ecos_data_(new EcosData()) {}
 EcosConeSolver::~EcosConeSolver() {}
-
+/*
 void EcosConeSolver::build_ecos_constraint(
    const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
    const DenseVector& b,
@@ -97,7 +97,7 @@ void EcosConeSolver::build_ecos_problem(
               << "G:\n" << matrix_debug_string(G_)
               << "h:\n" << vector_debug_string(h_);
    }
-}
+}*/
 /*
 scs_data_->A_matrix_.m = m;
   scs_data_->A_matrix_.n = n;
