@@ -18,7 +18,7 @@ TEST(TextFormatTest, Basic) {
   Expression y = var(20, 10, 0);
   Expression z = add(x, y);
 //  EXPECT_EQ("var", format_expression(x));
-  EXPECT_EQ("add", format_expression(add));
+  EXPECT_EQ("add", format_expression(z));
 }
 
 TEST(TextFormatTest2, Second) {
