@@ -27,7 +27,7 @@ public:
 		ROTATED_SECOND_ORDER,	// Rotated Second Order Cone
 		SEMIDEFINITE,		// Semidefinite Matrices
 		PRIMAL_EXPO,		// Primal Exponential Cone
-		DUAL_EXPO		// Dual Exponential Cone
+		DUAL_EXPO,		// Dual Exponential Cone
 	};
 
 	Cone cone;
