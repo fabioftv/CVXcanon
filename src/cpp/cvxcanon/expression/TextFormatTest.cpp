@@ -53,7 +53,7 @@ TEST(TextFormatTest, FormatExpression) {
   Expression diag_var = diag_vec(x);
   EXPECT_EQ("diag_vec(var)", format_expression(diag_var));
 
-  Expression diagm_var = diag_mat(x);
+  Expression diagm_var = diag_mat(A);
   EXPECT_EQ("diag_mat(var)", format_expression(diagm_var));
 
   Expression trace_var = trace(x);
