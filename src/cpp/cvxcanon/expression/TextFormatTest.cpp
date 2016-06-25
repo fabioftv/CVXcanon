@@ -13,11 +13,11 @@ TEST(TextFormatTest, Names) {
   }
 }
 
-TEST(TextFormatTest, Basic) {
+TEST(TextFormatTest, FormatExpression) {
   Expression x = var(10, 5, 0);
   Expression y = var(20, 10, 0);
   Expression z = add(x, y);
-//  EXPECT_EQ("var", format_expression(x));
+  EXPECT_EQ("var", format_expression(x));
   EXPECT_EQ("add(var, var)", format_expression(z));
 }
 
