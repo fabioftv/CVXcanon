@@ -21,7 +21,7 @@ TEST(TextFormatTest, FormatExpression) {
   EXPECT_EQ("add(var, var)", format_expression(add_vars));
  
   Expression mult_vars = mul(x, y);
-  EXPECT_EQ("mul(var, var)", format_expression(mul_vars));
+  EXPECT_EQ("mul(var, var)", format_expression(mult_vars));
 
   Expression neg_var = neg(x);
   EXPECT_EQ("neg(var)", format_expression(neg_var));
