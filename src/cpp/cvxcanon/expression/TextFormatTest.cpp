@@ -22,6 +22,7 @@ TEST(TextFormatTest, FormatExpression) {
   int n = 5;
   int i = 15;
   int j = 20;
+  string t = "test";
 
   EXPECT_EQ("var", format_expression(x));
 
@@ -93,18 +94,14 @@ TEST(TextFormatTest, FormatExpression) {
 
 /*
 
-
-
-
-
-
-Expression index(
-    Expression x, int start_i, int stop_i, int start_j, int stop_j) {
-  auto attr = std::make_shared<IndexAttributes>();
-  attr->keys.push_back({start_i, stop_i, 1});
-  attr->keys.push_back({start_j, stop_j, 1});
-  return {Expression::INDEX, {x}, attr};
+Expression epi_var(const Expression& x, const std::string& name) {
+  return epi_var_size(x, name, size(x));
 }
+
+
+
+
+
 
 
 
@@ -121,9 +118,7 @@ Expression constant(DenseMatrix value) {
 
 
 
-Expression epi_var(const Expression& x, const std::string& name) {
-  return epi_var_size(x, name, size(x));
-}
+
 
 Expression epi_var_size(
     const Expression& x, const std::string& name, Size size) {
