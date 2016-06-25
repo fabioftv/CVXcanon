@@ -37,7 +37,7 @@ void EcosConeSolver::build_ecos_constraint(
             A.middleRows(constr.offset, constr.size), num_constrs_, 0, 
                &G_coeffs_);
          h_.segment(num_constrs_, constr.size) = 
-            h.segment(constr.offset, constr.size);
+            b.segment(constr.offset, constr.size);
       }
       else {
          append_block_triplets(
@@ -47,7 +47,6 @@ void EcosConeSolver::build_ecos_constraint(
             b.segment(constr.offset, constr.size);
       }
       if (total_size != nullptr) *total_size += constr.size;
-      if (sizes != nullptr) sizes[j++] = constr.size;
       num_constrs_ += constr.size;        
   }
 }
@@ -89,8 +88,8 @@ void EcosConeSolver::build_ecos_problem(
             nullptr);
 
       // (fabioftv): Need to correctly define size of A_ and G_
-      A_ = sparse_matrix(m, n, A_coeffs);
-      G_ = sparse_matrix(m, n, G_coeffs);
+      A_ = sparse_matrix(m, n, A_coeffs_);
+      G_ = sparse_matrix(m, n, G_coeffs_);
 
       VLOG(1) << "ECOS Constraints:\n"
               << "A:\n" << matrix_debug_string(A_)
@@ -98,6 +97,7 @@ void EcosConeSolver::build_ecos_problem(
               << "G:\n" << matrix_debug_string(G_)
               << "h:\n" << vector_debug_string(h_)
    }
+}
 /*
 scs_data_->A_matrix_.m = m;
   scs_data_->A_matrix_.n = n;
@@ -190,5 +190,3 @@ ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
 
   return solution;
 }
-
-
