@@ -18,3 +18,8 @@ TEST(TextFormatTest, Basic) {
   EXPECT_EQ("var", format_expression(x));
 }
 
+TEST(TextFormatTest2, Second) {
+  Expression x = constant(10.0);
+  EXPECT_EQ("const", format_expression(x));
+}
+
