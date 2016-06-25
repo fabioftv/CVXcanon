@@ -92,6 +92,9 @@ TEST(TextFormatTest, FormatExpression) {
   Expression index_vars = index(x, m, n, i, j);
   EXPECT_EQ("index(var)", format_expression(index_vars));
 
+  Expression epi = epi_var(x, t);
+  EXPECT_EQ("epi_var_size(var, test, 10)", format_expression(epi));
+
 /*
 
 Expression epi_var(const Expression& x, const std::string& name) {
