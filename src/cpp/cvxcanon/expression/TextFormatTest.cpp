@@ -8,6 +8,13 @@
 #include "cvxcanon/expression/TextFormat.hpp"
 
 extern std::unordered_map<int, std::string> kExpressionNames;
+
+TEST(TextFormatTest, Sense) {
+  for (int i = 0; i <= Problem::MINIMIZE; i++) {
+     EXPECT_TRUE(kSenseNames.find(i) != kSenseNames.end());
+  }
+}
+
 TEST(TextFormatTest, Names) {
   for (int i = 0; i < Expression::NUM_TYPES; i++) {
     EXPECT_TRUE(kExpressionNames.find(i) != kExpressionNames.end());
@@ -100,63 +107,8 @@ TEST(TextFormatTest, FormatExpression) {
   Expression hstack_var = hstack(v);
   EXPECT_EQ("hstack", format_expression(hstack_var));
 
+  Expression vstack_var = vstack(v);
+  EXPECT_EQ("vstack", format_expression(vstack_var));
 
-/*
-
-*/
-
-/*
-
-
-Expression hstack(std::vector<Expression> args) {
-  return {Expression::HSTACK, args};
-}
-
-Expression vstack(std::vector<Expression> args) {
-  return {Expression::VSTACK, args};
-}
-*/
-/*
-  // Linear functions
-  {Expression::HSTACK, "hstack"},
-  {Expression::KRON, "kron"},
-  {Expression::VSTACK, "vstack"},
-
-  // Elementwise functions
-  {Expression::ENTR, "entr"},
-  {Expression::HUBER, "huber"},
-  {Expression::KL_DIV, "kl_div"},
-  {Expression::LOG1P, "log1p"},
-  {Expression::LOGISTIC, "logistic"},
-  {Expression::MAX_ELEMWISE, "max_elemwise"},
-
-
-  // General nonlinear functions
-  {Expression::GEO_MEAN, "geo_mean"},
-  {Expression::LAMBDA_MAX, "lambda_max"},
-  {Expression::LOG_DET, "log_det"},
-  {Expression::LOG_SUM_EXP, "log_sum_exp"},
-  {Expression::MATRIX_FRAC, "matrix_frac"},
-  {Expression::MAX_ENTRIES, "max_entries"},
-  {Expression::NORM_NUC, "norm_nuc"},
-  {Expression::SIGMA_MAX, "sigma_max"},
-  {Expression::SUM_LARGEST, "sum_largest"},
-
-  // Constraints
-
-  {Expression::SDP_VEC, "sdp_vec"},
-
-  // Leaf nodes
-  {Expression::PARAM, "param"},
-
-
-*/
-
-
-
-}
-
-TEST(TextFormatTest2, Second) {
-  Expression x = constant(10.0);
-  EXPECT_EQ("const", format_expression(x));
+//TODO (fabioftv): Missing "kron", "entr", "huber", "kl_div", "log1p", "logistic", "max_elemwise", "geo_mean", "lambda_max", "log_det", "log_sum_exp", "matrix_frac", "max_entries", "norm_nuc", "sigma_max", "sum_largest", "sdp_vec", "param"
 }
