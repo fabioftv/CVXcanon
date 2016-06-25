@@ -7,14 +7,14 @@
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/TextFormat.hpp"
 
-extern std::unordered_map<int, std::string> kExpressionNames;
+extern std::unordered_map<int, std::string> kSenseNames;
 TEST(TextFormatTest, Sense) {
   for (int i = 0; i <= Problem::MINIMIZE; i++) {
      EXPECT_TRUE(kSenseNames.find(i) != kSenseNames.end());
   }
 }
 
-extern std::unordered_map<int, std::string> kSenseNames;
+extern std::unordered_map<int, std::string> kExpressionNames;
 TEST(TextFormatTest, Names) {
   for (int i = 0; i < Expression::NUM_TYPES; i++) {
     EXPECT_TRUE(kExpressionNames.find(i) != kExpressionNames.end());
