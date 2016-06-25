@@ -16,9 +16,17 @@ TEST(TextFormatTest, Names) {
 TEST(TextFormatTest, FormatExpression) {
   Expression x = var(10, 5, 0);
   Expression y = var(20, 10, 0);
-  Expression z = add(x, y);
-  EXPECT_EQ("var", format_expression(x));
-  EXPECT_EQ("add(var, var)", format_expression(z));
+
+  Expression add = add(x, y);
+  Expression mul = mul(x, y);
+  Expression neg = neg(x);
+
+  EXPECT_EQ("add(var, var)", format_expression(add));
+  EXPECT_EQ("mul(var, var)", format_expression(mul));
+  EXPECT_EQ("neg", format_expression(neg));
+
+
+//  EXPECT_EQ("var", format_expression(x));
 }
 
 TEST(TextFormatTest2, Second) {
