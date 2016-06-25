@@ -20,6 +20,10 @@ TEST(TextFormatTest, FormatExpression) {
   double d = 10.0;
   int m = 10;
   int n = 5;
+  int i = 15;
+  int j = 20;
+
+  EXPECT_EQ("var", format_expression(x));
 
   Expression add_vars = add(x, y);
   EXPECT_EQ("add(var, var)", format_expression(add_vars));
@@ -78,25 +82,21 @@ TEST(TextFormatTest, FormatExpression) {
   Expression reshape_vars = reshape(x, m, n);
   EXPECT_EQ("reshape(var)", format_expression(reshape_vars));
 
+  Expression power_vars = power(x, d);
+  EXPECT_EQ("power(var)", format_expression(power_vars));
 
+  Expression sum_vars = sum_entries(x, m);
+  EXPECT_EQ("sum_entries(var)", format_expression(sum_vars));
 
-
+  Expression index_vars = index(x, m, n, i, j);
+  EXPECT_EQ("index(var)", format_expression(index_vars));
 
 /*
 
-Expression power(Expression x, double p) {
-  auto attr = std::make_shared<PowerAttributes>();
-  attr->p = p;
-  return {Expression::POWER, {x}, attr};
-}
 
 
 
-Expression sum_entries(Expression x, int axis) {
-  auto attr = std::make_shared<SumEntriesAttributes>();
-  attr->axis = axis;
-  return {Expression::SUM_ENTRIES, {x}, attr};
-}
+
 
 Expression index(
     Expression x, int start_i, int stop_i, int start_j, int stop_j) {
@@ -106,12 +106,7 @@ Expression index(
   return {Expression::INDEX, {x}, attr};
 }
 
-Expression var(int m, int n, int var_id) {
-  auto attr = std::make_shared<VarAttributes>();
-  attr->id = var_id;
-  attr->size = {{m, n}};
-  return {Expression::VAR, {}, attr};
-}
+
 
 Expression constant(double value) {
   return constant(DenseMatrix::Constant(1, 1, value));
@@ -158,9 +153,7 @@ Expression vstack(std::vector<Expression> args) {
 /*
   // Linear functions
   {Expression::HSTACK, "hstack"},
-  {Expression::INDEX, "index"},
   {Expression::KRON, "kron"},
-  {Expression::SUM_ENTRIES, "sum_entries"},
   {Expression::VSTACK, "vstack"},
 
   // Elementwise functions
@@ -170,7 +163,7 @@ Expression vstack(std::vector<Expression> args) {
   {Expression::LOG1P, "log1p"},
   {Expression::LOGISTIC, "logistic"},
   {Expression::MAX_ELEMWISE, "max_elemwise"},
-  {Expression::POWER, "power"},
+
 
   // General nonlinear functions
   {Expression::GEO_MEAN, "geo_mean"},
@@ -190,12 +183,12 @@ Expression vstack(std::vector<Expression> args) {
   // Leaf nodes
   {Expression::CONST, "const"},
   {Expression::PARAM, "param"},
-  {Expression::VAR, "var"},
+
 
 */
 
 
-//  EXPECT_EQ("var", format_expression(x));
+
 }
 
 TEST(TextFormatTest2, Second) {
