@@ -32,7 +32,7 @@ void EcosConeSolver::build_ecos_constraint(
    int* total_size,
    int* sizes) {
    for (const ConeConstraint& constr : constraints) {
-      if (constr.Cone != ZERO){
+      if (constr.cone != "ZERO"){
          append_block_triplets(
             A.middleRows(constr.offset, constr.size), num_constrs_, 0, 
                &G_coeffs_);
