@@ -160,6 +160,7 @@ ConeSolution ScsConeSolver::solve(const ConeProblem& problem) {
       &scs_data_->sol_,
       &scs_data_->info_);
   solution.objective_value = scs_data_->info_.pobj;
+  solution.objective_value = scs_data_->info_.dobj;
   solution.status = get_scs_status();
   return solution;
 }

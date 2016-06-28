@@ -55,7 +55,8 @@ class ConeSolution {
   DenseVector x, y;
 
   // Primal/Dual Objective Value
-  double objective_value;
+  double p_objective_value;
+  double d_objective_value;
 };
 
 // Cone Solver Interface

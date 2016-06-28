@@ -24,17 +24,23 @@ private:
 
    void build_ecos_problem(const ConeProblem& problem, ConeSolution* solution);
 
+   void EcosConeSolver::define_size_ecos_constraint(
+      const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
+      const std::vector<ConeConstraint>& constraints,
+      int* size_constraint);
+   
    void build_ecos_constraint(
       const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
       const DenseVector& b,
-      const std::vector<ConeConstraint>& constraints,
-      int* total_size,
-      int* sizes);
+      const std::vector<ConeConstraint>& constraints);
 
    SolverStatus get_ecos_status();
 
    // ECOS Data Structures
    std::unique_ptr<EcosData> ecos_data_;
+
+   // ECOS Supporting Data Structures
+   DenseVector s_;
 
    // Constraints Ordered
    SparseMatrix A_;
@@ -43,7 +49,10 @@ private:
    DenseVector h_;
 
    // Extra Attributes for Constraints
-   int num_constrs_;
+   int num_eq_constrs_;
+   int num_leq_constrs_;
+   int num_seco_constrs_;
+   int num_exp_constrs_;
    std::vector<Triplet> A_coeffs_;
    std::vector<Triplet> G_coeffs_;
 };
