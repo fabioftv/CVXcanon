@@ -38,6 +38,7 @@ void EcosConeSolver::build_ecos_constraint(
    const DenseVector& b,
    const std::vector<ConeConstraint>& constraints) {
    for (const ConeConstraint& constr : constraints) {
+      //TODO(fabioftv): Check if(constr.cone != ZERO
       if (constr.cone != ZERO){
          append_block_triplets(
             A.middleRows(constr.offset, constr.size), num_constrs_, 0, 

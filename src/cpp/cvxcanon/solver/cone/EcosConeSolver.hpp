@@ -49,10 +49,11 @@ private:
    DenseVector h_;
 
    // Extra Attributes for Constraints
-   int num_eq_constrs_;
-   int num_leq_constrs_;
-   int num_seco_constrs_;
-   int num_exp_constrs_;
+   int num_constrs_;
+   int* num_eq_constrs_;
+   int* num_leq_constrs_;
+   int* num_seco_constrs_;
+   int* num_exp_constrs_;
    std::vector<Triplet> A_coeffs_;
    std::vector<Triplet> G_coeffs_;
 };
