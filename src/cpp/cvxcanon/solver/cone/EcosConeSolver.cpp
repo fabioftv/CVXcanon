@@ -17,7 +17,7 @@ struct EcosConeSolver::EcosData {
    ecos::stats stats_;
    ecos::pwork pwork_;
 };
-
+/*
 EcosConeSolver::EcosConeSolver() : ecos_data_(new EcosData()) {}
 EcosConeSolver::~EcosConeSolver() {}
 
@@ -162,8 +162,8 @@ ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
    ConeSolution solution;
    build_ecos_problem(problem, &solution);
    ECOS_solve(&ecos_data_->pwork_);
-   solution.objective_value = ecos_data_->stats_.pcost;
-   solution.objective_value = ecos_data_->stats_.dcost;
+   solution.p_objective_value = ecos_data_->stats_.pcost;
+   solution.d_objective_value = ecos_data_->stats_.dcost;
    solution.status = get_ecos_status();
    return solution;
-}
+}*/
