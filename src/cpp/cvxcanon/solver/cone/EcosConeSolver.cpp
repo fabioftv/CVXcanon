@@ -20,6 +20,7 @@ struct EcosConeSolver::EcosData {
 
 EcosConeSolver::EcosConeSolver() : ecos_data_(new EcosData()) {}
 EcosConeSolver::~EcosConeSolver() {}
+
 /*
 //(fabioftv): Determine the size of constraints
 void EcosConeSolver::define_size_ecos_constraint(
