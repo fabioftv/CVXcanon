@@ -8,7 +8,6 @@
 namespace ecos {
 #include <ecos/external/SuiteSparse_config/SuiteSparse_config.h>
 #include <ecos/include/ecos.h>
-typedef int idxint;
 typedef double pfloat;
 }  // namespace ecos
 
