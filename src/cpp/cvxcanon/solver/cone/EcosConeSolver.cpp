@@ -128,7 +128,7 @@ void EcosConeSolver::build_ecos_problem(
 //   else {
 //     ecos_data_->pwork_.z = const_cast<double*>(solution->y.data());
 //   }
-   ecos_data_->pwork_.s = const_cast<double*>(solution->s.data());
+   ecos_data_->pwork_.s = const_cast<double*>(s_.data());
 
    //TODO(fabioftv): Check how to define the cone
    //ecos_data_->pwork_.C =?????
@@ -142,11 +142,6 @@ void EcosConeSolver::build_ecos_problem(
    ecos_data_->pwork_.h = const_cast<double*>(h_.data());
 
    ecos_data_->settings_.verbose = 0
-
-
-
-
-
 }
 
 //(fabioftv): Determine the status of the problem
