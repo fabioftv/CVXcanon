@@ -24,7 +24,7 @@ private:
 
    void build_ecos_problem(const ConeProblem& problem, ConeSolution* solution);
 
-   void EcosConeSolver::define_size_ecos_constraint(
+   void define_size_ecos_constraint(
       const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
       const std::vector<ConeConstraint>& constraints,
       int* size_constraint);
