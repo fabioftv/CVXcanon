@@ -25,7 +25,7 @@ EcosConeSolver::~EcosConeSolver() {}
 void EcosConeSolver::define_size_ecos_constraint(
    const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
    const std::vector<ConeConstraint>& constraints,
-   int* size_constraint) {
+   int size_constraint) {
    size_constraint = 0;
    for (const ConeConstraint& constr : constraints) {
       size_constraint += constr.size;
@@ -80,8 +80,8 @@ void EcosConeSolver::build_ecos_problem(
       num_exp_constrs_);
 
    const int n = problem.A.cols();
-   const int* m = num_leq_constrs_ + num_seco_constrs_ + num_exp_constrs_;
-   const int* p = num_eq_constrs_;
+   const int m = num_leq_constrs_ + num_seco_constrs_ + num_exp_constrs_;
+   const int p = num_eq_constrs_;
 
    //(fabioftv): Initialize variables and determine size of b_, h_, and s_
    A_coeffs_.clear();
