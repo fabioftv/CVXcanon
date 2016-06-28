@@ -163,7 +163,7 @@ ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
    build_ecos_problem(problem, &solution);
    ECOS_solve(&ecos_data_->pwork_);
    solution.objective_value = ecos_data_->stats_.pcost;
-   solution.objective_value = ecos_data_->stats_.dcost
+   solution.objective_value = ecos_data_->stats_.dcost;
    solution.status = get_ecos_status();
    return solution;
 }
