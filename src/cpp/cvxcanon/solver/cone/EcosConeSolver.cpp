@@ -8,6 +8,7 @@
 namespace ecos {
 #include <ecos/external/SuiteSparse_config/SuiteSparse_config.h>
 #include <ecos/include/ecos.h>
+typedef int idxint;
 typedef double pfloat;
 }  // namespace ecos
 
@@ -119,15 +120,15 @@ void EcosConeSolver::build_ecos_problem(
 
    
    //(fabioftv): Variables
-   ecos_data_->pwork_.x = const_cast<double*>(solution->x.data));
+   ecos_data_->pwork_.x = const_cast<double*>(solution->x.data());
    // Check This
    for (constr_map[ConeConstraint::ZERO]) {
-      ecos_data_->pwork_.y = const_cast<double*>(solution->y.data));
+      ecos_data_->pwork_.y = const_cast<double*>(solution->y.data());
    }
    else {
-      ecos_data_->pwork_.z = const_cast<double*>(solution->y.data));
+      ecos_data_->pwork_.z = const_cast<double*>(solution->y.data());
    }
-   ecos_data_->pwork_.s = const_cast<double*>(solution->s.data));
+   ecos_data_->pwork_.s = const_cast<double*>(solution->s.data());
 
    //TODO(fabioftv): Check how to define the cone
    //ecos_data_->pwork_.C =?????
