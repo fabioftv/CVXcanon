@@ -64,7 +64,8 @@ common_test_cc = \
 
 tests = \
 	cvxcanon/expression/TextFormatTest \
-	cvxcanon/solver/SolverTest
+	cvxcanon/solver/SolverTest \
+	cvxcanon/solver/cone/ScsConeSolverTest
 
 libs = cvxcanon
 
