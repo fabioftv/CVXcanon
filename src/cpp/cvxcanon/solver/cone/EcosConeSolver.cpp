@@ -145,13 +145,13 @@ void EcosConeSolver::build_ecos_problem(
 
 //(fabioftv): Determine the status of the problem
 SolverStatus EcosConeSolver::get_ecos_status() {
-   if (ecos_data_->stats_.info == 0) {
+   if (ecos_data_->pwork_.info == 0) {
        return OPTIMAL;
-   } else if (ecos_data_->stats_.info == 1) {
+   } else if (ecos_data_->pwork_.info == 1) {
       return INFEASIBLE;
-   } else if (ecos_data_->stats_.info == 2) {
+   } else if (ecos_data_->pwork_.info == 2) {
       return UNBOUNDED;
-   } else if (ecos_data_->stats_.info == -1) {
+   } else if (ecos_data_->pwork_.info == -1) {
       return USER_LIMIT;
    } else {
       return ERROR;
