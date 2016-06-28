@@ -122,12 +122,12 @@ void EcosConeSolver::build_ecos_problem(
    //(fabioftv): Variables
    ecos_data_->pwork_.x = const_cast<double*>(solution->x.data());
    // Check This
-   for (constr_map[ConeConstraint::ZERO]) {
-      ecos_data_->pwork_.y = const_cast<double*>(solution->y.data());
-   }
-   else {
-      ecos_data_->pwork_.z = const_cast<double*>(solution->y.data());
-   }
+//   for (constr_map[ConeConstraint::ZERO]) {
+//     ecos_data_->pwork_.y = const_cast<double*>(solution->y.data());
+//   }
+//   else {
+//     ecos_data_->pwork_.z = const_cast<double*>(solution->y.data());
+//   }
    ecos_data_->pwork_.s = const_cast<double*>(solution->s.data());
 
    //TODO(fabioftv): Check how to define the cone
