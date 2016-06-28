@@ -17,10 +17,10 @@ struct EcosConeSolver::EcosData {
    ecos::stats stats_;
    ecos::pwork pwork_;
 };
-/*
+
 EcosConeSolver::EcosConeSolver() : ecos_data_(new EcosData()) {}
 EcosConeSolver::~EcosConeSolver() {}
-
+/*
 //(fabioftv): Determine the size of constraints
 void EcosConeSolver::define_size_ecos_constraint(
    const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
@@ -156,14 +156,14 @@ SolverStatus EcosConeSolver::get_ecos_status() {
    } else {
       return ERROR;
    }
-
+*/
 //(fabioftv): Determine the solution of the problem  
 ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
    ConeSolution solution;
-   build_ecos_problem(problem, &solution);
-   ECOS_solve(&ecos_data_->pwork_);
-   solution.p_objective_value = ecos_data_->stats_.pcost;
-   solution.d_objective_value = ecos_data_->stats_.dcost;
-   solution.status = get_ecos_status();
-   return solution;
-}*/
+//   build_ecos_problem(problem, &solution);
+//  ECOS_solve(&ecos_data_->pwork_);
+//   solution.p_objective_value = ecos_data_->stats_.pcost;
+//   solution.d_objective_value = ecos_data_->stats_.dcost;
+//   solution.status = get_ecos_status();
+//   return solution;
+}
