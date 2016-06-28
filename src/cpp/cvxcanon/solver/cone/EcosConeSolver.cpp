@@ -80,8 +80,8 @@ void EcosConeSolver::build_ecos_problem(
       num_exp_constrs_);
 
    const int n = problem.A.cols();
-   const int m = num_leq_constrs_ + num_seco_constrs_ + num_exp_constrs_;
-   const int p = num_eq_constrs_;
+   const int* m = num_leq_constrs_ + num_seco_constrs_ + num_exp_constrs_;
+   const int* p = num_eq_constrs_;
 
    //(fabioftv): Initialize variables and determine size of b_, h_, and s_
    A_coeffs_.clear();
