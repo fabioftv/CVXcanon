@@ -140,11 +140,11 @@ void EcosConeSolver::build_ecos_problem(
    ecos_data_->pwork_.b = const_cast<double*>(b_.data());
    ecos_data_->pwork_.h = const_cast<double*>(h_.data());
 
-   ecos_data_->settings_.verbose = 0
+   ecos_data_->settings_.verbose = 0;
 }
 
 //(fabioftv): Determine the status of the problem
-SolverStatus EmbeddedConicSolver::get_ecos_status() {
+SolverStatus EcosConeSolver::get_ecos_status() {
    if (ecos_data_->stats_.info == 0) {
        return OPTIMAL;
    } else if (ecos_data_->stats_.info == 1) {
