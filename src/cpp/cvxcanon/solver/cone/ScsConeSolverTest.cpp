@@ -1,52 +1,35 @@
 
-#include <string>
-
-#include "gtest/gtest.h"
-
 #include "cvxcanon/solver/cone/ScsConeSolver.hpp"
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
-// SCS Environment
-namespace scs {
-#include "scs/include/scs.h"
-#include "scs/include/util.h"
-#include "scs/linsys/amatrix.h"
-typedef double scs_float;
-typedef int scs_int;
-}  // namespace scs
+#include "gtest/gtest.h"
 
-struct ScsConeSolver::ScsData {
-  // SCS data structures
-  scs::Data data_;
-  scs::Cone cone_;
-  scs::Info info_;
-  scs::Sol sol_;
-  scs::Settings settings_;
+ConeProblem problem;
 
-  // SCS supporting data structures
-  scs::AMatrix A_matrix_;
-};
+//TODO(fabioftv): Input problem.A, problem.b, problem.c, and ConeConstraints 
 
-ScsConeSolver::ScsConeSolver() : scs_data_(new ScsData()) {}
-ScsConeSolver::~ScsConeSolver() {}
+TEST(ScsConeSolverTest, BuildConstraint) {
+
+}
+
+TEST(ScsConeSolverTest, BuildProblem) {
+
+}
 
 TEST(ScsConeSolverTest, SolverStatus) {
-
 scs_data_->info_.status = "Solved";
-EXPECT_EQ("OPTIMAL", SolverStatus());
-/*
-SolverStatus ScsConeSolver::get_scs_status() {
-  if (strcmp(scs_data_->info_.status, "Solved") == 0) {
-    return OPTIMAL;
-  } else if (strcmp(scs_data_->info_.status, "Infeasible") == 0) {
-    return INFEASIBLE;
-  } else if (strcmp(scs_data_->info_.status, "Unbounded") == 0) {
-    return UNBOUNDED;
-  } else {
-    return ERROR;
-  }
-}
-*/
+EXPECT_EQ(OPTIMAL, get_scs_status());
 
+scs_data_->info_.status = "Infeasible";
+EXPECT_EQ(INFEASIBLE, get_scs_status());
+
+scs_data_->info_.status = "Unbounded";
+EXPECT_EQ(UNBOUNDED, get_scs_status());
+
+scs_data_->info_.status = "Test";
+EXPECT_EQ(ERROR, get_scs_status());
+}
+
+TEST(ScsConeSolverTest, Solve) {
 
 }

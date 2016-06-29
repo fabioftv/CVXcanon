@@ -25,7 +25,6 @@ Solution solve(const Problem& problem, const SolverOptions& solver_options) {
 	VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
 
   std::unique_ptr<ConeSolver> cone_solver;
-// (fabioftv): Added Different Solvers
   if (solver_options.name == SCS) {
     SymbolicConeSolver solver(std::make_unique<ScsConeSolver>());
     return solver.solve(cone_problem);
