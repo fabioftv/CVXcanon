@@ -58,7 +58,7 @@ void ScsConeSolver::build_scs_problem(
   // at the same time build the SCS cone data structure which contains the sizes
   // of each constraint.
   //
-  // Inputs: problem.A, problem.b, wwith  original constraints
+  // Inputs: problem.A, problem.b, with  original constraints
   // Outputs: A_, b_, with shuffled rows
   {
     Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
@@ -139,12 +139,12 @@ void ScsConeSolver::build_scs_problem(
   scs_data_->sol_.s = const_cast<double*>(s_.data());
 }
 
-SolverStatus ScsConeSolver::get_scs_status() {
-  if (strcmp(scs_data_->info_.status, "Solved") == 0) {
+SolverStatus ScsConeSolver::get_scs_status(int status) {
+  if (status == 1) {
     return OPTIMAL;
-  } else if (strcmp(scs_data_->info_.status, "Infeasible") == 0) {
+  } else if (status == -2) {
     return INFEASIBLE;
-  } else if (strcmp(scs_data_->info_.status, "Unbounded") == 0) {
+  } else if (status == -1) {
     return UNBOUNDED;
   } else {
     return ERROR;
@@ -154,13 +154,13 @@ SolverStatus ScsConeSolver::get_scs_status() {
 ConeSolution ScsConeSolver::solve(const ConeProblem& problem) {
   ConeSolution solution;
   build_scs_problem(problem, &solution);
-  scs::scs(
+  int status = scs::scs(
       &scs_data_->data_,
       &scs_data_->cone_,
       &scs_data_->sol_,
       &scs_data_->info_);
   solution.p_objective_value = scs_data_->info_.pobj;
   solution.d_objective_value = scs_data_->info_.dobj;
-  solution.status = get_scs_status();
+  solution.status = get_scs_status(status);
   return solution;
 }

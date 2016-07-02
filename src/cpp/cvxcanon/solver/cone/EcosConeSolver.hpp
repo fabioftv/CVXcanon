@@ -19,22 +19,27 @@ public:
    ~EcosConeSolver();
 
    ConeSolution solve(const ConeProblem& problem) override;
-private:
-   struct EcosData;
+
+//(fabioftv): The following should be private:
+
+   SolverStatus get_ecos_status(int exitflag);
+
+   void define_size_ecos_constraint(
+      const std::vector<ConeConstraint>& constraints,
+      int size_constraint);
 
    void build_ecos_problem(const ConeProblem& problem, ConeSolution* solution);
 
-   void define_size_ecos_constraint(
-      const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
-      const std::vector<ConeConstraint>& constraints,
-      int size_constraint);
-   
    void build_ecos_constraint(
       const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
       const DenseVector& b,
       const std::vector<ConeConstraint>& constraints);
 
-   SolverStatus get_ecos_status();
+   std::vector<Triplet> A_coeffs_;
+   std::vector<Triplet> G_coeffs_;
+
+private:
+   struct EcosData;
 
    // ECOS Data Structures
    std::unique_ptr<EcosData> ecos_data_;
@@ -54,8 +59,6 @@ private:
    int num_leq_constrs_;
    int num_seco_constrs_;
    int num_exp_constrs_;
-   std::vector<Triplet> A_coeffs_;
-   std::vector<Triplet> G_coeffs_;
 };
 
 #endif  // CVXCANON_SOLVER_CONE_ECOS_CONE_SOLVER_H

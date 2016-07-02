@@ -2,34 +2,223 @@
 #include "cvxcanon/solver/cone/ScsConeSolver.hpp"
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
+#include <unordered_map>
+#include <vector>
+
 #include "gtest/gtest.h"
 
-ConeProblem problem;
-
-//TODO(fabioftv): Input problem.A, problem.b, problem.c, and ConeConstraints 
-
 TEST(ScsConeSolverTest, BuildConstraint) {
+   int n = 2;
+   int m = 2;
 
+   std::vector<Triplet> tripletlist;
+   tripletlist.push_back(Triplet(0,0,1));
+   tripletlist.push_back(Triplet(1,0,1));
+   tripletlist.push_back(Triplet(0,1,1));
+
+   Eigen::SparseMatrix<double, Eigen::RowMajor> A(m,n);
+   A.setFromTriplets(tripletlist.begin(), tripletlist.end());
+
+   EXPECT_EQ(3, A.nonZeros());
+
+   DenseVector b(m);
+   EXPECT_EQ(2, b.size());
+
+   b[0] = 2;
+   b[1] = 1;
+
+   EXPECT_EQ(2, b[0]);
+   EXPECT_EQ(1, b[1]);
+
+   std::vector<ConeConstraint> constraints;
+
+//(fabioftv): Select below at most two constraints:
+
+//   constraints.push_back(ConeConstraint::ZERO);
+//   constraints.push_back(ConeConstraint::ZERO);
+//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
+//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
+//   constraints.push_back(ConeConstraint::SECOND_ORDER);
+//   constraints.push_back(ConeConstraint::SECOND_ORDER);
+//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
+//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
+//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+
+   int* total_size;
+   int* sizes;
+
+   std::unordered_map<int, std::vector<ConeConstraint>> constr_map;
+   for (const ConeConstraint constr : constraints) {
+      constr_map[constr.cone].push_back(constr);
+   }
+
+   ScsConeSolver solver;
+   solver.build_scs_constraint(
+        A, b, constr_map[ConeConstraint::ZERO], total_size, nullptr);
+
+   EXPECT_EQ(0, total_size);
+   
+   solver.build_scs_constraint(
+        A, b, constr_map[ConeConstraint::NON_NEGATIVE], total_size, nullptr);
+
+   EXPECT_EQ(0, total_size);
+
+   solver.build_scs_constraint(
+        A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, sizes);
+
+   EXPECT_EQ(0, sizes);
+
+   solver.build_scs_constraint(
+        A, b, constr_map[ConeConstraint::SEMIDEFINITE], nullptr, sizes);
+
+   EXPECT_EQ(0, sizes);
+
+   solver.build_scs_constraint(
+        A, b, constr_map[ConeConstraint::PRIMAL_EXPO], total_size, nullptr);
+
+   EXPECT_EQ(0, total_size);
 }
 
 TEST(ScsConeSolverTest, BuildProblem) {
+   ConeProblem problem;
+   ConeSolution *solution;
 
+   int n = 2;
+   int m = 2;
+
+   std::vector<Triplet> tripletlist;
+   tripletlist.push_back(Triplet(0,0,1));
+   tripletlist.push_back(Triplet(1,0,1));
+   tripletlist.push_back(Triplet(0,1,1));
+
+   Eigen::SparseMatrix<double, Eigen::RowMajor> A(m,n);
+   A.setFromTriplets(tripletlist.begin(), tripletlist.end());
+
+   problem.A = A;   
+
+   EXPECT_EQ(3, problem.A.nonZeros());
+
+   DenseVector b(m);
+   EXPECT_EQ(2, b.size());
+
+   b[0] = 2;
+   b[1] = 1;
+
+   problem.b = b;
+
+   EXPECT_EQ(2, problem.b[0]);
+   EXPECT_EQ(1, problem.b[1]);
+
+   DenseVector c(n);
+   EXPECT_EQ(2, c.size());
+
+   c[0] = 1;
+   c[1] = 1;
+
+   problem.c = c;
+
+   EXPECT_EQ(1, problem.c[0]);
+   EXPECT_EQ(1, problem.c[1]);
+
+   std::vector<ConeConstraint> constraints;
+
+//(fabioftv): Select below at most two constraints:
+
+//   constraints.push_back(ConeConstraint::ZERO);
+//   constraints.push_back(ConeConstraint::ZERO);
+//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
+//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
+//   constraints.push_back(ConeConstraint::SECOND_ORDER);
+//   constraints.push_back(ConeConstraint::SECOND_ORDER);
+//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
+//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
+//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+
+   problem.constraints = constraints;
+
+   ScsConeSolver solver;
+//   solver.build_scs_problem(problem, solution);
 }
 
 TEST(ScsConeSolverTest, SolverStatus) {
-scs_data_->info_.status = "Solved";
-EXPECT_EQ(OPTIMAL, get_scs_status());
+   ScsConeSolver solver;
 
-scs_data_->info_.status = "Infeasible";
-EXPECT_EQ(INFEASIBLE, get_scs_status());
+   int status = 1;
+   EXPECT_EQ(OPTIMAL, solver.get_scs_status(status));
 
-scs_data_->info_.status = "Unbounded";
-EXPECT_EQ(UNBOUNDED, get_scs_status());
+   status = -2;
+   EXPECT_EQ(INFEASIBLE, solver.get_scs_status(status));
 
-scs_data_->info_.status = "Test";
-EXPECT_EQ(ERROR, get_scs_status());
+   status = -1;
+   EXPECT_EQ(UNBOUNDED, solver.get_scs_status(status));
+
+   status = 999;
+   EXPECT_EQ(ERROR, solver.get_scs_status(status));
 }
 
 TEST(ScsConeSolverTest, Solve) {
+   ConeProblem problem;
+   ConeSolution *solution;
 
+   int n = 2;
+   int m = 2;
+
+   std::vector<Triplet> tripletlist;
+   tripletlist.push_back(Triplet(0,0,1));
+   tripletlist.push_back(Triplet(1,0,1));
+   tripletlist.push_back(Triplet(0,1,1));
+
+   Eigen::SparseMatrix<double, Eigen::RowMajor> A(m,n);
+   A.setFromTriplets(tripletlist.begin(), tripletlist.end());
+
+   problem.A = A;   
+
+   EXPECT_EQ(3, problem.A.nonZeros());
+
+   DenseVector b(m);
+   EXPECT_EQ(2, b.size());
+
+   b[0] = 2;
+   b[1] = 1;
+
+   problem.b = b;
+
+   EXPECT_EQ(2, problem.b[0]);
+   EXPECT_EQ(1, problem.b[1]);
+
+   DenseVector c(n);
+   EXPECT_EQ(2, c.size());
+
+   c[0] = 1;
+   c[1] = 1;
+
+   problem.c = c;
+
+   EXPECT_EQ(1, problem.c[0]);
+   EXPECT_EQ(1, problem.c[1]);
+
+   std::vector<ConeConstraint> constraints;
+
+//(fabioftv): Select below at most two constraints:
+
+//   constraints.push_back(ConeConstraint::ZERO);
+//   constraints.push_back(ConeConstraint::ZERO);
+//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
+//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
+//   constraints.push_back(ConeConstraint::SECOND_ORDER);
+//   constraints.push_back(ConeConstraint::SECOND_ORDER);
+//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
+//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
+//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+
+   problem.constraints = constraints;
+
+   ScsConeSolver solver;
+   solver.solve(problem);
+
+//   ConeSolution solution;
+//   EXPECT_EQ(0, solution->p_objective_value);
 }

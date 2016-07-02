@@ -8,6 +8,8 @@
 namespace ecos {
 #include <ecos/external/SuiteSparse_config/SuiteSparse_config.h>
 #include <ecos/include/ecos.h>
+#include <ecos/include/spla.h>
+#include <ecos/include/cone.h>
 typedef double pfloat;
 }  // namespace ecos
 
@@ -16,15 +18,19 @@ struct EcosConeSolver::EcosData {
    ecos::settings settings_;
    ecos::stats stats_;
    ecos::pwork pwork_;
+
+   // ECOS Supporting Data Structures
+   ecos::spmat A_matrix_;
+   ecos::spmat G_matrix_;
+   ecos::cone cone_;
 };
 
 EcosConeSolver::EcosConeSolver() : ecos_data_(new EcosData()) {}
 EcosConeSolver::~EcosConeSolver() {}
 
-/*
+
 //(fabioftv): Determine the size of constraints
 void EcosConeSolver::define_size_ecos_constraint(
-   const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
    const std::vector<ConeConstraint>& constraints,
    int size_constraint) {
    size_constraint = 0;
@@ -39,8 +45,7 @@ void EcosConeSolver::build_ecos_constraint(
    const DenseVector& b,
    const std::vector<ConeConstraint>& constraints) {
    for (const ConeConstraint& constr : constraints) {
-      //TODO(fabioftv): Check if(constr.cone != ZERO
-      if (constr.cone != ZERO){
+      if (constr.cone != ConeConstraint::ZERO){
          append_block_triplets(
             A.middleRows(constr.offset, constr.size), num_constrs_, 0, 
                &G_coeffs_);
@@ -71,13 +76,13 @@ void EcosConeSolver::build_ecos_problem(
    }
 
    //(fabioftv): Define the size of each set of constraints
-   define_size_ecos_constraint(A, constr_map[ConeConstraint::ZERO],  
+   define_size_ecos_constraint(constr_map[ConeConstraint::ZERO],  
       num_eq_constrs_);
-   define_size_ecos_constraint(A, constr_map[ConeConstraint::NON_NEGATIVE],
+   define_size_ecos_constraint(constr_map[ConeConstraint::NON_NEGATIVE],
       num_leq_constrs_);
-   define_size_ecos_constraint(A, constr_map[ConeConstraint::SECOND_ORDER],
+   define_size_ecos_constraint(constr_map[ConeConstraint::SECOND_ORDER],
       num_seco_constrs_);
-   define_size_ecos_constraint(A, constr_map[ConeConstraint::PRIMAL_EXPO],
+   define_size_ecos_constraint(constr_map[ConeConstraint::PRIMAL_EXPO],
       num_exp_constrs_);
 
    const int n = problem.A.cols();
@@ -112,59 +117,64 @@ void EcosConeSolver::build_ecos_problem(
    
    //(fabioftv): Dimensions
    ecos_data_->pwork_.n = n;
-   ecos_data_->pwork_.m = m;
+   ecos_data_->pwork_.m = num_leq_constrs_;
    ecos_data_->pwork_.p = p;
-   //TODO(fabioftv): I think we need to define the degree of the cone but I am
-   //                not sure how to define it in ECOS
-   //ecos_data_->pwork_.D =?????
-
    
    //(fabioftv): Variables
    ecos_data_->pwork_.x = const_cast<double*>(solution->x.data());
-   // Check This
-//   for (constr_map[ConeConstraint::ZERO]) {
-//     ecos_data_->pwork_.y = const_cast<double*>(solution->y.data());
-//   }
-//   else {
-//     ecos_data_->pwork_.z = const_cast<double*>(solution->y.data());
-//   }
+   ecos_data_->pwork_.z = const_cast<double*>(solution->y.data());
+   ecos_data_->pwork_.y = const_cast<double*>(solution->y.data());
    ecos_data_->pwork_.s = const_cast<double*>(s_.data());
 
-   //TODO(fabioftv): Check how to define the cone
-   //ecos_data_->pwork_.C =?????
-
-   
    //(fabioftv): Problem Data
-   ecos_data_->pwork_.A = A_;
-   ecos_data_->pwork_.G = G_;
+   ecos_data_->A_matrix_.m = p;
+   ecos_data_->A_matrix_.n = n;
+   ecos_data_->A_matrix_.ir = (long int*) A_.innerIndexPtr();
+   ecos_data_->A_matrix_.jc = (long int*) A_.outerIndexPtr();
+   ecos_data_->A_matrix_.pr = A_.valuePtr();
+   ecos_data_->A_matrix_.nnz = A_.nonZeros();
+
+   ecos_data_->G_matrix_.m = m;
+   ecos_data_->G_matrix_.n = n;
+   ecos_data_->G_matrix_.ir = (long int*) G_.innerIndexPtr();
+   ecos_data_->G_matrix_.jc = (long int*) G_.outerIndexPtr();
+   ecos_data_->G_matrix_.pr = G_.valuePtr();
+   ecos_data_->G_matrix_.nnz = G_.nonZeros();
+
+   ecos_data_->pwork_.A = &ecos_data_->A_matrix_;
+   ecos_data_->pwork_.G = &ecos_data_->G_matrix_;
    ecos_data_->pwork_.c = const_cast<double*>(problem.c.data());
    ecos_data_->pwork_.b = const_cast<double*>(b_.data());
    ecos_data_->pwork_.h = const_cast<double*>(h_.data());
+
+   ecos_data_->cone_.nsoc = num_seco_constrs_;
+   ecos_data_->cone_.nexc = num_exp_constrs_;
 
    ecos_data_->settings_.verbose = 0;
 }
 
 //(fabioftv): Determine the status of the problem
-SolverStatus EcosConeSolver::get_ecos_status() {
-   if (ecos_data_->pwork_.info == 0) {
+SolverStatus EcosConeSolver::get_ecos_status(int exitflag) {
+   if (exitflag == 0) {
        return OPTIMAL;
-   } else if (ecos_data_->pwork_.info == 1) {
+   } else if (exitflag == 1) {
       return INFEASIBLE;
-   } else if (ecos_data_->pwork_.info == 2) {
+   } else if (exitflag == 2) {
       return UNBOUNDED;
-   } else if (ecos_data_->pwork_.info == -1) {
+   } else if (exitflag == -1) {
       return USER_LIMIT;
    } else {
       return ERROR;
    }
-*/
+}
+
 //(fabioftv): Determine the solution of the problem  
 ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
    ConeSolution solution;
-//   build_ecos_problem(problem, &solution);
-//  ECOS_solve(&ecos_data_->pwork_);
-//   solution.p_objective_value = ecos_data_->stats_.pcost;
-//   solution.d_objective_value = ecos_data_->stats_.dcost;
-//   solution.status = get_ecos_status();
-//   return solution;
+   build_ecos_problem(problem, &solution);
+   int exitflag = ECOS_solve(&ecos_data_->pwork_);
+   solution.p_objective_value = ecos_data_->stats_.pcost;
+   solution.d_objective_value = ecos_data_->stats_.dcost;
+   solution.status = get_ecos_status(exitflag);
+   return solution;
 }

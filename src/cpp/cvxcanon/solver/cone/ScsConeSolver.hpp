@@ -20,12 +20,9 @@ class ScsConeSolver : public ConeSolver {
 
   ConeSolution solve(const ConeProblem& problem) override;
 
- private:
-  struct ScsData;
+//(fabioftv): The following should be private:
 
-  void build_scs_problem(
-      const ConeProblem& problem,
-      ConeSolution* solution);
+  SolverStatus get_scs_status(int status);
 
   void build_scs_constraint(
     const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
@@ -34,7 +31,12 @@ class ScsConeSolver : public ConeSolver {
     int* total_size,
     int* sizes);
 
-  SolverStatus get_scs_status();
+  void build_scs_problem(
+      const ConeProblem& problem,
+      ConeSolution* solution);
+
+ private:
+  struct ScsData;
 
   // SCS data structures
   std::unique_ptr<ScsData> scs_data_;
