@@ -66,8 +66,8 @@ tests = \
 	cvxcanon/expression/TextFormatTest \
 	cvxcanon/solver/SolverTest \
 	cvxcanon/solver/cone/ScsConeSolverTest \
-	cvxcanon/solver/cone/EcosConeSolverTest \
-	cvxcanon/solver/cone/SymboliConeSolverTest
+	cvxcanon/solver/cone/EcosConeSolverTest
+#	cvxcanon/solver/cone/SymboliConeSolverTest
 
 libs = cvxcanon
 
