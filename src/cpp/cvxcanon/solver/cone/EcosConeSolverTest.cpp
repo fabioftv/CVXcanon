@@ -8,19 +8,21 @@
 #include "gtest/gtest.h"
 
 TEST(EcosConeSolverTest, SizeConstraint) {
+   ConeConstraint con_cone; 
+
    std::vector<ConeConstraint> constraints;
-/*
-   constraints.push_back(ConeConstraint::ZERO);
-   constraints.push_back(ConeConstraint::ZERO);
-   constraints.push_back(ConeConstraint::ZERO);
-   constraints.push_back(ConeConstraint::SECOND_ORDER);
-   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-   constraints.push_back(ConeConstraint::ZERO);
-   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-   constraints.push_back(ConeConstraint::SECOND_ORDER);
-   constraints.push_back(ConeConstraint::ZERO);
-   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-*/
+
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
+
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+
+   con_cone.cone = ConeConstraint::NON_NEGATIVE;
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    std::unordered_map<int, std::vector<ConeConstraint>> constr_map;
    for (const ConeConstraint constr : constraints) {
@@ -46,6 +48,7 @@ TEST(EcosConeSolverTest, SizeConstraint) {
 }
 
 TEST(EcosConeSolverTest, BuildConstraint) {
+   ConeConstraint con_cone; 
    int n = 2;
    int m = 4;
 
@@ -77,21 +80,16 @@ TEST(EcosConeSolverTest, BuildConstraint) {
 
    std::vector<ConeConstraint> constraints;
 
-//(fabioftv): Select both constraints below:
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
 
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::ZERO);
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
-//(fabioftv): Select below at most two constraints:
-
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+   con_cone.cone = ConeConstraint::NON_NEGATIVE;
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    std::unordered_map<int, std::vector<ConeConstraint>> constr_map;
    for (const ConeConstraint constr : constraints) {
@@ -113,6 +111,7 @@ TEST(EcosConeSolverTest, BuildConstraint) {
 TEST(EcosConeSolverTest, BuildProblem) {
    ConeProblem problem;
    ConeSolution *solution;
+   ConeConstraint con_cone; 
 
    int n = 2;
    int m = 4;
@@ -160,21 +159,16 @@ TEST(EcosConeSolverTest, BuildProblem) {
 
    std::vector<ConeConstraint> constraints;
 
-//(fabioftv): Select both constraints below:
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
 
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::ZERO);
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
-//(fabioftv): Select below at most two constraints:
-
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+   con_cone.cone = ConeConstraint::NON_NEGATIVE;
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    problem.constraints = constraints;
 
@@ -203,6 +197,7 @@ EXPECT_EQ(ERROR, solver.get_ecos_status(exitflag));
 TEST(EcosConeSolverTest, Solve) {
    ConeProblem problem;
    ConeSolution *solution;
+   ConeConstraint con_cone; 
 
    int n = 2;
    int m = 4;
@@ -250,21 +245,16 @@ TEST(EcosConeSolverTest, Solve) {
 
    std::vector<ConeConstraint> constraints;
 
-//(fabioftv): Select both constraints below:
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
 
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::ZERO);
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
-//(fabioftv): Select below at most two constraints:
-
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+   con_cone.cone = ConeConstraint::NON_NEGATIVE;
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    problem.constraints = constraints;
 

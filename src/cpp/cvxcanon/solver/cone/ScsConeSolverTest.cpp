@@ -8,6 +8,8 @@
 #include "gtest/gtest.h"
 
 TEST(ScsConeSolverTest, BuildConstraint) {
+   ConeConstraint con_cone;   
+
    int n = 2;
    int m = 2;
 
@@ -32,18 +34,12 @@ TEST(ScsConeSolverTest, BuildConstraint) {
 
    std::vector<ConeConstraint> constraints;
 
-//(fabioftv): Select below at most two constraints:
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
 
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    int* total_size;
    int* sizes;
@@ -83,6 +79,7 @@ TEST(ScsConeSolverTest, BuildConstraint) {
 TEST(ScsConeSolverTest, BuildProblem) {
    ConeProblem problem;
    ConeSolution *solution;
+   ConeConstraint con_cone; 
 
    int n = 2;
    int m = 2;
@@ -123,18 +120,12 @@ TEST(ScsConeSolverTest, BuildProblem) {
 
    std::vector<ConeConstraint> constraints;
 
-//(fabioftv): Select below at most two constraints:
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
 
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    problem.constraints = constraints;
 
@@ -161,6 +152,7 @@ TEST(ScsConeSolverTest, SolverStatus) {
 TEST(ScsConeSolverTest, Solve) {
    ConeProblem problem;
    ConeSolution *solution;
+   ConeConstraint con_cone; 
 
    int n = 2;
    int m = 2;
@@ -201,18 +193,12 @@ TEST(ScsConeSolverTest, Solve) {
 
    std::vector<ConeConstraint> constraints;
 
-//(fabioftv): Select below at most two constraints:
+   con_cone.cone = ConeConstraint::ZERO;
+   con_cone.offset = 0;
+   con_cone.size = 1;
 
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::ZERO);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::NON_NEGATIVE);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SECOND_ORDER);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::SEMIDEFINITE);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
-//   constraints.push_back(ConeConstraint::PRIMAL_EXPO);
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
+   constraints.push_back({con_cone.cone, con_cone.offset, con_cone.size});
 
    problem.constraints = constraints;
 
