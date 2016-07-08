@@ -253,7 +253,7 @@ Solution get_solution(
     const int n = iter.second.second;
     solution.variable_values[var_id] = cone_solution.x.segment(j, n);
   }
-  solution.objective_value = cone_solution.objective_value;
+  solution.objective_value = cone_solution.p_objective_value;
   solution.status = cone_solution.status;
   return solution;
 }
