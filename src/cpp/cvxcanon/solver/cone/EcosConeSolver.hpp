@@ -24,16 +24,15 @@ public:
 
    SolverStatus get_ecos_status(int exitflag);
 
-   void define_size_ecos_constraint(
-      const std::vector<ConeConstraint>& constraints,
-      int size_constraint);
+   int get_constr_size(const std::vector<ConeConstraint>& constraints);
 
    void build_ecos_problem(const ConeProblem& problem, ConeSolution* solution);
 
    void build_ecos_constraint(
       const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
       const DenseVector& b,
-      const std::vector<ConeConstraint>& constraints);
+      const std::vector<ConeConstraint>& constraints,
+      int offset);
 
    std::vector<Triplet> A_coeffs_;
    std::vector<Triplet> G_coeffs_;
@@ -54,7 +53,6 @@ private:
    DenseVector h_;
 
    // Extra Attributes for Constraints
-   int num_constrs_;
    int num_eq_constrs_;
    int num_leq_constrs_;
    int num_seco_constrs_;

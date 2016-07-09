@@ -3,6 +3,7 @@
 #include "cvxcanon/util/MatrixUtil.hpp"
 #include <unordered_map>
 #include <vector>
+#include <assert.h>
 
 // ECOS Environment 
 namespace ecos {
@@ -30,34 +31,37 @@ EcosConeSolver::~EcosConeSolver() {}
 
 
 //(fabioftv): Determine the size of constraints
-void EcosConeSolver::define_size_ecos_constraint(
-   const std::vector<ConeConstraint>& constraints,
-   int size_constraint) {
-   size_constraint = 0;
+int EcosConeSolver::get_constr_size(
+   const std::vector<ConeConstraint>& constraints) {
+   int size_constraint = 0;
    for (const ConeConstraint& constr : constraints) {
       size_constraint += constr.size;
    }
+   return size_constraint;
 }
 
 //(fabioftv): Build the constraints. If equality constraints, then the coefficients are assigned to A_coeffs_. If not, the coefficients are assigned to G_coeffs_.
 void EcosConeSolver::build_ecos_constraint(
    const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
    const DenseVector& b,
-   const std::vector<ConeConstraint>& constraints) {
+   const std::vector<ConeConstraint>& constraints,
+   int offset) {
    for (const ConeConstraint& constr : constraints) {
       if (constr.cone != ConeConstraint::ZERO){
          append_block_triplets(
-            A.middleRows(constr.offset, constr.size), num_constrs_, 0, 
+            A.middleRows(constr.offset, constr.size), offset, 0, 
                &G_coeffs_);
-         h_.segment(num_constrs_, constr.size) = 
+         h_.segment(offset, constr.size) = 
             b.segment(constr.offset, constr.size);
+         offset += constr.size;
       }
       else {
          append_block_triplets(
-            A.middleRows(constr.offset, constr.size), num_constrs_, 0, 
+               A.middleRows(constr.offset, constr.size), offset, 0, 
                &A_coeffs_);
-         b_.segment(num_constrs_, constr.size) = 
+         b_.segment(offset, constr.size) = 
             b.segment(constr.offset, constr.size);
+         offset += constr.size;
       }
    }
 }
@@ -66,7 +70,6 @@ void EcosConeSolver::build_ecos_constraint(
 void EcosConeSolver::build_ecos_problem(
    const ConeProblem& problem,
    ConeSolution* solution) {
-
    Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
    const DenseVector& b = problem.b;
 
@@ -74,16 +77,11 @@ void EcosConeSolver::build_ecos_problem(
    for (const ConeConstraint& constr : problem.constraints) {
       constr_map[constr.cone].push_back(constr);
    }
-
    //(fabioftv): Define the size of each set of constraints
-   define_size_ecos_constraint(constr_map[ConeConstraint::ZERO],  
-      num_eq_constrs_);
-   define_size_ecos_constraint(constr_map[ConeConstraint::NON_NEGATIVE],
-      num_leq_constrs_);
-   define_size_ecos_constraint(constr_map[ConeConstraint::SECOND_ORDER],
-      num_seco_constrs_);
-   define_size_ecos_constraint(constr_map[ConeConstraint::PRIMAL_EXPO],
-      num_exp_constrs_);
+   num_eq_constrs_ = get_constr_size(constr_map[ConeConstraint::ZERO]);
+   num_leq_constrs_ = get_constr_size(constr_map[ConeConstraint::NON_NEGATIVE]);
+   num_seco_constrs_ = get_constr_size(constr_map[ConeConstraint::SECOND_ORDER]);
+   num_exp_constrs_ = get_constr_size(constr_map[ConeConstraint::PRIMAL_EXPO]);
 
    const int n = problem.A.cols();
    const int m = num_leq_constrs_ + num_seco_constrs_ + num_exp_constrs_;
@@ -95,12 +93,15 @@ void EcosConeSolver::build_ecos_problem(
    b_ = DenseVector(p);
    h_ = DenseVector(m);
    s_ = DenseVector(m);
-
    //(fabioftv): Build the constraints
-   build_ecos_constraint(A, b, constr_map[ConeConstraint::ZERO]);
-   build_ecos_constraint(A, b, constr_map[ConeConstraint::NON_NEGATIVE]);
-   build_ecos_constraint(A, b, constr_map[ConeConstraint::SECOND_ORDER]);
-   build_ecos_constraint(A, b, constr_map[ConeConstraint::PRIMAL_EXPO]);
+   build_ecos_constraint(A, b, constr_map[ConeConstraint::ZERO], 0);
+   // Keep printing out info and moving return down as you get pieces to work.
+   printf("num_eq_constrs_ = %d\n", num_eq_constrs_);
+   build_ecos_constraint(A, b, constr_map[ConeConstraint::NON_NEGATIVE], 0);
+   build_ecos_constraint(A, b, constr_map[ConeConstraint::SECOND_ORDER],
+                         num_leq_constrs_);
+   build_ecos_constraint(A, b, constr_map[ConeConstraint::PRIMAL_EXPO],
+                         num_leq_constrs_ + num_seco_constrs_);
 
    //(fabioftv): Assign coefficients to A_ and G_
    A_ = sparse_matrix(p, n, A_coeffs_);
@@ -112,7 +113,7 @@ void EcosConeSolver::build_ecos_problem(
            << "G:\n" << matrix_debug_string(G_)
            << "h:\n" << vector_debug_string(h_);
 
-//(fabioftv): Fill ou the information needed by ECOS.
+//(fabioftv): Fill out the information needed by ECOS.
 // See more at: https://github.com/embotech/ecos/blob/develop/include/ecos.h
    
    //(fabioftv): Dimensions
@@ -168,7 +169,7 @@ SolverStatus EcosConeSolver::get_ecos_status(int exitflag) {
    }
 }
 
-//(fabioftv): Determine the solution of the problem  
+//(fabioftv): Determine the solution of the problem.
 ConeSolution EcosConeSolver::solve(const ConeProblem& problem) {
    ConeSolution solution;
    build_ecos_problem(problem, &solution);

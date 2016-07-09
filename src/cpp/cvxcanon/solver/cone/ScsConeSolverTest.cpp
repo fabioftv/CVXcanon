@@ -155,3 +155,4 @@ TEST(ScsConeSolverTest, SolverStatus) {
    status = 999;
    EXPECT_EQ(ERROR, solver.get_scs_status(status));
 }
+
