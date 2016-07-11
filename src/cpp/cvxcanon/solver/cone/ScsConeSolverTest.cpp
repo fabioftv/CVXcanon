@@ -2,6 +2,7 @@
 #include "cvxcanon/solver/cone/ScsConeSolver.hpp"
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
+#include <cmath>
 #include <unordered_map>
 #include <vector>
 
@@ -136,7 +137,7 @@ TEST(ScsConeSolverTest, Solve) {
    ScsConeSolver solver;
    ConeSolution solution = solver.solve(problem);
    EXPECT_EQ(solution.status, OPTIMAL);
-   EXPECT_LE(solution.p_objective_value - 3, .001);
+   EXPECT_LE(fabs(solution.p_objective_value - 3), .001);
 }
 
 TEST(ScsConeSolverTest, SolverStatus) {

@@ -2,6 +2,7 @@
 #include "cvxcanon/solver/cone/EcosConeSolver.hpp"
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
+#include <cmath>
 #include <unordered_map>
 #include <vector>
 
@@ -232,9 +233,8 @@ TEST(EcosConeSolverTest, Solve) {
    constraints.push_back({ConeConstraint::NON_NEGATIVE, 0, 2});
 
    problem.constraints = constraints;
-   EXPECT_EQ(2, 1);
    EcosConeSolver solver;
-  ConeSolution solution = solver.solve(problem);
+   ConeSolution solution = solver.solve(problem);
 
-  // EXPECT_EQ(2, solution.p_objective_value);
+   EXPECT_LE(fabs(solution.p_objective_value - 2), .0001);
 }

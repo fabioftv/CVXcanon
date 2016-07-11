@@ -44,11 +44,11 @@ private:
    std::unique_ptr<EcosData> ecos_data_;
 
    // ECOS Supporting Data Structures
-   DenseVector s_;
+   std::vector<long> q_;
 
    // Constraints Ordered
-   SparseMatrix A_;
-   SparseMatrix G_;
+   Eigen::SparseMatrix<double, Eigen::RowMajor, long> A_;
+   Eigen::SparseMatrix<double, Eigen::RowMajor, long> G_;
    DenseVector b_;
    DenseVector h_;
 

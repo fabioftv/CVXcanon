@@ -20,7 +20,8 @@ ecos_dir = third_party/ecos
 deps_dir = build-deps
 
 # Optimization flags, use OPTFLAGS=-g when debugging
-OPTFLAGS = -DNDEBUG -O3
+# OPTFLAGS = -DNDEBUG -O3
+OPTFLAGS = -g
 
 CFLAGS += $(OPTFLAGS)
 CXXFLAGS += $(OPTFLAGS) -std=c++14
