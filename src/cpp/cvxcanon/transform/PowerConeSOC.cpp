@@ -20,16 +20,34 @@ Expression transform_power(
   const double p = expr.attr<PowerAttributes>().p;
   const Expression& x = expr.arg(0);
   if (p < 0){
-
+    Expression t = epi_var(expr, "power");
+    Expression vec_t = reshape(t, dim(x), 1);
+    Expression vec_x = reshape(x, dim(x), 1);
+    constraints->push_back(
+        soc(hstack({add(constant(1), neg(vec_t)), mul(constant(2), vec_x)}),
+            add(constant(1), vec_t)));
+    return t;
   }
   else if (p > 0 && p < 1){
-
+    Expression t = epi_var(expr, "power");
+    Expression vec_t = reshape(t, dim(x), 1);
+    Expression vec_x = reshape(x, dim(x), 1);
+    constraints->push_back(
+        soc(hstack({add(constant(1), neg(vec_t)), mul(constant(2), vec_x)}),
+            add(constant(1), vec_t)));
+    return t;
   }
   else if (p == 1){
     return x;
   }
   else if (p > 1 && p != 2){
-
+    Expression t = epi_var(expr, "power");
+    Expression vec_t = reshape(t, dim(x), 1);
+    Expression vec_x = reshape(x, dim(x), 1);
+    constraints->push_back(
+        soc(hstack({add(constant(1), neg(vec_t)), mul(constant(2), vec_x)}),
+            add(constant(1), vec_t)));
+    return t;
   }
   else if (p == 2) {
     Expression t = epi_var(expr, "power_2");
