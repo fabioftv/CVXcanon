@@ -13,7 +13,6 @@
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/util/MatrixUtil.hpp"
 #include "glog/logging.h"
-// #include "boost/optional.hpp"
 
 #define TOLERANCE 0.00000001
 #define PRECISION 1000000000
@@ -90,7 +89,7 @@ std::pair<int, int> GeoMeanIneq::fraction(double number) {
    long num;
    int i;
 
-   if (number > 0){
+   if (number >= 0){
       gcd_aux = gcd(round(number * PRECISION), PRECISION);
       denom = PRECISION / gcd_aux;
       num = round(number * PRECISION) / gcd_aux;
@@ -251,86 +250,16 @@ bool GeoMeanIneq::dyadic_weight_vector_test(std::vector<std::pair<double,
    }
 }
 
-std::vector<int> GeoMeanIneq::sort(std::vector<double> num) {
-   int i, j, index_temp;
-   std::vector<int> index(num.size());
-   double num_temp;
+std::vector<int> GeoMeanIneq::sort(std::vector<double> test){
 
-   for (i = 0; i < num.size(); i++){
-      index[i] = i;
-   }
+   std::vector<int> y(test.size());
+   std::size_t n(0);
+   std::generate(std::begin(y), std::end(y), [&]{return n++;});
+   std::sort (std::begin(y), std::end(y), [&](int i1, int i2) 
+      {return test[i1] < test[i2];});
 
-   for (i = 0; i < num.size(); i++){
-      for (j = i + 1; j < num.size(); j++){
-         if (num[i] > num[j]){
-            num_temp = num[i];
-            index_temp = index[i];
-            num[i] = num[j];
-            num[j] = num_temp;
-            index[i] = index[j];
-            index[j] = index_temp;
-         }
-      }
-   }
-   
-   return index;
+   return y;
 }
-
-//TODO(fabioftv): Implement Merge Sort
-/*
-void GeoMeanIneq::merge(std::vector<double> num, int low, int middle, int high) {
-   int i, j, k;
-   int number_a = middle - low + 1;
-   int number_b = high - middle;
-   std::vector<double> low_(number_a);
-   std::vector<double> high_(number_b);
-
-   for (i = 0; i < number_a; i++){
-      low_[i] = num[low + i];
-   }
-   for (j = 0; j < number_b; j++){
-      high_[j] = num[middle + 1 + j];
-   }
-   
-   i = j = 0;
-   k = low;
-   while (i < number_a && j < number_b){
-      if (low_[i] <= high_[j]){
-         num[k] = low_[i];
-         i++;
-      }
-      else{
-         num[k] = high_[j];
-         j++;
-      }
-      k++;
-   }
-
-   while (i < number_a){
-      num[k] = low_[i];
-      i++;
-      k++;
-   }
-
-   while (j < number_b){
-      num[k] = high_[j];
-      j++;
-      k++;
-   }
-}
-
-void GeoMeanIneq::merge_sort(std::vector<double> num, int low, int high) {
-   int middle;
-   if (low < high){
-      middle = low + (high - 1) / 2;
-      std::cerr << middle << std::endl;
-      merge_sort(num, low, middle);
-      merge_sort(num, (middle + 1), high);
-      merge(num, low, middle, high);
-   }
-}
-*/
-
 
 std::vector<std::pair<int, int>> GeoMeanIneq::make_frac(std::vector<double>
                                  a, int denominator) {
@@ -486,20 +415,121 @@ bool GeoMeanIneq::check_dyad(std::vector<std::pair<double, double>> w,
    }
 }
 
-std::pair<std::vector<std::pair<int, int>>, std::vector<std::pair<int, int>>> GeoMeanIneq::split(std::vector<std::pair<double, double>> w_dyad) {
-
-   bool cond = true;
-   int i;
+std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
+   double>>> GeoMeanIneq::split(std::vector<std::pair<double, double>> w_dyad) {
+   bool condition = true, stat_a = true, stat_b = true;
+   double sum = 0;
+   int i, j;
 
    for (i = 0; i < w_dyad.size(); i++){
-      if (w_dyad[i].first == 1 && w_dyad[i].second == 1){
-         cond = false;
+      if (w_dyad[i].first == w_dyad[i].second){
+         condition = false;
          i = w_dyad.size();
       }
    }
-   if (cond == false){
-      std::pair<std::vector<std::pair<int, int>>, std::vector<std::pair<int,
-         int>>> f;
-      return f;
+//TODO(fabioftv): Need to return empty
+/*
+   if (condition == false){
+      return ();
    }
+*/
+   std::vector<std::pair<double, double>> child_1(w_dyad.size());
+   std::vector<std::pair<double, double>> child_2(w_dyad.size());
+   for (i = 0; i < w_dyad.size(); i++){
+      child_1[i].first = 0 * w_dyad.size();
+      child_1[i].second = 1;
+      child_2[i].first = w_dyad[i].first * 2;
+      child_2[i].second = w_dyad[i].second;
+   }
+   std::vector<double> child_1_double(child_1.size());
+   std::vector<double> child_2_double(child_2.size());
+   for (i = 0; i < w_dyad.size(); i++){
+      child_1_double[i] = child_1[i].first / child_1[i].second;
+      child_2_double[i] = child_2[i].first / child_2[i].second;
+   }
+   std::pair<int, int> child_a;
+   std::pair<int, int> child_b;
+   double bit = 1;
+   while (stat_a == true && stat_b == true){
+      for (i = 0; i < w_dyad.size(); i++){
+         if (child_2_double[i] >= bit){
+            child_1_double[i] += bit;
+            child_a = fraction(child_1_double[i]);
+            child_1[i].first = (double) child_a.first;
+            child_1[i].second = (double) child_a.second;
+            child_2_double[i] -= bit;
+            child_b = fraction(child_2_double[i]);
+            child_2[i].first = (double) child_b.first;
+            child_2[i].second = (double) child_b.second;
+            stat_a = false;
+         }
+         sum = 0;
+         for (j = 0; j < w_dyad.size(); j++){
+            sum += child_1_double[j];
+         }
+         if (sum >= 1 - TOLERANCE && sum <= 1 + TOLERANCE){
+            stat_b = false;
+         }
+         if ((stat_a != stat_b) || (stat_a == true && stat_b == true)){
+            stat_a = stat_b = true;
+         }
+      }
+   }
+
+//TODO(fabioftv): Implement bit /= 2
+//TODO(fabioftv): Implement error in case of infinite loop
+
+   std::pair<std::vector<std::pair<double, double>>, 
+      std::vector<std::pair<double, double>>> split_w_dyad;
+
+   split_w_dyad.first = child_1;
+   split_w_dyad.second = child_2;
+
+   return split_w_dyad;
+}
+
+double GeoMeanIneq::get_max_denom(std::vector<std::pair<double, double>> tup) {
+   double max = 0;
+   int i;
+
+   for (i = 0; i < tup.size(); i++){
+      if (tup[i].second > max){
+         max = tup[i].second;
+      }
+   }
+
+   return max;
+}
+
+unsigned GeoMeanIneq::get_number_of_digits(unsigned number) {
+   return number > 0 ? (int) log10 ((double) number) + 1 : 1;
+}
+
+int GeoMeanIneq::int_to_binary(int number) {
+   int remainder, i = 1, binary = 0;
+
+   while (number != 0){
+      remainder = number % 2;
+      number /= 2;
+      binary += remainder * i;
+      i *= 10;
+   }
+
+   return binary;
+}
+
+double GeoMeanIneq::lower_bound(std::vector<std::pair<double, double>> w_dyad) {
+   int i, sum = 0;
+
+   assert (dyadic_weight_vector_test(w_dyad) == true);
+   double md = get_max_denom(w_dyad);
+   int lb1 = get_number_of_digits(int_to_binary((int) md)) - 1;
+   for (i = 0; i < w_dyad.size(); i++){
+      if (w_dyad[i].first != 0){
+         sum++;
+      }
+   }
+   int lb2 = sum - 1;
+
+   return std::max(lb1, lb2);
 }

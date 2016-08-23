@@ -10,7 +10,13 @@ class PowerGeoMean : public ProblemTransform {
 
       bool accepts(const Problem& problem) override;
       Problem apply(const Problem& problem) override;
-   private:
+};
+
+class GeoMeanIneq {
+   public:
+      GeoMeanIneq();
+      ~GeoMeanIneq();
+
       long gcd(long a, long b);
       std::pair<int, int> fraction(double number);
       std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
@@ -24,11 +30,7 @@ class PowerGeoMean : public ProblemTransform {
       bool dyadic_nonnegative_fraction_test(std::pair<double, double> fraction);
       bool weight_vector_test(std::vector<std::pair<double, double>> w);
       bool dyadic_weight_vector_test(std::vector<std::pair<double, double>> w);
-
-      std::vector<int> sort(std::vector<double> num);
-//TODO(fatbioftv): Implement Merge Sort
-//    void merge(std::vector<double> num, int low, int middle, int high);
-//    void merge_sort(std::vector<double> num, int low, int high);
+      std::vector<int> sort(std::vector<double> test);
       std::vector<std::pair<int, int>> make_frac(std::vector<double> a, 
                                                  int denominator);
       std::vector<std::pair<int, int>> 
@@ -38,8 +40,13 @@ class PowerGeoMean : public ProblemTransform {
       int next_power_two(int number);
       bool check_dyad(std::vector<std::pair<double, double>> w, 
                       std::vector<std::pair<double, double>> w_dyad);
-      std::pair<std::vector<std::pair<int, int>>, std::vector<std::pair<int,
-         int>>> split(std::vector<std::pair<double, double>> wdyad);
+      std::pair<std::vector<std::pair<double, double>>, 
+         std::vector<std::pair<double, double>>> split 
+            (std::vector<std::pair<double, double>> wdyad);
+      double get_max_denom(std::vector<std::pair<double, double>> tup);
+      unsigned get_number_of_digits (unsigned number);
+      int int_to_binary(int number);
+      double lower_bound(std::vector<std::pair<double, double>> w_dyad);
 };
 
 #endif  // CVXCANON_TRANSFORM_POWER_GEO_MEAN_H

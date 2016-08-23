@@ -195,22 +195,6 @@ TEST(PowerGeoMean, sort) {
    EXPECT_EQ(2, index[5]);
 }
 
-/*
-TEST(PowerGeoMean, merge_sort) {
-   GeoMeanIneq geo_mean;
-
-   std::vector<double> num(6);
-   num[0] = 12.5;
-   num[1] = 11.2;
-   num[2] = 13.9;
-   num[3] = 5.6;
-   num[4] = 6.3;
-   num[5] = 7.5;
-
-   geo_mean.merge_sort(num, 0, num.size() - 1);
-}
-*/
-
 TEST(PowerGeoMean, make_frac) {
    GeoMeanIneq geo_mean;
    std::vector<std::pair<int, int>> frac;
@@ -347,4 +331,88 @@ TEST(PowerGeoMean, check_dyad) {
    v_dyad[0].first = 3; v_dyad[0].second = 8; v_dyad[1].first = 4; 
    v_dyad[1].second = 8; v_dyad[2].first = 1; v_dyad[2].second = 8;
    EXPECT_EQ(false, geo_mean.check_dyad(v, v_dyad));
+}
+
+TEST(PowerGeoMean, split) {
+   GeoMeanIneq geo_mean;
+
+   std::vector<std::pair<double, double>> w_dyad(3);
+   w_dyad[0].first = 3; w_dyad[0].second = 8; w_dyad[1].first = 4; 
+   w_dyad[1].second = 8; w_dyad[2].first = 1; w_dyad[2].second = 8;
+
+   std::vector<std::pair<double, double>> child_1(w_dyad.size());
+   std::vector<std::pair<double, double>> child_2(w_dyad.size());
+   std::pair<std::vector<std::pair<double, double>>, 
+      std::vector<std::pair<double, double>>> split_w_dyad;
+
+   split_w_dyad = geo_mean.split(w_dyad);
+   child_1 = split_w_dyad.first;
+   child_2 = split_w_dyad.second;
+
+   EXPECT_EQ(0, child_1[0].first);
+   EXPECT_EQ(1, child_1[0].second);
+   EXPECT_EQ(1, child_1[1].first);
+   EXPECT_EQ(1, child_1[1].second);
+   EXPECT_EQ(0, child_1[2].first);
+   EXPECT_EQ(1, child_1[2].second);
+   EXPECT_EQ(6, child_2[0].first);
+   EXPECT_EQ(8, child_2[0].second);
+   EXPECT_EQ(0, child_2[1].first);
+   EXPECT_EQ(1, child_2[1].second);
+   EXPECT_EQ(2, child_2[2].first);
+   EXPECT_EQ(8, child_2[2].second);
+}
+
+TEST(PowerGeoMean, get_max_denom) {
+   GeoMeanIneq geo_mean;
+
+   std::vector<std::pair<double, double>> tup(3);
+   tup[0].first = 3; tup[0].second = 8; tup[1].first = 4; 
+   tup[1].second = 8; tup[2].first = 1; tup[2].second = 8;
+   EXPECT_EQ(8, geo_mean.get_max_denom(tup));
+
+   tup[0].first = 2; tup[0].second = 3; tup[1].first = 1; 
+   tup[1].second = 3; tup[2].first = 1; tup[2].second = 5;
+   EXPECT_EQ(5, geo_mean.get_max_denom(tup));
+}
+
+TEST(PowerGeoMean, get_number_of_digits) {
+   GeoMeanIneq geo_mean;
+
+   EXPECT_EQ(6, geo_mean.get_number_of_digits(153124));
+   EXPECT_EQ(1, geo_mean.get_number_of_digits(1));
+   EXPECT_EQ(1, geo_mean.get_number_of_digits(0));
+}
+
+TEST(PowerGeoMean, int_to_binary) {
+   GeoMeanIneq geo_mean;
+
+   EXPECT_EQ(1000, geo_mean.int_to_binary(8));
+   EXPECT_EQ(11000, geo_mean.int_to_binary(24));
+   EXPECT_EQ(0, geo_mean.int_to_binary(0));
+   EXPECT_EQ(1, geo_mean.int_to_binary(1));
+}
+
+TEST(PowerGeoMean, lower_bound) {
+   GeoMeanIneq geo_mean;
+
+   std::vector<std::pair<double, double>> w_dyad(3);
+   w_dyad[0].first = 0; w_dyad[0].second = 1; w_dyad[1].first = 1; 
+   w_dyad[1].second = 1; w_dyad[2].first = 0; w_dyad[2].second = 1;
+   EXPECT_EQ(0, geo_mean.lower_bound(w_dyad));
+
+   std::vector<std::pair<double, double>> v_dyad(2);
+   v_dyad[0].first = 1; v_dyad[0].second = 2; v_dyad[1].first = 1; 
+   v_dyad[1].second = 2;
+   EXPECT_EQ(1, geo_mean.lower_bound(v_dyad));
+
+   v_dyad[0].first = 1; v_dyad[0].second = 8; v_dyad[1].first = 7; 
+   v_dyad[1].second = 8;
+   EXPECT_EQ(3, geo_mean.lower_bound(v_dyad));
+
+   std::vector<std::pair<double, double>> z_dyad(4);
+   z_dyad[0].first = 1; z_dyad[0].second = 4; z_dyad[1].first = 1; 
+   z_dyad[1].second = 4; z_dyad[2].first = 1; z_dyad[2].second = 4;
+   z_dyad[3].first = 1; z_dyad[3].second = 4;
+   EXPECT_EQ(3, geo_mean.lower_bound(z_dyad));
 }
