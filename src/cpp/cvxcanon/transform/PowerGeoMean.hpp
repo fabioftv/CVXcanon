@@ -10,14 +10,7 @@ class PowerGeoMean : public ProblemTransform {
 
       bool accepts(const Problem& problem) override;
       Problem apply(const Problem& problem) override;
-
-};
-
-class GeoMeanIneq {
-   public:
-      GeoMeanIneq();
-      ~GeoMeanIneq();
-
+   private:
       long gcd(long a, long b);
       std::pair<int, int> fraction(double number);
       std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
