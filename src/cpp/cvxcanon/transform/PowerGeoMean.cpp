@@ -20,6 +20,8 @@
 GeoMeanIneq::GeoMeanIneq() {}
 GeoMeanIneq::~GeoMeanIneq() {}
 
+
+// TODO(fabioftv): Finish Implementation of gm_constrs and gm
 /*
 typedef Expression(*TransformFunction)(
     const Expression& expr,
@@ -40,10 +42,6 @@ Expression form_geo_mean_ineq(
    std::vector<std::pair<std::vector<std::pair<double, double>>,
       std::vector<std::pair<double, double>>>> tree;
    tree = decompose(w);
-
-
-// TODO(fabioftv): Build these functions
-
 
    std::vector<double> d;
    d(w) = t;
@@ -72,6 +70,7 @@ Expression form_geo_mean_ineq(
 }
 */
 
+//Calculat the great common denominatior
 long GeoMeanIneq::gcd(long a, long b) {
    if (a == 0){
       return b;
@@ -87,6 +86,7 @@ long GeoMeanIneq::gcd(long a, long b) {
    }
 }
 
+//Transform a float number into a fraction
 std::pair<int, int> GeoMeanIneq::fraction(double number) {
    long gcd_aux;
    long denom;
@@ -107,6 +107,7 @@ std::pair<int, int> GeoMeanIneq::fraction(double number) {
    return std::make_pair(num, denom);
 }
 
+//x <= t^(1/p) 1^(1-1/p)
 std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
    std::pair<int, int>>> GeoMeanIneq::build_power_pos(double number) {
    
@@ -125,6 +126,7 @@ std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,
    return std::make_pair(frac, std::make_pair(frac_inv, frac_minus));
 }
 
+//1 <= x^(p/(p-1)) t^(-1/(p-1))
 std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
    std::pair<int, int>>> GeoMeanIneq::build_power_neg(double number) {
    
@@ -143,6 +145,7 @@ std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,
    return std::make_pair(frac, std::make_pair(frac_div, frac_minus));
 }
 
+//t <= x^p 1^(1-p)
 std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
    std::pair<int, int>>> GeoMeanIneq::build_power_middle(double number) {
    
@@ -158,6 +161,7 @@ std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,
    return std::make_pair(frac, std::make_pair(frac, frac_minus));
 }
 
+//Checke whether a number is integer
 bool GeoMeanIneq::is_integer(double number) {
    if (number > (floor(number)-TOLERANCE) && number < (floor(number)+TOLERANCE)){
       return true;
@@ -167,6 +171,7 @@ bool GeoMeanIneq::is_integer(double number) {
    }
 }
 
+//Test if a number is positive integer power of 2
 bool GeoMeanIneq::power_two_test(double number) {
    if (is_integer(number) == true){
       if ((int) number > 0 && (! ((int) number & ((int) number -1))) == true){
@@ -181,6 +186,7 @@ bool GeoMeanIneq::power_two_test(double number) {
    }  
 }
 
+//Test if a fraction is a nonnegative dyadic fraction or integer
 bool GeoMeanIneq::dyadic_nonnegative_fraction_test(std::pair<double, double>
      fraction) {
    if ((fraction.first / fraction.second) == fraction.first && 
@@ -200,6 +206,7 @@ bool GeoMeanIneq::dyadic_nonnegative_fraction_test(std::pair<double, double>
    }
 }
 
+//Test if w is a valid weight vector
 bool GeoMeanIneq::weight_vector_test(std::vector<std::pair<double, double>> w){
    double sum = 0;   
    bool aux = true;
@@ -234,6 +241,7 @@ bool GeoMeanIneq::weight_vector_test(std::vector<std::pair<double, double>> w){
    return aux;
 }
 
+// Test if a vector is a valid dyadic weight vector
 bool GeoMeanIneq::dyadic_weight_vector_test(std::vector<std::pair<double, 
                                             double>> w){
    bool aux = true;
@@ -254,6 +262,7 @@ bool GeoMeanIneq::dyadic_weight_vector_test(std::vector<std::pair<double,
    }
 }
 
+//Return the indices of a sorted vector
 std::vector<int> GeoMeanIneq::sort(std::vector<double> test){
 
    std::vector<int> y(test.size());
@@ -265,6 +274,7 @@ std::vector<int> GeoMeanIneq::sort(std::vector<double> test){
    return y;
 }
 
+//Approximate a/sum(a) with a tuple of fractions with an exact denominator
 std::vector<std::pair<int, int>> GeoMeanIneq::make_frac(std::vector<double>
                                  a, int denominator) {
    double sum_a = 0;
@@ -301,6 +311,7 @@ std::vector<std::pair<int, int>> GeoMeanIneq::make_frac(std::vector<double>
    return frac;
 }
 
+//Return the dyadic completion of w
 std::vector<std::pair<int, int>> 
    GeoMeanIneq::dyad_completion(std::vector<std::pair<int, int>> w) {
    int i, d = 0, p;
@@ -333,6 +344,8 @@ std::vector<std::pair<int, int>>
    }
 }
 
+//Return the norm error from approximating the vector a_orig/sum(a_orig) with
+//the weight vector w_approx
 double GeoMeanIneq::approx_error(std::vector<std::pair<double, double>> a_orig, 
                                  std::vector<std::pair<double, double>> 
                                  w_approx) {
@@ -367,6 +380,7 @@ double GeoMeanIneq::approx_error(std::vector<std::pair<double, double>> a_orig,
    return max;
 }
 
+//Return the next power of two from a given number
 int GeoMeanIneq::next_power_two(int number){
    if (number <= 0){
       return 1;
@@ -377,6 +391,7 @@ int GeoMeanIneq::next_power_two(int number){
    }
 }
 
+//Check that w_dyad is a valid dyadic completion of w
 bool GeoMeanIneq::check_dyad(std::vector<std::pair<double, double>> w, 
                              std::vector<std::pair<double, double>> w_dyad) {
    bool eq_vec = true;
@@ -419,6 +434,8 @@ bool GeoMeanIneq::check_dyad(std::vector<std::pair<double, double>> w,
    }
 }
 
+//Split a tuple of dyadic rationals into two children so that the returned
+//function represents 1/2*(child_1 + child_2)
 std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
    double>>> GeoMeanIneq::split(std::vector<std::pair<double, double>> w_dyad) {
    bool condition = true, stat_a = true, stat_b = true;
@@ -492,6 +509,7 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
    return split_w_dyad;
 }
 
+//Return the max denominator of a vector of fractions
 double GeoMeanIneq::get_max_denom(std::vector<std::pair<double, double>> tup) {
    double max = 0;
    int i;
@@ -505,10 +523,12 @@ double GeoMeanIneq::get_max_denom(std::vector<std::pair<double, double>> tup) {
    return max;
 }
 
+//Determine the number of digits of a given number
 unsigned GeoMeanIneq::get_number_of_digits(unsigned number) {
    return number > 0 ? (int) log10 ((double) number) + 1 : 1;
 }
 
+//Convert a decimal number to binary
 int GeoMeanIneq::int_to_binary(int number) {
    int remainder, i = 1, binary = 0;
 
@@ -522,6 +542,8 @@ int GeoMeanIneq::int_to_binary(int number) {
    return binary;
 }
 
+//Return a lower bound on the number of cones needed to represent the tuple based
+//on two simple lower bounds
 double GeoMeanIneq::lower_bound(std::vector<std::pair<double, double>> w_dyad) {
    int i, sum = 0;
 
