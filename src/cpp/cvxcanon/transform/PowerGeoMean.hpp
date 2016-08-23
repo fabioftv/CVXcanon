@@ -10,6 +10,7 @@ class PowerGeoMean : public ProblemTransform {
 
       bool accepts(const Problem& problem) override;
       Problem apply(const Problem& problem) override;
+
 };
 
 class GeoMeanIneq {
