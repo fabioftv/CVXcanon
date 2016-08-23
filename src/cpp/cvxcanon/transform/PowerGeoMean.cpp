@@ -32,15 +32,23 @@ Expression form_geo_mean_ineq(
            std::vector<double>* variables, 
            std::vector<double>* p) {
 
-// TODO(fabioftv): Build these functions
-   weight_test(p);
+   assert (weight_vector_test(p) == true);
+
+   std::vector<std::pair<int, int>> w(p.size());
    w = dyad_completion(p);
+
+   std::vector<std::pair<std::vector<std::pair<double, double>>,
+      std::vector<std::pair<double, double>>>> tree;
    tree = decompose(w);
+
+
+// TODO(fabioftv): Build these functions
+
 
    std::vector<double> d;
    d(w) = t;
 
-   if (variables.size < w.size){
+   if (variables.size() < w.size()){
       variables += t;
    }
    variables.size = w.size;
@@ -57,15 +65,11 @@ Expression form_geo_mean_ineq(
          }
       }
       d[tpm[i]] = v;
-// TODO(fabioftv): Build v
    }
 
    std::vector<Expression>* constraints;
-
    return constraints
-
 }
-
 */
 
 long GeoMeanIneq::gcd(long a, long b) {

@@ -421,8 +421,8 @@ bool have_transform_self(const Expression& expr) {
     return false;
   }
 
-  // Special case for P_NORM and POWER, transforms dependent on p
-  // TODO(mwytock): Remove this when we implement the full gm_constrs() logic.
+// Special case for P_NORM and POWER, transforms dependent on p
+// TODO(mwytock): Remove this when we implement the full gm_constrs() logic.
   if (expr.type() == Expression::P_NORM) {
     const double p = expr.attr<PNormAttributes>().p;
     return p == 1 || p == 2;
