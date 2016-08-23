@@ -41,3 +41,41 @@ Expression transform_power(
     return t;
   }
 }
+
+Expression transform_expression(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  // First transform children
+  std::vector<Expression> linear_args;
+  for (const Expression& arg : expr.args())
+    linear_args.push_back(transform_expression(arg, constraints));
+
+  // New expression, with linear args
+  Expression output = Expression(expr.type(), linear_args, expr.attr_ptr());
+
+  // Now transform non-linear functions, if necessary
+  VLOG(2) << "transform_func: " << format_expression(expr);
+  auto iter = kTransforms.find(expr.type());
+  if (iter != kTransforms.end())
+    output = iter->second(output, constraints);
+
+  return output;
+}
+
+Problem LinearConeTransform::apply(const Problem& problem) {
+  std::vector<Expression> constraints;
+  Expression linear_objective = transform_expression(
+      problem.objective, &constraints);
+  for (const Expression& constr : problem.constraints) {
+    constraints.push_back(
+        transform_expression(constr, &constraints));
+  }
+  return {problem.sense, linear_objective, constraints};
+}
+
+bool LinearConeTransform::accepts(const Problem& problem) {
+  for (const Expression& constr : problem.constraints)
+    if (!have_transform(constr))
+      return false;
+  return have_transform(problem.objective);
+}
