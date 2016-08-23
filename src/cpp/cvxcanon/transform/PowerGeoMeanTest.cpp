@@ -211,7 +211,6 @@ TEST(PowerGeoMean, merge_sort) {
 }
 */
 
-
 TEST(PowerGeoMean, make_frac) {
    GeoMeanIneq geo_mean;
    std::vector<std::pair<int, int>> frac;

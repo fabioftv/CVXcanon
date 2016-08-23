@@ -231,7 +231,6 @@ bool GeoMeanIneq::weight_vector_test(std::vector<std::pair<double, double>> w){
    return aux;
 }
 
-
 bool GeoMeanIneq::dyadic_weight_vector_test(std::vector<std::pair<double, 
                                             double>> w){
    bool aux = true;

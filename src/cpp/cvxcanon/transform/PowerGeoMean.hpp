@@ -45,7 +45,7 @@ class GeoMeanIneq {
       bool check_dyad(std::vector<std::pair<double, double>> w, 
                       std::vector<std::pair<double, double>> w_dyad);
       std::pair<std::vector<std::pair<int, int>>, std::vector<std::pair<int,
-         int>>> split(std::vector<std::pair<double, double>> wdyad);     
+         int>>> split(std::vector<std::pair<double, double>> wdyad);
 };
 
 #endif  // CVXCANON_TRANSFORM_POWER_GEO_MEAN_H
