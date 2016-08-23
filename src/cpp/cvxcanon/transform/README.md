@@ -4,6 +4,7 @@ This module defines the generic interface for problems transforms
 ```
 class ProblemTransform {
  public:
+  virtual bool accepts(const Problem& problem) = 0;
   virtual Problem apply(const Problem& problem) = 0;
 };
 ```
