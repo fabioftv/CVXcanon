@@ -387,6 +387,11 @@ TEST(PowerGeoMean, split) {
    EXPECT_EQ(0, child_2[2].second);
 }
 
+TEST(PowerGeoMean, decompose) {
+   GeoMeanIneq geo_mean;
+
+}
+
 TEST(PowerGeoMean, get_max_denom) {
    GeoMeanIneq geo_mean;
 

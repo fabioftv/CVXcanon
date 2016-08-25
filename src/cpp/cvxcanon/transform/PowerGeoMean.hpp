@@ -1,16 +1,7 @@
 #ifndef CVXCANON_TRANSFORM_POWER_GEO_MEAN_H
 #define CVXCANON_TRANSFORM_POWER_GEO_MEAN_H
 
-#include "cvxcanon/transform/ProblemTransform.hpp"
-
-class PowerGeoMean : public ProblemTransform {
-   public:
-      PowerGeoMean();
-      ~PowerGeoMean();
-
-      bool accepts(const Problem& problem) override;
-      Problem apply(const Problem& problem) override;
-};
+#include <vector>
 
 class GeoMeanIneq {
    public:
@@ -47,6 +38,10 @@ class GeoMeanIneq {
       std::pair<std::vector<std::pair<double, double>>, 
          std::vector<std::pair<double, double>>> split 
             (std::vector<std::pair<double, double>> wdyad);
+      std::vector<std::pair<std::vector<std::pair<double, double>>, 
+         std::pair<std::vector<std::pair<double, double>>, 
+            std::vector<std::pair<double, double>>>>> decompose
+               (std::vector<std::pair<double, double>> w_dyad);
       double get_max_denom(std::vector<std::pair<double, double>> tup);
       unsigned get_number_of_digits (unsigned number);
       int int_to_binary(int number);

@@ -53,7 +53,7 @@ class Expression {
     POWER,
 
     // General nonlinear functions
-    GEO_MEAN,
+    GEO_MEAN_INEQ,
     LAMBDA_MAX,
     LOG_DET,
     LOG_SUM_EXP,
@@ -237,6 +237,6 @@ struct LogSumExpAttributes : public ExpressionAttributes {
 
 struct GeoMeanIneqAttributes : public ExpressionAttributes {
   double p;
-}
+};
 
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H

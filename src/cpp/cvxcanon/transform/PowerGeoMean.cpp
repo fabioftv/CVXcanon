@@ -1,17 +1,11 @@
 #include "cvxcanon/transform/PowerGeoMean.hpp"
 
-#include <unordered_map>
 #include <vector>
 #include <math.h>
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
 
-#include "cvxcanon/expression/Expression.hpp"
-#include "cvxcanon/expression/ExpressionShape.hpp"
-#include "cvxcanon/expression/ExpressionUtil.hpp"
-#include "cvxcanon/expression/TextFormat.hpp"
-#include "cvxcanon/util/MatrixUtil.hpp"
 #include "glog/logging.h"
 
 #define TOLERANCE 0.00000001
@@ -19,56 +13,6 @@
 
 GeoMeanIneq::GeoMeanIneq() {}
 GeoMeanIneq::~GeoMeanIneq() {}
-
-
-// TODO(fabioftv): Finish Implementation of gm_constrs and gm
-/*
-typedef Expression(*TransformFunction)(
-    const Expression& expr,
-    std::vector<Expression>* constraints);
-
-// t <= x0^p0 * x1^p1 * ... * xn^pn
-
-Expression form_geo_mean_ineq(
-           std::vector<double>* t, 
-           std::vector<double>* variables, 
-           std::vector<double>* p) {
-
-   assert (weight_vector_test(p) == true);
-
-   std::vector<std::pair<int, int>> w(p.size());
-   w = dyad_completion(p);
-
-   std::vector<std::pair<std::vector<std::pair<double, double>>,
-      std::vector<std::pair<double, double>>>> tree;
-   tree = decompose(w);
-
-   std::vector<double> d;
-   d(w) = t;
-
-   if (variables.size() < w.size()){
-      variables += t;
-   }
-   variables.size = w.size;
-   
-   std::vector<int> tmp;
-
-   for (int i = 0; i < p.size; i++){
-      if (p[i] > 0){
-         if (i = 0){
-            tmp[i] = size.w;
-         }
-         else{
-            tmp[i] = 1;
-         }
-      }
-      d[tpm[i]] = v;
-   }
-
-   std::vector<Expression>* constraints;
-   return constraints
-}
-*/
 
 //Calculat the great common denominatior
 long GeoMeanIneq::gcd(long a, long b) {
@@ -576,6 +520,13 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
       split_w_dyad.second = child_2;
       return split_w_dyad;
    }
+}
+
+std::vector<std::pair<std::vector<std::pair<double, double>>, 
+   std::pair<std::vector<std::pair<double, double>>, 
+      std::vector<std::pair<double, double>>>>> GeoMeanIneq::decompose
+         (std::vector<std::pair<double, double>> w_dyad) {
+
 }
 
 //Return the max denominator of a vector of fractions
