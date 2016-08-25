@@ -56,6 +56,7 @@ std::vector<Expression> PowerConeSOCTransform::gm_constrs(const Expression& t,
       d[tpm[i]] = v;
    }
 */
+
    std::vector<Expression> constraints;
    return constraints;
 }
