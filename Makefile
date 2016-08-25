@@ -50,6 +50,7 @@ common_cc = \
 	cvxcanon/expression/ExpressionUtil.cpp \
 	cvxcanon/expression/LinearExpression.cpp \
 	cvxcanon/expression/TextFormat.cpp \
+	cvxcanon/transform/PowerGeoMean.cpp \
 	cvxcanon/linop/LinOpOperations.cpp \
 	cvxcanon/solver/Solver.cpp \
 	cvxcanon/solver/SymbolicConeSolver.cpp \
@@ -67,7 +68,8 @@ tests = \
 	cvxcanon/expression/TextFormatTest \
 	cvxcanon/solver/SolverTest \
 	cvxcanon/solver/cone/ScsConeSolverTest \
-	cvxcanon/solver/cone/EcosConeSolverTest
+	cvxcanon/solver/cone/EcosConeSolverTest \
+	cvxcanon/transform/PowerGeoMeanTest
 #	cvxcanon/solver/cone/SymboliConeSolverTest
 
 libs = cvxcanon
