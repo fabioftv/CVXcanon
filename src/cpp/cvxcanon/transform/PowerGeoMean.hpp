@@ -31,10 +31,14 @@ class GeoMeanIneq {
       bool weight_vector_test(std::vector<std::pair<double, double>> w);
       bool dyadic_weight_vector_test(std::vector<std::pair<double, double>> w);
       std::vector<int> sort(std::vector<double> test);
-      std::vector<std::pair<int, int>> make_frac(std::vector<double> a, 
+      std::pair<std::vector<std::pair<double, double>>, 
+         std::vector<std::pair<double, double>>> fracify
+            (std::vector<std::pair<double, double>> a, int max_denom, 
+               bool force_dyad);
+      std::vector<std::pair<double, double>> make_frac(std::vector<double> a, 
                                                  int denominator);
-      std::vector<std::pair<int, int>> 
-         dyad_completion(std::vector<std::pair<int, int>> w);
+      std::vector<std::pair<double, double>> 
+         dyad_completion(std::vector<std::pair<double, double>> w);
       double approx_error(std::vector<std::pair<double, double>> a_orig, 
                           std::vector<std::pair<double, double>> w_approx);
       int next_power_two(int number);

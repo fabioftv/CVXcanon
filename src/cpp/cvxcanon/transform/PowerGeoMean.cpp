@@ -274,8 +274,72 @@ std::vector<int> GeoMeanIneq::sort(std::vector<double> test){
    return y;
 }
 
+std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double, 
+   double>>> GeoMeanIneq::fracify(std::vector<std::pair<double, double>> a, int 
+      max_denom, bool force_dyad) {
+   bool check = true, aux = true;
+   double sum = 0, sum_w_frac = 0;
+   int i;
+
+   for (i = 0; i < a.size(); i++){
+      sum += a[i].first / a[i].second;
+      if (a[i].first < 0 && a[i].second < 0){
+         check = false;
+      }
+   }
+//TODO(fabioftv): Implement error message
+   assert (check == true);
+   assert (is_integer(max_denom) == true && max_denom > 0);
+
+   max_denom = next_power_two(max_denom);
+   std::vector<std::pair<double, double>> w_frac(a.size());
+
+   while (i < a.size()){
+      if (is_integer(a[i].first) != true || is_integer(a[i].second) != true){
+         aux = false;
+         i = a.size();  
+      }
+   }
+
+   std::vector<double> a_double(a.size());
+   for (i = 0; i < a_double.size(); i++){
+      a_double[i] = a[i].first / a[i].second;
+   }
+
+   if (force_dyad == true){
+      w_frac = make_frac(a_double, max_denom);
+   }
+   else if (aux == true){
+      for (i = 0; i < w_frac.size(); i++){
+         w_frac[i].first = a[i].first;
+         w_frac[i].second = a[i].second / sum;
+      }
+      double d = get_max_denom(w_frac);
+      if (d > (double) max_denom) {
+//TODO(fabioftv): Print error message
+      }
+   }
+   else{
+      for (i = 0; i < w_frac.size(); i++){
+         w_frac[i].first = a[i].first;
+         w_frac[i].second = a[i].second / sum;
+         sum_w_frac += w_frac[i].first / w_frac[i].second;
+      }
+      if (sum_w_frac != 1){
+         w_frac = make_frac(a_double, max_denom);
+      }
+   }
+
+   std::pair<std::vector<std::pair<double, double>>, 
+      std::vector<std::pair<double, double>>> tup;
+   tup.first = w_frac;
+   tup.second = dyad_completion(w_frac);
+
+   return tup;
+}
+
 //Approximate a/sum(a) with a tuple of fractions with an exact denominator
-std::vector<std::pair<int, int>> GeoMeanIneq::make_frac(std::vector<double>
+std::vector<std::pair<double, double>> GeoMeanIneq::make_frac(std::vector<double>
                                  a, int denominator) {
    double sum_a = 0;
    int i = 0, sum_b = 0;
@@ -303,23 +367,23 @@ std::vector<std::pair<int, int>> GeoMeanIneq::make_frac(std::vector<double>
       inds[i] = index_sort[i];
       b[inds[i]] = b[inds[i]] + 1;
    }
-   std::vector<std::pair<int, int>> frac(a.size());
+   std::vector<std::pair<double, double>> frac(a.size());
    for (i = 0; i < frac.size(); i++){
-      frac[i] = std::make_pair(b[i], denominator);
+      frac[i] = std::make_pair((double) b[i], (double) denominator);
    }
    
    return frac;
 }
 
 //Return the dyadic completion of w
-std::vector<std::pair<int, int>> 
-   GeoMeanIneq::dyad_completion(std::vector<std::pair<int, int>> w) {
+std::vector<std::pair<double, double>> 
+   GeoMeanIneq::dyad_completion(std::vector<std::pair<double, double>> w) {
    int i, d = 0, p;
    double div = 0;
 
    for (i = 0; i < w.size(); i++){
-      if (w[i].second > d){
-         d = w[i].second;
+      if (w[i].second > (double) d){
+         d = (int) w[i].second;
       }
    }
 
@@ -329,17 +393,17 @@ std::vector<std::pair<int, int>>
       return w;
    }
    else {
-      std::vector<std::pair<int, int>> temp(w.size() + 1);
+      std::vector<std::pair<double, double>> temp(w.size() + 1);
       for (i = 0; i < w.size(); i++){
-         div = (((double) w[i].first) * ((double) d)) / 
-               (((double) w[i].second) * ((double) p));
+         div = ((w[i].first) * ((double) d)) / 
+               ((w[i].second) * ((double) p));
          std::pair<int, int> frac;
          frac = fraction(div);
-         temp[i].first = frac.first;
-         temp[i].second = frac.second;
+         temp[i].first = (double) frac.first;
+         temp[i].second = (double) frac.second;
       }
       temp[w.size()].first = (double) (p - d);
-      temp[w.size()].second = p;
+      temp[w.size()].second = (double) p;
       return temp;
    }
 }
@@ -442,6 +506,11 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
    double sum = 0;
    int i, j;
 
+   std::pair<std::vector<std::pair<double, double>>, 
+      std::vector<std::pair<double, double>>> split_w_dyad;
+   std::vector<std::pair<double, double>> child_1(w_dyad.size());
+   std::vector<std::pair<double, double>> child_2(w_dyad.size());
+
    for (i = 0; i < w_dyad.size(); i++){
       if (w_dyad[i].first == w_dyad[i].second){
          condition = false;
@@ -449,64 +518,64 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
       }
    }
 //TODO(fabioftv): Need to return empty
-/*
    if (condition == false){
-      return ();
-   }
-*/
-   std::vector<std::pair<double, double>> child_1(w_dyad.size());
-   std::vector<std::pair<double, double>> child_2(w_dyad.size());
-   for (i = 0; i < w_dyad.size(); i++){
-      child_1[i].first = 0 * w_dyad.size();
-      child_1[i].second = 1;
-      child_2[i].first = w_dyad[i].first * 2;
-      child_2[i].second = w_dyad[i].second;
-   }
-   std::vector<double> child_1_double(child_1.size());
-   std::vector<double> child_2_double(child_2.size());
-   for (i = 0; i < w_dyad.size(); i++){
-      child_1_double[i] = child_1[i].first / child_1[i].second;
-      child_2_double[i] = child_2[i].first / child_2[i].second;
-   }
-   std::pair<int, int> child_a;
-   std::pair<int, int> child_b;
-   double bit = 1;
-   while (stat_a == true && stat_b == true){
       for (i = 0; i < w_dyad.size(); i++){
-         if (child_2_double[i] >= bit){
-            child_1_double[i] += bit;
-            child_a = fraction(child_1_double[i]);
-            child_1[i].first = (double) child_a.first;
-            child_1[i].second = (double) child_a.second;
-            child_2_double[i] -= bit;
-            child_b = fraction(child_2_double[i]);
-            child_2[i].first = (double) child_b.first;
-            child_2[i].second = (double) child_b.second;
-            stat_a = false;
-         }
-         sum = 0;
-         for (j = 0; j < w_dyad.size(); j++){
-            sum += child_1_double[j];
-         }
-         if (sum >= 1 - TOLERANCE && sum <= 1 + TOLERANCE){
-            stat_b = false;
-         }
-         if ((stat_a != stat_b) || (stat_a == true && stat_b == true)){
-            stat_a = stat_b = true;
+         child_1[i].first = 0;
+         child_1[i].second = 0;
+         child_2[i].first = 0;
+         child_2[i].second = 0;
+      }
+      split_w_dyad.first = child_1;
+      split_w_dyad.second = child_2;
+      return split_w_dyad;
+   }
+   else {
+      for (i = 0; i < w_dyad.size(); i++){
+         child_1[i].first = 0 * w_dyad.size();
+         child_1[i].second = 1;
+         child_2[i].first = w_dyad[i].first * 2;
+         child_2[i].second = w_dyad[i].second;
+      }
+      std::vector<double> child_1_double(child_1.size());
+      std::vector<double> child_2_double(child_2.size());
+      for (i = 0; i < w_dyad.size(); i++){
+         child_1_double[i] = child_1[i].first / child_1[i].second;
+         child_2_double[i] = child_2[i].first / child_2[i].second;
+      }
+      std::pair<int, int> child_a;
+      std::pair<int, int> child_b;
+      double bit = 1;
+      while (stat_a == true && stat_b == true){
+         for (i = 0; i < w_dyad.size(); i++){
+            if (child_2_double[i] >= bit){
+               child_1_double[i] += bit;
+               child_a = fraction(child_1_double[i]);
+               child_1[i].first = (double) child_a.first;
+               child_1[i].second = (double) child_a.second;
+               child_2_double[i] -= bit;
+               child_b = fraction(child_2_double[i]);
+               child_2[i].first = (double) child_b.first;
+               child_2[i].second = (double) child_b.second;
+               stat_a = false;
+            }
+            sum = 0;
+            for (j = 0; j < w_dyad.size(); j++){
+               sum += child_1_double[j];
+            }
+            if (sum >= 1 - TOLERANCE && sum <= 1 + TOLERANCE){
+               stat_b = false;
+            }
+            if ((stat_a != stat_b) || (stat_a == true && stat_b == true)){
+               stat_a = stat_b = true;
+            }
          }
       }
-   }
-
 //TODO(fabioftv): Implement bit /= 2
-//TODO(fabioftv): Implement error in case of infinite loop
-
-   std::pair<std::vector<std::pair<double, double>>, 
-      std::vector<std::pair<double, double>>> split_w_dyad;
-
-   split_w_dyad.first = child_1;
-   split_w_dyad.second = child_2;
-
-   return split_w_dyad;
+//TODO(fabioftv): Implement error message in case of infinite loop
+      split_w_dyad.first = child_1;
+      split_w_dyad.second = child_2;
+      return split_w_dyad;
+   }
 }
 
 //Return the max denominator of a vector of fractions

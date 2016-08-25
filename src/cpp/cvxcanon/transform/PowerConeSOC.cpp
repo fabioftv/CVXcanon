@@ -60,6 +60,10 @@ Expression transform_power(
   }
 }
 
+std::unordered_map<int, TransformFunction> kTransforms = {
+  {Expression::GEO_MEAN, &transform_geo_mean},
+};
+
 Expression transform_expression(
     const Expression& expr,
     std::vector<Expression>* constraints) {

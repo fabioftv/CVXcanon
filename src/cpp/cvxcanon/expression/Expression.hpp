@@ -235,5 +235,8 @@ struct LogSumExpAttributes : public ExpressionAttributes {
   int axis;
 };
 
+struct GeoMeanIneqAttributes : public ExpressionAttributes {
+  double p;
+}
 
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H

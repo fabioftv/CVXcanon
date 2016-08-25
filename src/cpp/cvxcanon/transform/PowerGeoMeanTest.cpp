@@ -195,9 +195,13 @@ TEST(PowerGeoMean, sort) {
    EXPECT_EQ(2, index[5]);
 }
 
+TEST(PowerGeoMean, fracify) {
+   GeoMeanIneq geo_mean;
+}
+
 TEST(PowerGeoMean, make_frac) {
    GeoMeanIneq geo_mean;
-   std::vector<std::pair<int, int>> frac;
+   std::vector<std::pair<double, double>> frac;
 
    std::vector<double> a(3);
    a[0] = 0.123; a[1] = 0.345; a[2] = 0.532;
@@ -233,11 +237,11 @@ TEST(PowerGeoMean, make_frac) {
 TEST(PowerGeoMean, dyad_completion){
    GeoMeanIneq geo_mean;
 
-   std::vector<std::pair<int, int>> w(3);
+   std::vector<std::pair<double, double>> w(3);
    w[0].first = 1; w[0].second = 3; w[1].first = 1; w[1].second = 5;
    w[2].first = 7; w[2].second = 15;
 
-   std::vector<std::pair<int, int>> dyad_completion;
+   std::vector<std::pair<double, double>> dyad_completion;
    dyad_completion = geo_mean.dyad_completion(w);
    
    EXPECT_EQ(5, dyad_completion[0].first);
@@ -263,7 +267,7 @@ TEST(PowerGeoMean, dyad_completion){
    EXPECT_EQ(1, dyad_completion[3].first);
    EXPECT_EQ(4, dyad_completion[3].second);
 
-   std::vector<std::pair<int, int>> v(4);
+   std::vector<std::pair<double, double>> v(4);
    v[0].first = 1; v[0].second = 1; v[1].first = 0; v[1].second = 1;
    v[2].first = 0; v[2].second = 1; v[3].first = 0; v[3].second = 1;
 
@@ -361,6 +365,26 @@ TEST(PowerGeoMean, split) {
    EXPECT_EQ(1, child_2[1].second);
    EXPECT_EQ(2, child_2[2].first);
    EXPECT_EQ(8, child_2[2].second);
+
+   w_dyad[0].first = 0; w_dyad[0].second = 1; w_dyad[1].first = 1; 
+   w_dyad[1].second = 1; w_dyad[2].first = 0; w_dyad[2].second = 1;
+
+   split_w_dyad = geo_mean.split(w_dyad);
+   child_1 = split_w_dyad.first;
+   child_2 = split_w_dyad.second;
+
+   EXPECT_EQ(0, child_1[0].first);
+   EXPECT_EQ(0, child_1[0].second);
+   EXPECT_EQ(0, child_1[1].first);
+   EXPECT_EQ(0, child_1[1].second);
+   EXPECT_EQ(0, child_1[2].first);
+   EXPECT_EQ(0, child_1[2].second);
+   EXPECT_EQ(0, child_2[0].first);
+   EXPECT_EQ(0, child_2[0].second);
+   EXPECT_EQ(0, child_2[1].first);
+   EXPECT_EQ(0, child_2[1].second);
+   EXPECT_EQ(0, child_2[2].first);
+   EXPECT_EQ(0, child_2[2].second);
 }
 
 TEST(PowerGeoMean, get_max_denom) {
