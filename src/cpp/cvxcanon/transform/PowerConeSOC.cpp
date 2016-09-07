@@ -61,11 +61,21 @@ std::vector<Expression> PowerConeSOCTransform::gm_constrs(const Expression& t,
    return constraints;
 }
 
-
 typedef Expression(*TransformFunction)(
     const Expression& expr,
     std::vector<Expression>* constraints);
 
+Expression transform_geo_mean_ineq(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+/*  const Expression& x = expr.arg(0);
+  Expression t = epi_var(expr, "abs");
+  constraints->push_back(leq(x, t));
+  constraints->push_back(leq(neg(x), t));
+  return t;*/
+}
+
+/*
 Expression transform_power(
     const Expression& expr,
     std::vector<Expression>* constraints) {
@@ -111,7 +121,7 @@ Expression transform_power(
     return t;
   }
 }
-
+*/
 std::unordered_map<int, TransformFunction> kTransforms = {
   {Expression::GEO_MEAN_INEQ, &transform_geo_mean_ineq},
 };
@@ -151,7 +161,6 @@ Problem PowerConeSOCTransform::apply(const Problem& problem) {
 bool have_transform_self(const Expression& expr) {
   if (is_leaf(expr) || is_linear(expr) || is_constraint(expr))
     return true;
-
   auto iter = kTransforms.find(expr.type());
   if (iter == kTransforms.end()) {
     VLOG(1) << "No transform for " << format_expression(expr);
@@ -169,7 +178,6 @@ bool have_transform(const Expression& expr) {
     if (!have_transform(arg))
       return false;
   }
-
   return true;
 }
 
