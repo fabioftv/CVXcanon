@@ -9,13 +9,13 @@ class GeoMeanIneq {
       ~GeoMeanIneq();
 
       long gcd(long a, long b);
-      std::pair<int, int> fraction(double number);
-      std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-         std::pair<int, int>>> build_power_pos(double number);
-      std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-         std::pair<int, int>>> build_power_neg(double number);
-      std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-         std::pair<int, int>>> build_power_middle(double number);
+      std::pair<double, double> fraction(double number);
+      std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+         std::pair<double, double>>> build_power_pos(double number);
+      std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+         std::pair<double, double>>> build_power_neg(double number);
+      std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+         std::pair<double, double>>> build_power_middle(double number);
       bool is_integer(double number);
       bool power_two_test(double number);
       bool dyadic_nonnegative_fraction_test(std::pair<double, double> fraction);
@@ -24,7 +24,7 @@ class GeoMeanIneq {
       std::vector<int> sort(std::vector<double> test);
       std::pair<std::vector<std::pair<double, double>>, 
          std::vector<std::pair<double, double>>> fracify
-            (std::vector<std::pair<double, double>> a, int max_denom, 
+            (std::vector<std::pair<double, double>> a, double max_denom, 
                bool force_dyad);
       std::vector<std::pair<double, double>> make_frac(std::vector<double> a, 
                                                  int denominator);

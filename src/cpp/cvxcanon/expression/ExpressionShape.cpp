@@ -178,7 +178,7 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
   {Expression::POWER, &get_elementwise_shape},
 
   // General non linear functions
-  {Expression::GEO_MEAN, &get_scalar_shape},
+  {Expression::GEO_MEAN_INEQ, &get_scalar_shape},
   {Expression::LAMBDA_MAX, &get_scalar_shape},
   {Expression::LOG_DET, &get_scalar_shape},
   {Expression::LOG_SUM_EXP, &get_log_sum_exp_shape},

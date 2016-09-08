@@ -9,7 +9,7 @@
 TEST(PowerGeoMeanTest, fraction) {
    GeoMeanIneq geo_mean;
 
-   std::pair<int, int> frac;
+   std::pair<double, double> frac;
    frac = geo_mean.fraction(0.5);
    EXPECT_EQ(1, frac.first);
    EXPECT_EQ(2, frac.second);
@@ -30,8 +30,8 @@ TEST(PowerGeoMeanTest, fraction) {
 TEST(PowerGeoMeanTest, build_power_pos) {
    GeoMeanIneq geo_mean;
 
-   std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-      std::pair<int, int>>> pow_high;
+   std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+      std::pair<double, double>>> pow_high;
 
    pow_high = geo_mean.build_power_pos(2.75);
 
@@ -55,8 +55,8 @@ TEST(PowerGeoMeanTest, build_power_pos) {
 TEST(PowerGeoMeanTest, build_power_neg) {
    GeoMeanIneq geo_mean;
 
-   std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-      std::pair<int, int>>> pow_low;
+   std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+      std::pair<double, double>>> pow_low;
 
    pow_low = geo_mean.build_power_neg(-3.54);
 
@@ -66,13 +66,22 @@ TEST(PowerGeoMeanTest, build_power_neg) {
    EXPECT_EQ(227, pow_low.second.first.second);
    EXPECT_EQ(50, pow_low.second.second.first);
    EXPECT_EQ(227, pow_low.second.second.second);
+
+   pow_low = geo_mean.build_power_neg(-0.5);
+
+   EXPECT_EQ(-1, pow_low.first.first);
+   EXPECT_EQ(2, pow_low.first.second);
+   EXPECT_EQ(1, pow_low.second.first.first);
+   EXPECT_EQ(3, pow_low.second.first.second);
+   EXPECT_EQ(2, pow_low.second.second.first);
+   EXPECT_EQ(3, pow_low.second.second.second);
 }
 
 TEST(PowerGeoMeanTest, build_power_middle) {
    GeoMeanIneq geo_mean;
 
-   std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-      std::pair<int, int>>> pow_middle;
+   std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+      std::pair<double, double>>> pow_middle;
 
    pow_middle = geo_mean.build_power_middle(0.75);
 
@@ -136,7 +145,6 @@ TEST(PowerGeoMeanTest, Dyadic_Nonnegative_Fraction_Test) {
    EXPECT_EQ(false, geo_mean.dyadic_nonnegative_fraction_test(frac));
 }
 
-
 TEST(PowerGeoMeanTest, weight_vector_test) {
    GeoMeanIneq geo_mean;
 
@@ -155,7 +163,6 @@ TEST(PowerGeoMeanTest, weight_vector_test) {
    v[2].first = 1; v[2].second = 1;
    EXPECT_EQ(true, geo_mean.weight_vector_test(v));
 }
-
 
 TEST(PowerGeoMeanTest, dyadic_weight_vector_test) {
    GeoMeanIneq geo_mean;
@@ -197,6 +204,138 @@ TEST(PowerGeoMean, sort) {
 
 TEST(PowerGeoMean, fracify) {
    GeoMeanIneq geo_mean;
+
+   std::vector<std::pair<double, double>> a(3);
+   a[0].first = 1; a[0].second = 1; a[1].first = 2; a[1].second = 1;
+   a[2].first = 3; a[2].second = 1;
+
+   std::pair<std::vector<std::pair<double, double>>, 
+      std::vector<std::pair<double, double>>> tup;
+
+   tup = geo_mean.fracify(a, 10, false);
+   EXPECT_EQ(1, tup.first[0].first);
+   EXPECT_EQ(6, tup.first[0].second);
+   EXPECT_EQ(2, tup.first[1].first);
+   EXPECT_EQ(6, tup.first[1].second);
+   EXPECT_EQ(3, tup.first[2].first);
+   EXPECT_EQ(6, tup.first[2].second);
+   EXPECT_EQ(1, tup.second[0].first);
+   EXPECT_EQ(8, tup.second[0].second);
+   EXPECT_EQ(1, tup.second[1].first);
+   EXPECT_EQ(4, tup.second[1].second);
+   EXPECT_EQ(3, tup.second[2].first);
+   EXPECT_EQ(8, tup.second[2].second);
+   EXPECT_EQ(2, tup.second[3].first);
+   EXPECT_EQ(8, tup.second[3].second);
+
+   std::vector<std::pair<double, double>> b(5);
+   b[0].first = 1; b[0].second = 1; b[1].first = 1; b[1].second = 1;
+   b[2].first = 1; b[2].second = 1; b[3].first = 1; b[3].second = 1;
+   b[4].first = 1; b[4].second = 1;
+
+   tup = geo_mean.fracify(b, 10, false);
+   EXPECT_EQ(1, tup.first[0].first);
+   EXPECT_EQ(5, tup.first[0].second);
+   EXPECT_EQ(1, tup.first[1].first);
+   EXPECT_EQ(5, tup.first[1].second);
+   EXPECT_EQ(1, tup.first[2].first);
+   EXPECT_EQ(5, tup.first[2].second);
+   EXPECT_EQ(1, tup.first[3].first);
+   EXPECT_EQ(5, tup.first[3].second);
+   EXPECT_EQ(1, tup.first[4].first);
+   EXPECT_EQ(5, tup.first[4].second);
+   EXPECT_EQ(1, tup.second[0].first);
+   EXPECT_EQ(8, tup.second[0].second);
+   EXPECT_EQ(1, tup.second[1].first);
+   EXPECT_EQ(8, tup.second[1].second);
+   EXPECT_EQ(1, tup.second[2].first);
+   EXPECT_EQ(8, tup.second[2].second);
+   EXPECT_EQ(1, tup.second[3].first);
+   EXPECT_EQ(8, tup.second[3].second);
+   EXPECT_EQ(1, tup.second[4].first);
+   EXPECT_EQ(8, tup.second[4].second);
+   EXPECT_EQ(3, tup.second[5].first);
+   EXPECT_EQ(8, tup.second[5].second);
+
+   a[0].first = 0.23; a[0].second = 1; a[1].first = 0.56; a[1].second = 1;
+   a[2].first = 0.87; a[2].second = 1;
+
+//TODO(fabioftv): The vectors must have fraction elements
+/*
+   tup = geo_mean.fracify(a, 10, false);
+   EXPECT_EQ(23, tup.first[0].first);
+   EXPECT_EQ(166, tup.first[0].second);
+   EXPECT_EQ(28, tup.first[1].first);
+   EXPECT_EQ(83, tup.first[1].second);
+   EXPECT_EQ(87, tup.first[2].first);
+   EXPECT_EQ(166, tup.first[2].second);
+   EXPECT_EQ(23, tup.second[0].first);
+   EXPECT_EQ(256, tup.second[0].second);
+   EXPECT_EQ(7, tup.second[1].first);
+   EXPECT_EQ(32, tup.second[1].second);
+   EXPECT_EQ(87, tup.second[2].first);
+   EXPECT_EQ(256, tup.second[2].second);
+   EXPECT_EQ(45, tup.second[3].first);
+   EXPECT_EQ(128, tup.second[3].second);
+*/
+
+   a[0].first = 3; a[0].second = 1; a[1].first = 1; a[1].second = 2;
+   a[2].first = 3; a[2].second = 5;
+
+//TODO(fabioftv): The vectors must have fraction elements
+/*
+   tup = geo_mean.fracify(a, 10, false);
+   EXPECT_EQ(30, tup.first[0].first);
+   EXPECT_EQ(41, tup.first[0].second);
+   EXPECT_EQ(5, tup.first[1].first);
+   EXPECT_EQ(41, tup.first[1].second);
+   EXPECT_EQ(6, tup.first[2].first);
+   EXPECT_EQ(41, tup.first[2].second);
+   EXPECT_EQ(15, tup.second[0].first);
+   EXPECT_EQ(32, tup.second[0].second);
+   EXPECT_EQ(5, tup.second[1].first);
+   EXPECT_EQ(64, tup.second[1].second);
+   EXPECT_EQ(3, tup.second[2].first);
+   EXPECT_EQ(32, tup.second[2].second);
+   EXPECT_EQ(23, tup.second[3].first);
+   EXPECT_EQ(64, tup.second[3].second);
+*/
+
+   a[0].first = 0; a[0].second = 1; a[1].first = 0; a[1].second = 1;
+   a[2].first = 1; a[2].second = 1;
+
+   tup = geo_mean.fracify(a, 10, false);
+   EXPECT_EQ(0, tup.first[0].first);
+   EXPECT_EQ(1, tup.first[0].second);
+   EXPECT_EQ(0, tup.first[1].first);
+   EXPECT_EQ(1, tup.first[1].second);
+   EXPECT_EQ(1, tup.first[2].first);
+   EXPECT_EQ(1, tup.first[2].second);
+   EXPECT_EQ(0, tup.second[0].first);
+   EXPECT_EQ(1, tup.second[0].second);
+   EXPECT_EQ(0, tup.second[1].first);
+   EXPECT_EQ(1, tup.second[1].second);
+   EXPECT_EQ(1, tup.second[2].first);
+   EXPECT_EQ(1, tup.second[2].second);
+
+   a[0].first = 1; a[0].second = 2; a[1].first = 1; a[1].second = 8;
+   a[2].first = 3; a[2].second = 8;
+
+   tup = geo_mean.fracify(a, 10, false);
+   EXPECT_EQ(1, tup.first[0].first);
+   EXPECT_EQ(2, tup.first[0].second);
+   EXPECT_EQ(1, tup.first[1].first);
+   EXPECT_EQ(8, tup.first[1].second);
+   EXPECT_EQ(3, tup.first[2].first);
+   EXPECT_EQ(8, tup.first[2].second);
+   EXPECT_EQ(1, tup.second[0].first);
+   EXPECT_EQ(2, tup.second[0].second);
+   EXPECT_EQ(1, tup.second[1].first);
+   EXPECT_EQ(8, tup.second[1].second);
+   EXPECT_EQ(3, tup.second[2].first);
+   EXPECT_EQ(8, tup.second[2].second);
+
+//TODO(fabioftv): Implement other three remaining tests.
 }
 
 TEST(PowerGeoMean, make_frac) {

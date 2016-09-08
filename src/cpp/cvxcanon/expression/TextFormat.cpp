@@ -43,7 +43,7 @@ std::unordered_map<int, std::string> kExpressionNames = {
   {Expression::POWER, "power"},
 
   // General nonlinear functions
-  {Expression::GEO_MEAN, "geo_mean"},
+  {Expression::GEO_MEAN_INEQ, "geo_mean_ineq"},
   {Expression::LAMBDA_MAX, "lambda_max"},
   {Expression::LOG_DET, "log_det"},
   {Expression::LOG_SUM_EXP, "log_sum_exp"},

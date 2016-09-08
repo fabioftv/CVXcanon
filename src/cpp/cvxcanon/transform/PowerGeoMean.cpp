@@ -14,7 +14,7 @@
 GeoMeanIneq::GeoMeanIneq() {}
 GeoMeanIneq::~GeoMeanIneq() {}
 
-//Calculat the great common denominatior
+//The gcd function calculates the greater common denominator between two numbers.
 long GeoMeanIneq::gcd(long a, long b) {
    if (a == 0){
       return b;
@@ -22,7 +22,7 @@ long GeoMeanIneq::gcd(long a, long b) {
    else if (b == 0){
       return a;
    }
-   if (a < b){
+   else if (a < b){
       return gcd(a, b % a);
    }
    else{
@@ -30,36 +30,31 @@ long GeoMeanIneq::gcd(long a, long b) {
    }
 }
 
-//Transform a float number into a fraction
-std::pair<int, int> GeoMeanIneq::fraction(double number) {
-   long gcd_aux;
-   long denom;
-   long num;
+//The function fraction converts a decimal number into a fraction. This fraction is represented as a pair where the first number of the pair is the numerator and the second number of the pair is the denominator.
+std::pair<double, double> GeoMeanIneq::fraction(double number) {
+   long gcd_aux, denom, num;
    int i;
-
    if (number >= 0){
       gcd_aux = gcd(round(number * PRECISION), PRECISION);
       denom = PRECISION / gcd_aux;
       num = round(number * PRECISION) / gcd_aux;
    }
-   if (number < 0){
+   else {
       gcd_aux = gcd(round(-number * PRECISION), PRECISION);
       denom = PRECISION / gcd_aux;
       num = -round(-number * PRECISION) / gcd_aux;
    }
-
-   return std::make_pair(num, denom);
+   return std::make_pair((double)num, (double)denom);
 }
 
-//x <= t^(1/p) 1^(1-1/p)
-std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-   std::pair<int, int>>> GeoMeanIneq::build_power_pos(double number) {
+//The function build_power_pos considers p > 1. The function returns the power tuple (t,1,x) in which x <= t^(1/p)*1^(1-1/p).
+std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+   std::pair<double, double>>> GeoMeanIneq::build_power_pos(double number) {
    
+   //If p <= 1, then exit.
    assert(number > 1);   
    
-   std::pair<int, int> frac;
-   std::pair<int, int> frac_inv;
-   std::pair<int, int> frac_minus;
+   std::pair<double, double> frac, frac_inv, frac_minus;
    
    frac = fraction(number);
    frac_inv.first = frac.second;
@@ -67,18 +62,18 @@ std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,
    frac_minus.first = frac_inv.second - frac_inv.first;
    frac_minus.second = frac_inv.second;
 
+   //Return (p, (1/p, 1-1/p)).
    return std::make_pair(frac, std::make_pair(frac_inv, frac_minus));
 }
 
-//1 <= x^(p/(p-1)) t^(-1/(p-1))
-std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-   std::pair<int, int>>> GeoMeanIneq::build_power_neg(double number) {
-   
+//The function build_power_neg considers p < 0. The function returns the power tuple (x,t,1) in which 1 <= x^(p/(p-1))*t^(-1/(p-1)).
+std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+   std::pair<double, double>>> GeoMeanIneq::build_power_neg(double number) {
+
+   //If p >= 0, then exit.   
    assert(number < 0);
    
-   std::pair<int, int> frac;
-   std::pair<int, int> frac_div;
-   std::pair<int, int> frac_minus;
+   std::pair<double, double> frac, frac_div, frac_minus;
    
    frac = fraction(number);
    frac_div.first = -frac.first;
@@ -86,58 +81,53 @@ std::pair<std::pair<int, int>, std::pair<std::pair<int, int>,
    frac_minus.first = frac_div.second - frac_div.first;
    frac_minus.second = frac_div.second;
 
+   //Return (p, (p/p-1, 1-p/p-1)).
    return std::make_pair(frac, std::make_pair(frac_div, frac_minus));
 }
 
-//t <= x^p 1^(1-p)
-std::pair<std::pair<int, int>, std::pair<std::pair<int, int>, 
-   std::pair<int, int>>> GeoMeanIneq::build_power_middle(double number) {
-   
+//The function build_power_middle considers 0 < p < 1. The function returns the power tuple (x,1,t) in which t <= x^p*1^(1-p).
+std::pair<std::pair<double, double>, std::pair<std::pair<double, double>, 
+   std::pair<double, double>>> GeoMeanIneq::build_power_middle(double number) {
+
+   //If p <= 0 or p >= 1, then exit.     
    assert(number > 0 && number < 1);
    
-   std::pair<int, int> frac;
-   std::pair<int, int> frac_minus;
+   std::pair<double, double> frac, frac_minus;
    
    frac = fraction(number);
    frac_minus.first = frac.second - frac.first;
    frac_minus.second = frac.second;
 
+   //Return (p, (p, 1-p)).
    return std::make_pair(frac, std::make_pair(frac, frac_minus));
 }
 
-//Checke whether a number is integer
+//The function is_integer determines if a number is integer. In such a case, 4 is an integer number as the same way as 4.0. Note that this verification process is bounded by a tolerance so 4.00000001 is not an integer number but 4.000000001 is an integer.
 bool GeoMeanIneq::is_integer(double number) {
-   if (number > (floor(number)-TOLERANCE) && number < (floor(number)+TOLERANCE)){
-      return true;
-   }
-   else{
-      return false;
-   }
+   return (number > (floor(number)-TOLERANCE) && number < 
+             (floor(number)+TOLERANCE));
 }
 
-//Test if a number is positive integer power of 2
+//The function power_two_test determines if a number is a positive integer number power of 2.
 bool GeoMeanIneq::power_two_test(double number) {
-   if (is_integer(number) == true){
-      if ((int) number > 0 && (! ((int) number & ((int) number -1))) == true){
-         return true;
-      }
-      else{
-         return false;
-      }
-   }
-   else{
-      return false;
-   }  
+   return (is_integer(number) == true && number > 0 && (! ((int) number & 
+             ((int) number -1))) == true);
 }
 
-//Test if a fraction is a nonnegative dyadic fraction or integer
+//The function dyadic_nonnegative_fraction_test determines if a fraction is a nonnegative dyadic fraction or integer. The fraction is represented by a pair where the first number of the pair is the numerator and the second number of the pair is the denominator.
 bool GeoMeanIneq::dyadic_nonnegative_fraction_test(std::pair<double, double>
      fraction) {
+   //First, the function determines whether the fraction is an actual integer 
+   //number >= 0. For instance, the number 4 must be represented by the 
+   //pair (4,1). 
    if ((fraction.first / fraction.second) == fraction.first && 
        is_integer(fraction.first) == true &&
        fraction.first >= 0){
       return true;
    }
+   //Second, the function determines whether the fraction is a real fraction
+   //(e.g.: 1/3 represented by the pair (1,3)) where both the numerator and 
+   //denominator are integer numbers and the fraction is >= 0.
    else if ((fraction.first / fraction.second) != fraction.first && 
             is_integer(fraction.first) == true && 
             is_integer(fraction.second) == true && 
@@ -150,33 +140,42 @@ bool GeoMeanIneq::dyadic_nonnegative_fraction_test(std::pair<double, double>
    }
 }
 
-//Test if w is a valid weight vector
+//The function weight_vector_test determines if a vector is a valid weight vector. In such a case, all elements of the vector must be nonnegative integers or fractions, and they must sum to 1. Each element of the vector is represented by a pair where the first number of the pair is the numerator and the second number of the pair is the denominator.
 bool GeoMeanIneq::weight_vector_test(std::vector<std::pair<double, double>> w){
    double sum = 0;   
    bool aux = true;
    int i = 0;
-
+   //The while loop evaluates all the elements of the vector until one of the 
+   //elements violates the conditions or it reaches the end of the vector.
    while (i < w.size()){
+      //First, the loop checks whether the corresponding element is an actual
+      //integer number >= 0 (e.g.: 4 represented by the pair (4,1)) or a
+      //fraction of integers >= 0 (e.g.: 1/3 represented by the pair (1/3)).
       if ((w[i].first / w[i].second) == w[i].first){
          if (is_integer(w[i].first) == true && w[i].first >= 0){
             sum += w[i].first;
          }
          else{
+            //The loop terminates because it violates the condition.
             aux = false;
             i = w.size(); 
          }
       }
-      else if ((w[i].first / w[i].second) != w[i].first){
+      else {
          if (is_integer(w[i].first) == true && is_integer(w[i].second) == true
              && w[i].first / w[i].second >= 0){
             sum += w[i].first / w[i].second;
          }
          else{
+            //The loop terminates because it violates the condition.
             aux = false;
             i = w.size();          
          }
       }
       i++;
+      //The loop also terminates when the end of the vector is not reached but
+      //the sum of the elements is >= 1.
+      //is >= 1 or 
       if (sum > (1 + TOLERANCE) && i <= w.size()){
          aux = false;
          i = w.size();
@@ -185,12 +184,13 @@ bool GeoMeanIneq::weight_vector_test(std::vector<std::pair<double, double>> w){
    return aux;
 }
 
-// Test if a vector is a valid dyadic weight vector
+// The function dyadic_weight_vector_test determines if a vector is a valid dyadic weight vector. In such a case, all elements of the vector must be nonnegative integers or dyadic fractions, and they must sum to 1. Each element of the vector is represented by a pair where the first number of the pair is the numerator and the second number of the pair is the denominator.
 bool GeoMeanIneq::dyadic_weight_vector_test(std::vector<std::pair<double, 
                                             double>> w){
    bool aux = true;
    int i = 0;
-
+   //The while loop evaluates all the elements of the vector until one of the 
+   //elements violates the conditions or it reaches the end of the vector.
    while (i < w.size()){
       if (dyadic_nonnegative_fraction_test(w[i]) != true){
          aux = false;
@@ -198,78 +198,71 @@ bool GeoMeanIneq::dyadic_weight_vector_test(std::vector<std::pair<double,
       }
       i++;
    }
-   if (aux == true && weight_vector_test(w) == true){
-      return true;
-   }
-   else{
-      return false;
-   }
+   return (aux == true && weight_vector_test(w) == true);
 }
 
-//Return the indices of a sorted vector
+//The function sort returns the indices of a sorted vector.
 std::vector<int> GeoMeanIneq::sort(std::vector<double> test){
-
    std::vector<int> y(test.size());
    std::size_t n(0);
    std::generate(std::begin(y), std::end(y), [&]{return n++;});
    std::sort (std::begin(y), std::end(y), [&](int i1, int i2) 
       {return test[i1] < test[i2];});
-
    return y;
 }
 
 std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double, 
-   double>>> GeoMeanIneq::fracify(std::vector<std::pair<double, double>> a, int 
-      max_denom, bool force_dyad) {
-   bool check = true, aux = true;
+   double>>> GeoMeanIneq::fracify(std::vector<std::pair<double, double>> a,
+      double max_denom, bool force_dyad) {
+
+   bool aux_a= true, aux_b = true;
    double sum = 0, sum_w_frac = 0;
    int i;
 
+   std::vector<std::pair<double, double>> w_frac(a.size());
+   std::vector<double> a_double(a.size());
+
    for (i = 0; i < a.size(); i++){
       sum += a[i].first / a[i].second;
-      if (a[i].first < 0 && a[i].second < 0){
-         check = false;
+      a_double[i] = a[i].first / a[i].second;
+      if ((a[i].first < 0 || a[i].second < 0) && aux_a == true){
+         aux_a = false;
+      }
+      if ((is_integer(a[i].first) != true || is_integer(a[i].second) != true) && 
+         aux_b == true){
+         aux_b = false;
       }
    }
-//TODO(fabioftv): Implement error message
-   assert (check == true);
+   assert (aux_a == true);
+   //TODO(fabioftv): Implement error message in case aux_a == false. "Input
+   //powers must be nonnegative".
    assert (is_integer(max_denom) == true && max_denom > 0);
+   //TODO(fabioftv): Implement error message in case max_denom <= 0 
+   //and not integer. "Input senominator must be an integer".
 
    max_denom = next_power_two(max_denom);
-   std::vector<std::pair<double, double>> w_frac(a.size());
-
-   while (i < a.size()){
-      if (is_integer(a[i].first) != true || is_integer(a[i].second) != true){
-         aux = false;
-         i = a.size();  
-      }
-   }
-
-   std::vector<double> a_double(a.size());
-   for (i = 0; i < a_double.size(); i++){
-      a_double[i] = a[i].first / a[i].second;
-   }
 
    if (force_dyad == true){
       w_frac = make_frac(a_double, max_denom);
    }
-   else if (aux == true){
+   else if (aux_b == true){
       for (i = 0; i < w_frac.size(); i++){
          w_frac[i].first = a[i].first;
-         w_frac[i].second = a[i].second / sum;
+         w_frac[i].second = a[i].second * sum;
       }
       double d = get_max_denom(w_frac);
-      if (d > (double) max_denom) {
-//TODO(fabioftv): Print error message
+      if (d > max_denom) {
+      //TODO(fabioftv): Implement error meassage in case d > max_denom. "Cannot
+      //reliably represent the input weight vector".
       }
    }
    else{
       for (i = 0; i < w_frac.size(); i++){
          w_frac[i].first = a[i].first;
-         w_frac[i].second = a[i].second / sum;
+         w_frac[i].second = a[i].second * sum;
          sum_w_frac += w_frac[i].first / w_frac[i].second;
       }
-      if (sum_w_frac != 1){
+      if (sum_w_frac > 1+TOLERANCE || sum_w_frac < 1-TOLERANCE){
          w_frac = make_frac(a_double, max_denom);
       }
    }
@@ -282,26 +275,21 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
    return tup;
 }
 
-//Approximate a/sum(a) with a tuple of fractions with an exact denominator
+//The function make_frac approximates a/sum(a) with a tuple of fractions with an exact denominator. In such a case, a is a vector with decimal elements. The function returns a vector of pairs where the first number of the pair is the numerator and the second number of the pair is the denominator.
 std::vector<std::pair<double, double>> GeoMeanIneq::make_frac(std::vector<double>
                                  a, int denominator) {
    double sum_a = 0;
    int i = 0, sum_b = 0;
-   std::vector<int> b(a.size());
+   std::vector<int> b(a.size()), index_sort(a.size());
    std::vector<double> error(a.size());
-   std::vector<int> index_sort(a.size());
 
    for (i = 0; i < a.size(); i++){
       sum_a += a[i];
    }
    for (i = 0; i < a.size(); i++){
       a[i] = a[i] / sum_a;
-   }
-   for (i = 0; i < b.size(); i++){
       b[i] = (int) (a[i] * denominator);
       sum_b += b[i];
-   }
-   for (i = 0; i < error.size(); i++){
       error[i] = ((double) b[i] /  denominator) - a[i];
    }
 
@@ -315,25 +303,19 @@ std::vector<std::pair<double, double>> GeoMeanIneq::make_frac(std::vector<double
    for (i = 0; i < frac.size(); i++){
       frac[i] = std::make_pair((double) b[i], (double) denominator);
    }
-   
    return frac;
 }
 
-//Return the dyadic completion of w
+//The function dyad_completion returns the dyadic completion of a vector. Every element of the input vector has nonnegative fractions or integers that sum to 1.
 std::vector<std::pair<double, double>> 
    GeoMeanIneq::dyad_completion(std::vector<std::pair<double, double>> w) {
-   int i, d = 0, p;
    double div = 0;
+   int i;
 
-   for (i = 0; i < w.size(); i++){
-      if (w[i].second > (double) d){
-         d = (int) w[i].second;
-      }
-   }
+   double d = get_max_denom(w);
+   int p = next_power_two((int) d);
 
-   p = next_power_two(d);
-
-   if (p == d){
+   if ((double) p == d){
       return w;
    }
    else {
@@ -341,19 +323,18 @@ std::vector<std::pair<double, double>>
       for (i = 0; i < w.size(); i++){
          div = ((w[i].first) * ((double) d)) / 
                ((w[i].second) * ((double) p));
-         std::pair<int, int> frac;
+         std::pair<double, double> frac;
          frac = fraction(div);
-         temp[i].first = (double) frac.first;
-         temp[i].second = (double) frac.second;
+         temp[i].first = frac.first;
+         temp[i].second = frac.second;
       }
-      temp[w.size()].first = (double) (p - d);
+      temp[w.size()].first = (double) p - d;
       temp[w.size()].second = (double) p;
       return temp;
    }
 }
 
-//Return the norm error from approximating the vector a_orig/sum(a_orig) with
-//the weight vector w_approx
+//The function approx_error returns the norm error from approximating the vector a_orig/sum(a_orig) with the weight vector w_approx.
 double GeoMeanIneq::approx_error(std::vector<std::pair<double, double>> a_orig, 
                                  std::vector<std::pair<double, double>> 
                                  w_approx) {
@@ -388,7 +369,7 @@ double GeoMeanIneq::approx_error(std::vector<std::pair<double, double>> a_orig,
    return max;
 }
 
-//Return the next power of two from a given number
+//The function next_power_two returns the next power of two from a given number.
 int GeoMeanIneq::next_power_two(int number){
    if (number <= 0){
       return 1;
@@ -399,7 +380,7 @@ int GeoMeanIneq::next_power_two(int number){
    }
 }
 
-//Check that w_dyad is a valid dyadic completion of w
+//The function check_dyad checks that w_dyad is a valid dyadic completion of w.
 bool GeoMeanIneq::check_dyad(std::vector<std::pair<double, double>> w, 
                              std::vector<std::pair<double, double>> w_dyad) {
    bool eq_vec = true;
@@ -442,8 +423,7 @@ bool GeoMeanIneq::check_dyad(std::vector<std::pair<double, double>> w,
    }
 }
 
-//Split a tuple of dyadic rationals into two children so that the returned
-//function represents 1/2*(child_1 + child_2)
+//The function split, splits a tuple of dyadic rationals into two children so that the returned function represents 1/2*(child_1 + child_2).
 std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
    double>>> GeoMeanIneq::split(std::vector<std::pair<double, double>> w_dyad) {
    bool condition = true, stat_a = true, stat_b = true;
@@ -461,7 +441,7 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
          i = w_dyad.size();
       }
    }
-//TODO(fabioftv): Need to return empty
+   //TODO(fabioftv): Need to return empty.
    if (condition == false){
       for (i = 0; i < w_dyad.size(); i++){
          child_1[i].first = 0;
@@ -514,8 +494,8 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
             }
          }
       }
-//TODO(fabioftv): Implement bit /= 2
-//TODO(fabioftv): Implement error message in case of infinite loop
+      //TODO(fabioftv): Implement bit /= 2.
+      //TODO(fabioftv): Implement error message in case of infinite loop.
       split_w_dyad.first = child_1;
       split_w_dyad.second = child_2;
       return split_w_dyad;
@@ -529,44 +509,38 @@ std::vector<std::pair<std::vector<std::pair<double, double>>,
 
 }
 
-//Return the max denominator of a vector of fractions
+//The function get_max_denom returns the max denominator of a vector of fractions.
 double GeoMeanIneq::get_max_denom(std::vector<std::pair<double, double>> tup) {
    double max = 0;
    int i;
-
    for (i = 0; i < tup.size(); i++){
       if (tup[i].second > max){
          max = tup[i].second;
       }
    }
-
    return max;
 }
 
-//Determine the number of digits of a given number
+//The function get_number_of_digits determines the number of digits of a given number.
 unsigned GeoMeanIneq::get_number_of_digits(unsigned number) {
    return number > 0 ? (int) log10 ((double) number) + 1 : 1;
 }
 
-//Convert a decimal number to binary
+//The function int_to_binary converts a decimal number to a binary number.
 int GeoMeanIneq::int_to_binary(int number) {
    int remainder, i = 1, binary = 0;
-
    while (number != 0){
       remainder = number % 2;
       number /= 2;
       binary += remainder * i;
       i *= 10;
    }
-
    return binary;
 }
 
-//Return a lower bound on the number of cones needed to represent the tuple based
-//on two simple lower bounds
+//The function lower_bound returns a lower bound on the number of cones needed to represent the tuple based on two simple lower bounds.
 double GeoMeanIneq::lower_bound(std::vector<std::pair<double, double>> w_dyad) {
    int i, sum = 0;
-
    assert (dyadic_weight_vector_test(w_dyad) == true);
    double md = get_max_denom(w_dyad);
    int lb1 = get_number_of_digits(int_to_binary((int) md)) - 1;
@@ -576,6 +550,5 @@ double GeoMeanIneq::lower_bound(std::vector<std::pair<double, double>> w_dyad) {
       }
    }
    int lb2 = sum - 1;
-
    return std::max(lb1, lb2);
 }
