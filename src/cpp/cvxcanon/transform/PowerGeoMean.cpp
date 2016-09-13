@@ -233,7 +233,7 @@ std::pair<std::vector<std::pair<double, double>>, std::vector<std::pair<double,
          aux_b = false;
       }
    }
-   assert (aux_a == true);
+   assert (aux_a);
    //TODO(fabioftv): Implement error message in case aux_a == false. "Input
    //powers must be nonnegative".
    assert (is_integer(max_denom) == true && max_denom > 0);

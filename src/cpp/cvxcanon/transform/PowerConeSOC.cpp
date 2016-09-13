@@ -128,7 +128,7 @@ Problem PowerConeSOCTransform::apply(const Problem& problem) {
   return {problem.sense, linear_objective, constraints};
 }
 
-bool have_transform_self(const Expression& expr) {
+bool PowerConeSOCTransform::have_transform_self(const Expression& expr) {
    if (is_leaf(expr) || is_linear(expr) || is_constraint(expr))
       return true;
    auto iter = kTransforms.find(expr.type());
@@ -139,7 +139,7 @@ bool have_transform_self(const Expression& expr) {
    return true;
 }
 
-bool have_transform(const Expression& expr) {
+bool PowerConeSOCTransform::have_transform(const Expression& expr) {
   if (!have_transform_self(expr))
     return false;
 
