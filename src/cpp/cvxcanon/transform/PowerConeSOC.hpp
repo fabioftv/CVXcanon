@@ -17,4 +17,6 @@ class PowerConeSOCTransform : public ProblemTransform {
          std::vector<std::pair<double, double>> p);
 };
 
+
+
 #endif  // CVXCANON_TRANSFORM_POWER_CONE_SOC_TRANSFORM_H
