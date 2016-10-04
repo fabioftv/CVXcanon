@@ -18,3 +18,4 @@ class PowerConeSOCTransform : public ProblemTransform {
 };
 
 #endif  // CVXCANON_TRANSFORM_POWER_CONE_SOC_TRANSFORM_H
+

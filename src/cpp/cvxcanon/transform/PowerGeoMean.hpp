@@ -49,3 +49,4 @@ class GeoMeanIneq {
 };
 
 #endif  // CVXCANON_TRANSFORM_POWER_GEO_MEAN_H
+

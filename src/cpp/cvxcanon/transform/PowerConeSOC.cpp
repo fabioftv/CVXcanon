@@ -157,3 +157,4 @@ bool PowerConeSOCTransform::accepts(const Problem& problem) {
          return false;
    return have_transform(problem.objective);
 }
+

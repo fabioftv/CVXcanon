@@ -552,3 +552,4 @@ double GeoMeanIneq::lower_bound(std::vector<std::pair<double, double>> w_dyad) {
    int lb2 = sum - 1;
    return std::max(lb1, lb2);
 }
+

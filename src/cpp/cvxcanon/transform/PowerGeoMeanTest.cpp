@@ -584,3 +584,4 @@ TEST(PowerGeoMean, lower_bound) {
    z_dyad[3].first = 1; z_dyad[3].second = 4;
    EXPECT_EQ(3, geo_mean.lower_bound(z_dyad));
 }
+
